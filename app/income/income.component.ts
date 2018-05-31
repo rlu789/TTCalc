@@ -18,6 +18,9 @@ export class IncomeComponent implements OnInit {
       this.income = JSON.parse(localStorage.getItem('income'));
   }
 
+  ngOnInit() {
+  }
+
   ngOnDestroy() {
     console.log(this.income);
     localStorage.setItem('income', JSON.stringify(this.income));
