@@ -1,0 +1,23 @@
+<div class="container" style="margin: 0 0px 0;">
+  <div *ngFor="let section of income">
+    <section-fields [data]="section"></section-fields>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="alert alert-dark" role="alert">
+        Total Income : <b>{{totals().income}}</b>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="alert alert-dark" role="alert">
+        Tax Withheld : <b>{{totals().withheld}}</b>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="alert alert-dark" role="alert">
+        Final : <b>{{totals().final}}</b>
+      </div>
+    </div>
+  </div>
+</div>

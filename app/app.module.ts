@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 
 import { AppComponent } from './app.component';
-import { IncomeComponent } from './income/income.component';
-import { EstimateComponent } from './estimate/estimate.component';
+import { IncomeComponent } from './pages/income/income.component';
+import { EstimateComponent } from './pages/estimate/estimate.component';
 import { AppRoutingModule } from './routes/app-routing.module';
 
 import { SectionFields } from './components/section-fields/section-fields.component'

@@ -41,7 +41,7 @@ function calcIncomeTotal() {
             }
         }
     }
-    return { income: totalIncome, withheld: totalWithheld };
+    return { income: totalIncome, withheld: totalWithheld, final: totalIncome - totalWithheld };
 }
 exports.calcIncomeTotal = calcIncomeTotal;
 //# sourceMappingURL=incomeConstants.js.map

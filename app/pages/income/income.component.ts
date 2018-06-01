@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as incomeConstants from '../constants/incomeConstants';
+import * as incomeConstants from '../../constants/incomeConstants';
 
 @Component({
   selector: 'app-income',
@@ -8,7 +8,7 @@ import * as incomeConstants from '../constants/incomeConstants';
 })
 export class IncomeComponent implements OnInit {
   income = null;
-  total = null;
+  totals = null;
 
   constructor() {
     //if (localStorage.getItem('income'))
@@ -19,6 +19,7 @@ export class IncomeComponent implements OnInit {
 
   ngOnInit() {
     this.income = incomeConstants.initIncome();
+    this.totals = incomeConstants.calcIncomeTotal;
   }
 
   ngOnDestroy() {

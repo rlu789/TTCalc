@@ -1,4 +1,3 @@
-
 const income = [
   {
     section: "SWA",
@@ -41,7 +40,7 @@ function calcIncomeTotal() {
       }
     }
   }
-  return { income: totalIncome, withheld: totalWithheld };
+  return { income: totalIncome, withheld: totalWithheld, final: totalIncome - totalWithheld };
 }
 
 export { initIncome, calcIncomeTotal };

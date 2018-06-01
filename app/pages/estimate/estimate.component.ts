@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as incomeConstants from '../constants/incomeConstants';
+import * as incomeConstants from '../../constants/incomeConstants';
 
 @Component({
   selector: 'app-estimate',

@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
-import { IncomeComponent } from '../income/income.component';
-import { EstimateComponent } from '../estimate/estimate.component';
+import { IncomeComponent } from '../pages/income/income.component';
+import { EstimateComponent } from '../pages/estimate/estimate.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/app-income', pathMatch: 'full' },
