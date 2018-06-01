@@ -1,11 +1,8 @@
 <div class="row">
   <div class="col-sm-1">
-    <p>SWA</p>
+    <p>{{data.section}}</p>
   </div>
-  <div class="col-sm-3">
-    <input [(ngModel)]=data.gross type="number" class="form-control" placeholder="Gross Income">
-  </div>
-  <div class="col-sm-3">
-    <input [(ngModel)]="data.withheld" type="number" class="form-control" placeholder="Tax Withheld">
+  <div class="col-sm-3" *ngFor="let field of data.fields">
+    <input [(ngModel)]=field.value type="number" class="form-control" placeholder="{{field.name}}">
   </div>
 </div>

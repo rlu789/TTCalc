@@ -1,3 +1,5 @@
 <div class="container" style="margin: 0 0px 0;">
-  <section-fields [data]="income.SWA"></section-fields>
+  <div *ngFor="let section of income">
+    <section-fields [data]="section"></section-fields>
+  </div>
 </div>
