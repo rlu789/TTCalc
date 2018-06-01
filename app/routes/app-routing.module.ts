@@ -4,11 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { IncomeComponent } from '../pages/income/income.component';
 import { EstimateComponent } from '../pages/estimate/estimate.component';
+import { PersonalComponent } from '../pages/personal/personal.component'
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/app-income', pathMatch: 'full' },
+  { path: '', redirectTo: '/app-personal', pathMatch: 'full' },
   { path: 'app-income', component: IncomeComponent },
-  { path: 'app-estimate', component: EstimateComponent }
+  { path: 'app-estimate', component: EstimateComponent },
+  { path: 'app-personal', component: PersonalComponent }
 ]
 
 @NgModule({
