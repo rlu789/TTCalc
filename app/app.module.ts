@@ -7,11 +7,15 @@ import { IncomeComponent } from './income/income.component';
 import { EstimateComponent } from './estimate/estimate.component';
 import { AppRoutingModule } from './routes/app-routing.module';
 
+import { SectionFields } from './components/section-fields/section-fields.component'
+
 @NgModule({
   declarations: [
     AppComponent,
     IncomeComponent,
-    EstimateComponent
+    EstimateComponent,
+
+    SectionFields
   ],
   imports: [
     BrowserModule,

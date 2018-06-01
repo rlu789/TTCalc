@@ -8,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class IncomeComponent implements OnInit {
   income = {
     SWA : {
-      gross: 0,
-      withheld: 0
+      gross: null,
+      withheld: null
     }
   }
 
