@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as incomeConstants from '../constants/incomeConstants';
 
 @Component({
   selector: 'app-income',
@@ -6,34 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./income.component.css']
 })
 export class IncomeComponent implements OnInit {
-  income = [
-    {
-      section: "SWA",
-      fields: [
-        { name: "Gross Income", value: null },
-        { name: "Tax Withheld", value: null },
-      ]
-    },
-    {
-      section: "Interest",
-      fields: [
-        { name: "Gross Interest", value: null },
-      ]
-    },
-  ]
+  income = null;
+  total = null;
 
   constructor() {
-    if (localStorage.getItem('income'))
-      this.income = JSON.parse(localStorage.getItem('income'));
-    else
-      localStorage.setItem('income', JSON.stringify(this.income));
+    //if (localStorage.getItem('income'))
+    //  this.income = JSON.parse(localStorage.getItem('income'));
+    //else
+    //  localStorage.setItem('income', JSON.stringify(this.income));
   }
 
   ngOnInit() {
+    this.income = incomeConstants.initIncome();
   }
 
   ngOnDestroy() {
-    console.log(this.income);
-    localStorage.setItem('income', JSON.stringify(this.income));
+    //console.log(this.income);
+    //localStorage.setItem('income', JSON.stringify(this.income));
   }
 }
