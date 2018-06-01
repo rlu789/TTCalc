@@ -18,11 +18,11 @@ var income = {
 var incomeCalcs = [
     {
         key: "SWA", calcs: [
-            { field: 'Gross Income', function: '+' },
-            { field: 'Tax Withheld', function: '-' }
+            { field: 'Gross Income', operation: '+' },
+            { field: 'Tax Withheld', operation: '-' }
         ]
     },
-    { key: "Interest", calcs: [{ field: 'Gross Interest', function: '+' }] },
+    { key: "Interest", calcs: [{ field: 'Gross Interest', operation: '+' }] },
 ];
 function initIncome() {
     return income;
@@ -33,8 +33,8 @@ function calcIncomeTotal() {
     for (var i = 0; i < incomeCalcs.length; i++) {
         for (var j = 0; j < incomeCalcs[i].calcs.length; j++) {
             // TODO basic error check to see if theres actually a functions array
-            // TODO this might be the ugliest think ive ever seen
-            switch (incomeCalcs[i].calcs[j].function) {
+            // TODO fuck this is ugly
+            switch (incomeCalcs[i].calcs[j].operation) {
                 case '+':
                     totalIncome += income[incomeCalcs[i].key].fields[incomeCalcs[i].calcs[j].field];
                     break;

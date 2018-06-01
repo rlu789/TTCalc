@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 
-//components and pips
+//components and pipes
 import { KeysPipe } from './pipes/keysPipe'
 import { SectionFields } from './components/section-fields/section-fields.component';
 
