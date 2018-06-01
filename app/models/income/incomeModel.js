@@ -3,21 +3,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var income = {
     SWA: {
         section: "SWA",
-        fields: [
-            { name: "Gross Income", value: null },
-            { name: "Tax Withheld", value: null },
-        ],
+        fields: {
+            'Gross Income': null,
+            'Tax Withheld': null,
+        },
     },
     Interest: {
         section: "Interest",
-        fields: [
-            { name: "Gross Interest", value: null },
-        ]
+        fields: {
+            'Gross Interest': null
+        },
     },
 };
 var incomeCalcs = [
-    { key: "SWA", calcs: [{ function: '+' }, { function: '-' }] },
-    { key: "Interest", calcs: [{ function: '+' }] },
+    {
+        key: "SWA", calcs: [
+            { field: 'Gross Income', function: '+' },
+            { field: 'Tax Withheld', function: '-' }
+        ]
+    },
+    { key: "Interest", calcs: [{ field: 'Gross Interest', function: '+' }] },
 ];
 function initIncome() {
     return income;
@@ -31,10 +36,10 @@ function calcIncomeTotal() {
             // TODO this might be the ugliest think ive ever seen
             switch (incomeCalcs[i].calcs[j].function) {
                 case '+':
-                    totalIncome += income[incomeCalcs[i].key].fields[j].value;
+                    totalIncome += income[incomeCalcs[i].key].fields[incomeCalcs[i].calcs[j].field];
                     break;
                 case '-':
-                    totalWithheld += income[incomeCalcs[i].key].fields[j].value;
+                    totalWithheld += income[incomeCalcs[i].key].fields[incomeCalcs[i].calcs[j].field];
                     break;
             }
         }
