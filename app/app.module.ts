@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 
-//components
+//components and pips
+import { KeysPipe } from './pipes/keysPipe'
 import { SectionFields } from './components/section-fields/section-fields.component';
 
 //pages
@@ -15,6 +16,8 @@ import { AppRoutingModule } from './routes/app-routing.module';
 @NgModule({
   declarations: [
     AppComponent,
+
+    KeysPipe,
     SectionFields,
 
     IncomeComponent,

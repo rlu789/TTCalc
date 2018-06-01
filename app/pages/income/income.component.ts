@@ -6,6 +6,7 @@ import * as incomeConstants from '../../models/income/incomeModel';
   templateUrl: './income.component.html',
   styleUrls: ['./income.component.css']
 })
+
 export class IncomeComponent implements OnInit {
   income = null;
   totals = null;
