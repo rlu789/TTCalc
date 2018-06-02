@@ -40,10 +40,10 @@ function calcIncomeTotal() {
     for (let index in incomeCalcs[key]) {
       var value = income[incomeCalcs[key][index].section].fields[incomeCalcs[key][index].field];
       switch (incomeCalcs[key][index].operation) {
-        case ('+'):
+        case '+':
           incomeTotals[key] += value;
           break;
-        case ('-'):
+        case '-':
           incomeTotals[key] -= value;
           break;
       }

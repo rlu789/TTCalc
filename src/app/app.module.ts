@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 //components and pipes
 import { KeysPipe } from './pipes/keysPipe'
@@ -27,7 +28,8 @@ import { AppRoutingModule } from './routes/app-routing.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    NgbModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
