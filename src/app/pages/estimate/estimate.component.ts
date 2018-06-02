@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as incomeModel from '../../models/income/incomeModel';
+import * as estimateModel from '../../models/estimate/estimateModel';
 
 @Component({
   selector: 'app-estimate',
@@ -9,7 +9,8 @@ import * as incomeModel from '../../models/income/incomeModel';
 export class EstimateComponent implements OnInit {
 
   constructor() {
-    console.log(incomeModel.calcIncomeTotal());
+    console.log(estimateModel);
+    console.log(estimateModel.income.calcIncomeTotal());
   }
 
   ngOnInit() {

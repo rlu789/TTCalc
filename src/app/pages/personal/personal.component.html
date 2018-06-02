@@ -2,22 +2,25 @@
   
   <div class="row row-indent">
     <mat-form-field>
-      <input matInput placeholder="Age" [(ngModel)]="age">
+      <input matInput placeholder="Age" [(ngModel)]="personal.age">
     </mat-form-field>
   </div>
   <div class="row row-indent">
     <section class="checkbox-section">
-      <mat-checkbox [(ngModel)]="fullYearRes">Full Year Res</mat-checkbox>
+      <mat-checkbox [(ngModel)]="personal.fullYearRes">Full Year Res</mat-checkbox>
     </section>
     <mat-form-field>
-      <input matInput [(ngModel)]="fullYearResFrom" [matDatepicker]="from" placeholder="From ">
+      <input matInput [(ngModel)]="personal.fullYearResFrom" [matDatepicker]="from" placeholder="From ">
       <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
       <mat-datepicker #from></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
-      <input matInput [(ngModel)]="fullYearResTo" [matDatepicker]="to" placeholder="To ">
+      <input matInput [(ngModel)]="personal.fullYearResTo" [matDatepicker]="to" placeholder="To ">
       <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
       <mat-datepicker #to></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Total Days as Resident" value = {{personal.dateDifferenceDays()}} readonly>
     </mat-form-field>
   </div>
 </div>
