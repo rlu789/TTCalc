@@ -3,11 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatFormFieldControl, MatInputModule  } from '@angular/material';
+import { MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatFormFieldControl, MatInputModule, MatButtonModule } from '@angular/material';
 
 //components and pipes
 import { KeysPipe } from './pipes/keysPipe'
 import { SectionFields } from './components/section-fields/section-fields.component';
+import { DependenciesModal } from './components/dependencies/dependencies.component'
 
 //pages
 import { AppComponent } from './app.component';
@@ -22,6 +23,7 @@ import { AppRoutingModule } from './routes/app-routing.module';
 
     KeysPipe,
     SectionFields,
+    DependenciesModal,
 
     IncomeComponent,
     EstimateComponent,
@@ -37,7 +39,11 @@ import { AppRoutingModule } from './routes/app-routing.module';
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule
+  ],
+  entryComponents: [
+    DependenciesModal,
   ],
   providers: [],
   bootstrap: [AppComponent]

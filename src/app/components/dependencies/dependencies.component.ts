@@ -1,13 +1,25 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'dependencies',
   templateUrl: './dependencies.component.html'
 })
 export class DependenciesModal {
-  @Input('data') data: null;
 
+  constructor(
+    public dialogRef: MatDialogRef<DependenciesModal>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+  
   ngOnInit() {
     console.log(this.data);
+  }
+
+  add() {
+    this.dialogRef.close("add");
+  }
+
+  cancel() {
+    this.dialogRef.close();
   }
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
+import { DependenciesModal } from '../../components/dependencies/dependencies.component'
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import * as incomeModel from '../../models/income/incomeModel';
 
 @Component({
@@ -12,15 +14,15 @@ export class IncomeComponent implements OnInit {
   income = null;
   totals = null;
   calcs = null;
+
   addCalcForm = {
     name: null,
     section: null,
     field: null,
     operation: null
   };
-  @ViewChild('p') public popover: NgbPopover;
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
 
     //if (localStorage.getItem('income'))
     //  this.income = JSON.parse(localStorage.getItem('income'));
@@ -43,31 +45,28 @@ export class IncomeComponent implements OnInit {
     delete this.calcs[key][childKey];
   }
 
-  addCalc() {
-    this.calcs[this.addCalcForm.name].push({
-      section: this.addCalcForm.section,
-      field: this.addCalcForm.field,
-      operation: this.addCalcForm.operation
-    });
-    this.popover.close();
-    for (let key in this.addCalcForm) {
-      if (this.addCalcForm.hasOwnProperty(key)) {
-        this.addCalcForm[key] = null;
-      }
-    }
-  }
-
   setupAdd(key) {
-    //TODO be less lazy with this
-    if (this.addCalcForm.name === key) {
-      this.popover.close();
-      this.addCalcForm.name = null;
-      return;
-    }
     this.addCalcForm.name = key;
-    const isOpen = this.popover.isOpen();
-    if (!isOpen) {
-      this.popover.open();
-    }
+    let dialogRef = this.dialog.open(DependenciesModal, {
+      width: '250px',
+      data: { data: this.addCalcForm }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      if (result) {
+        this.calcs[this.addCalcForm.name].push({
+          section: this.addCalcForm.section,
+          field: this.addCalcForm.field,
+          operation: this.addCalcForm.operation
+        });
+        for (let key in this.addCalcForm) {
+          if (this.addCalcForm.hasOwnProperty(key)) {
+            this.addCalcForm[key] = null;
+          }
+        }
+      }
+    });
   }
 }

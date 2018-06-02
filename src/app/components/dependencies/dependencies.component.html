@@ -1,1 +1,19 @@
-test
+<h1 mat-dialog-title>Add Calc </h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput placeholder="Name" [(ngModel)]="data.data.name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Section" [(ngModel)]="data.data.section">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Field" [(ngModel)]="data.data.field">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Operation" [(ngModel)]="data.data.operation">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="add()">Add</button>
+  <button mat-button (click)="cancel()">Cancel</button>
+</div>
