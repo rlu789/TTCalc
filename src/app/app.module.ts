@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatFormFieldControl, MatInputModule, MatButtonModule } from '@angular/material';
+import {
+  MatDatepickerModule, MatNativeDateModule, MatFormFieldModule,
+  MatFormFieldControl, MatInputModule, MatButtonModule, MatSelectModule, MatCheckboxModule
+} from '@angular/material';
 
 //components and pipes
 import { KeysPipe } from './pipes/keysPipe'
@@ -40,7 +43,9 @@ import { AppRoutingModule } from './routes/app-routing.module';
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSelectModule,
+    MatCheckboxModule
   ],
   entryComponents: [
     DependenciesModal,

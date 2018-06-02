@@ -1,3 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.checkbox-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  margin: 0 15px;
+}
+
+.container {
+  margin: 0 0px 0;
+}
+
+mat-form-field{
+  padding: 0 5px;
+}

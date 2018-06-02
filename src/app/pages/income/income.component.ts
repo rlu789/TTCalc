@@ -54,7 +54,6 @@ export class IncomeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      console.log(result);
       if (result) {
         this.calcs[this.addCalcForm.name].push({
           section: this.addCalcForm.section,

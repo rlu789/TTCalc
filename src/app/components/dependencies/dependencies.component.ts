@@ -12,7 +12,6 @@ export class DependenciesModal {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
   
   ngOnInit() {
-    console.log(this.data);
   }
 
   add() {
