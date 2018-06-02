@@ -1,8 +1,0 @@
-<div class="row">
-  <div class="col-sm-1">
-    <p>{{data.section}}</p>
-  </div>
-  <div class="col-sm-3" *ngFor="let key of data.fields | keys">
-    <input [(ngModel)]=data.fields[key] type="number" class="form-control" placeholder="{{key}}">
-  </div>
-</div>
