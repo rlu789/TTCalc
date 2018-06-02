@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatFormFieldControl, MatInputModule  } from '@angular/material';
 
 //components and pipes
 import { KeysPipe } from './pipes/keysPipe'
@@ -28,8 +30,14 @@ import { AppRoutingModule } from './routes/app-routing.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    NgbModule.forRoot()
+    FormsModule, ReactiveFormsModule,
+    NgbModule.forRoot(),
+
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

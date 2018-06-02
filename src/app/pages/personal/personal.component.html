@@ -1,13 +1,7 @@
 <div class="container">
-  <form method="post">
-    <div class="form-group">
-      <!-- Date input -->
-      <label class="control-label" for="date">Date</label>
-      <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" />
-    </div>
-    <div class="form-group">
-      <!-- Submit button -->
-      <button class="btn btn-primary " name="submit" type="submit">Submit</button>
-    </div>
-  </form>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
 </div>
