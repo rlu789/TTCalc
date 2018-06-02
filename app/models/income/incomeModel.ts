@@ -12,39 +12,40 @@ var income = {
       'Gross Interest': null
     },
   },
-}
+};
 
-var incomeCalcs = [
-  {
-    key: "SWA", calcs: [
-      { field: 'Gross Income', operation: '+' },
-      { field: 'Tax Withheld', operation: '-' }
-    ]
-  },
-  { key: "Interest", calcs: [{ field: 'Gross Interest', operation: '+' }] },
-];
+var incomeCalcs = {
+  incomeTotal: [
+    { section: "SWA", field: "Gross Income", operation: '+' },
+    { section: "Interest", field: "Gross Interest", operation: '+' },
+  ],
+  withheldTotal: [
+    { section: "SWA", field: "Tax Withheld", operation: '+' },
+  ]
+};
+
+var incomeTotals = { incomeTotal: 0, withheldTotal: 0 };
 
 function initIncome() {
   return income;
 }
 
 function calcIncomeTotal() {
-  var totalIncome = 0, totalWithheld = 0;
-  for (var i = 0; i < incomeCalcs.length; i++) {
-    for (var j = 0; j < incomeCalcs[i].calcs.length; j++) {
-      // TODO basic error check to see if theres actually a functions array
-      // TODO fuck this is ugly
-      switch (incomeCalcs[i].calcs[j].operation) {
-        case '+':
-          totalIncome += income[incomeCalcs[i].key].fields[incomeCalcs[i].calcs[j].field];
+  incomeTotals.incomeTotal = 0, incomeTotals.withheldTotal = 0;
+  for (let key in incomeCalcs) {
+    for (let index in incomeCalcs[key]) {
+      var value = income[incomeCalcs[key][index].section].fields[incomeCalcs[key][index].field];
+      switch (incomeCalcs[key][index].operation) {
+        case ('+'):
+          incomeTotals[key] += value;
           break;
-        case '-':
-          totalWithheld += income[incomeCalcs[i].key].fields[incomeCalcs[i].calcs[j].field];
+        case ('-'):
+          incomeTotals[key] -= value;
           break;
       }
     }
   }
-  return { income: totalIncome, withheld: totalWithheld, final: totalIncome - totalWithheld };
+  return { income: incomeTotals.incomeTotal, withheld: incomeTotals.withheldTotal, final: incomeTotals.incomeTotal - incomeTotals.withheldTotal };
 }
 
 export { initIncome, calcIncomeTotal };

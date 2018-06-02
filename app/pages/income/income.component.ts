@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as incomeConstants from '../../models/income/incomeModel';
+import * as incomeModel from '../../models/income/incomeModel';
 
 @Component({
   selector: 'app-income',
@@ -19,8 +19,8 @@ export class IncomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.income = incomeConstants.initIncome();
-    this.totals = incomeConstants.calcIncomeTotal;
+    this.income = incomeModel.initIncome();
+    this.totals = incomeModel.calcIncomeTotal;
   }
 
   ngOnDestroy() {
