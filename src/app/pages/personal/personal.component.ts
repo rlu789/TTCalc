@@ -11,6 +11,7 @@ export class PersonalComponent implements OnInit {
   days = this.hours * 24;
   years = this.days * 365;
 
+  age = 35;
   fullYearRes = true;
   fullYearResFrom = null;
   fullYearResTo = null;
@@ -21,6 +22,7 @@ export class PersonalComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    if (!this.fullYearRes && this.fullYearResFrom && this.fullYearResTo)
     console.log((this.fullYearResTo.getTime() - this.fullYearResFrom.getTime()) / this.days);
   }
 }

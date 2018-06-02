@@ -1,5 +1,11 @@
 <div class="container">
-  <div class="row">
+  
+  <div class="row row-indent">
+    <mat-form-field>
+      <input matInput placeholder="Age" [(ngModel)]="age">
+    </mat-form-field>
+  </div>
+  <div class="row row-indent">
     <section class="checkbox-section">
       <mat-checkbox [(ngModel)]="fullYearRes">Full Year Res</mat-checkbox>
     </section>

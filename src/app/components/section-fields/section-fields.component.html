@@ -1,8 +1,10 @@
 <div class="row">
   <div class="col-sm-1">
-    <p>{{data.section}}</p>
+    <p style="margin: 1rem 0;">{{data.section}}</p>
   </div>
   <div class="col-sm-2" *ngFor="let key of data.fields | keys">
-    <input [(ngModel)]=data.fields[key] type="number" class="form-control" placeholder="{{key}}">
+    <mat-form-field>
+      <input matInput [(ngModel)]=data.fields[key] type="number" class="form-control" placeholder="{{key}}">
+    </mat-form-field>
   </div>
 </div>

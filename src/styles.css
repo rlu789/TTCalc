@@ -6,11 +6,14 @@
   display: flex;
   align-content: center;
   align-items: center;
-  margin: 0 15px;
 }
 
 .container {
   margin: 0 0px 0;
+}
+
+.row-indent {
+  margin-left: 0px;
 }
 
 mat-form-field{
