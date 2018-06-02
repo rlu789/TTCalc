@@ -30,6 +30,10 @@ function initIncome() {
   return income;
 }
 
+function getIncomeCalcs() {
+  return incomeCalcs;
+}
+
 function calcIncomeTotal() {
   incomeTotals.incomeTotal = 0, incomeTotals.withheldTotal = 0;
   for (let key in incomeCalcs) {
@@ -48,4 +52,4 @@ function calcIncomeTotal() {
   return { income: incomeTotals.incomeTotal, withheld: incomeTotals.withheldTotal, final: incomeTotals.incomeTotal - incomeTotals.withheldTotal };
 }
 
-export { initIncome, calcIncomeTotal };
+export { initIncome, calcIncomeTotal, getIncomeCalcs };

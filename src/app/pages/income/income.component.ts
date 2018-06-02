@@ -10,6 +10,7 @@ import * as incomeModel from '../../models/income/incomeModel';
 export class IncomeComponent implements OnInit {
   income = null;
   totals = null;
+  calcs = null;
 
   constructor() {
     //if (localStorage.getItem('income'))
@@ -21,6 +22,7 @@ export class IncomeComponent implements OnInit {
   ngOnInit() {
     this.income = incomeModel.initIncome();
     this.totals = incomeModel.calcIncomeTotal;
+    this.calcs = incomeModel.getIncomeCalcs();
   }
 
   ngOnDestroy() {

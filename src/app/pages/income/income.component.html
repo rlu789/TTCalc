@@ -20,4 +20,18 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-sm-3" *ngFor="let key of calcs | keys" >
+      <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+        <div class="card-header">Calcs for <b>{{key}}</b></div>
+        <div class="card-body">
+          <div *ngFor="let childKey of calcs[key] | keys">
+            <h5 class="card-title">{{calcs[key][childKey].section}}</h5>
+            <span>{{calcs[key][childKey].field}} ({{calcs[key][childKey].operation}})</span>
+          </div>
+        </div>
+        <button type="button" class="btn btn-link">Add Calc</button>
+      </div>
+    </div>
+  </div>
 </div>
