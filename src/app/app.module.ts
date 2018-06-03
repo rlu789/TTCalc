@@ -5,7 +5,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatDatepickerModule, MatNativeDateModule, MatFormFieldModule,
-  MatFormFieldControl, MatInputModule, MatButtonModule, MatSelectModule, MatCheckboxModule, MatCardModule, MatExpansionModule
+  MatFormFieldControl, MatInputModule, MatButtonModule, MatSelectModule, MatCheckboxModule, MatCardModule, MatExpansionModule,
+  MatDividerModule
 } from '@angular/material';
 
 //components and pipes
@@ -49,7 +50,8 @@ import { AppRoutingModule } from './routes/app-routing.module';
     MatSelectModule,
     MatCheckboxModule,
     MatCardModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDividerModule
   ],
   entryComponents: [
     DependenciesModal,

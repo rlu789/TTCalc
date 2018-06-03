@@ -6,12 +6,13 @@
         <div *ngFor="let childKey of calcs[key] | keys">
           <h5 class="card-title">{{calcs[key][childKey].section}}</h5>
           <span>{{calcs[key][childKey].field}} ({{calcs[key][childKey].operation}})</span>
+          <button type="button" class="close" aria-label="Close" (click)="deteleCalc(key, childKey)">&times;</button>
           <div *ngIf="calcs[key][childKey].if">
             <div *ngFor="let ifs of calcs[key][childKey].if">
               <b>Do If: </b><br />{{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}
             </div>
           </div>
-          <button type="button" class="close" aria-label="Close" (click)="deteleCalc(key, childKey)">&times;</button>
+          <mat-divider></mat-divider>
         </div>
       </div>
       <button type="button" class="btn btn btn-link" (click)="setupAdd(key)">

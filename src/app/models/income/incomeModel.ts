@@ -17,8 +17,8 @@ var income = {
 var incomeCalcs = {
   incomeTotal: [
     { section: "SWA", field: "Gross Income", operation: '+' },
+    { section: "SWA", field: "Tax Withheld", operation: '-', if: [{ section1: "SWA", field1: "Tax Withheld", compare: '>', value: 100 }] },
     { section: "Interest", field: "Gross Interest", operation: '+' },
-    { section: "SWA", field: "Tax Withheld", operation: '-', if: [{ section1: "SWA", field1: "Tax Withheld", compare: '>', value: 100}] },
   ],
   withheldTotal: [
     { section: "SWA", field: "Tax Withheld", operation: '+' },
@@ -46,7 +46,6 @@ function calcIncomeTotal() {
         // why is this repeating so many times?
         // holy shit this is all so ugly
         for (let i in incomeCalcs[key][index].if) {
-          // build the if statement
           var v1 = income[incomeCalcs[key][index].if[i].section1].fields[incomeCalcs[key][index].if[i].field1];
           var compare = incomeCalcs[key][index].if[i].compare;
           var v2 = incomeCalcs[key][index].if[i].value ? incomeCalcs[key][index].if[i].value : income[incomeCalcs[key][index].if[i].section2].fields[incomeCalcs[key][index].if[i].field2];

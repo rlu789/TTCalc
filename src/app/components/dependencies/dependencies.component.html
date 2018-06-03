@@ -13,7 +13,7 @@
     <input matInput placeholder="Operation" [(ngModel)]="data.data.operation">
   </mat-form-field>
   <section>
-    <mat-checkbox class="example-margin" [(ngModel)]="data.data.ifChecked">Ifs</mat-checkbox>
+    <mat-checkbox [(ngModel)]="data.data.ifChecked">Ifs</mat-checkbox>
   </section>
   <mat-accordion *ngIf="data.data.ifChecked" >
     <div class="row" *ngFor="let i of data.data.if ">
