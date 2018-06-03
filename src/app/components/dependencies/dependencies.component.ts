@@ -22,4 +22,9 @@ export class DependenciesModal {
   cancel() {
     this.dialogRef.close();
   }
+
+  addIf() {
+    this.data.data.if.push({ section1: null, field1: null, compare: null, value: null, section2: null, field2: null });
+    console.log(this.data.data.if)
+  }
 }

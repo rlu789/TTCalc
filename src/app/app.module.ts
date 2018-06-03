@@ -5,13 +5,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatDatepickerModule, MatNativeDateModule, MatFormFieldModule,
-  MatFormFieldControl, MatInputModule, MatButtonModule, MatSelectModule, MatCheckboxModule, MatCardModule
+  MatFormFieldControl, MatInputModule, MatButtonModule, MatSelectModule, MatCheckboxModule, MatCardModule, MatExpansionModule
 } from '@angular/material';
 
 //components and pipes
 import { KeysPipe } from './pipes/keysPipe'
 import { SectionFields } from './components/section-fields/section-fields.component';
 import { DependenciesModal } from './components/dependencies/dependencies.component'
+import { CalculationsEditor } from './components/calculations-editor/calculations-editor.component';
 
 //pages
 import { AppComponent } from './app.component';
@@ -27,6 +28,7 @@ import { AppRoutingModule } from './routes/app-routing.module';
     KeysPipe,
     SectionFields,
     DependenciesModal,
+    CalculationsEditor,
 
     IncomeComponent,
     EstimateComponent,
@@ -46,7 +48,8 @@ import { AppRoutingModule } from './routes/app-routing.module';
     MatButtonModule,
     MatSelectModule,
     MatCheckboxModule,
-    MatCardModule
+    MatCardModule,
+    MatExpansionModule
   ],
   entryComponents: [
     DependenciesModal,

@@ -12,8 +12,43 @@
   <mat-form-field>
     <input matInput placeholder="Operation" [(ngModel)]="data.data.operation">
   </mat-form-field>
+  <section>
+    <mat-checkbox class="example-margin" [(ngModel)]="ifsCheck">Ifs</mat-checkbox>
+  </section>
+  <mat-accordion *ngIf="ifsCheck" >
+    <div class="row" *ngFor="let i of data.data.if ">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            If {{i.section1}}{{i.field1}} {{i.compare}} {{i.section2}}{{i.section2}} {{i.value}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="row">
+          <mat-form-field>
+            <input matInput placeholder="Section 1" [(ngModel)]=i.section1>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Field 1" [(ngModel)]=i.field1>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Compare" [(ngModel)]=i.compare>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Section 2" [(ngModel)]=i.section2>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Field 2" [(ngModel)]=i.section2>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Or Value" [(ngModel)]=i.value>
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+    </div>
+  </mat-accordion>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="add()">Add</button>
   <button mat-button (click)="cancel()">Cancel</button>
+  <button *ngIf="ifsCheck" mat-button (click)="addIf()">Add If</button>
 </div>
