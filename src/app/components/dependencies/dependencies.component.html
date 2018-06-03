@@ -50,5 +50,5 @@
 <div mat-dialog-actions>
   <button mat-button (click)="add()">Add</button>
   <button mat-button (click)="cancel()">Cancel</button>
-  <button *ngIf="ifsCheck" mat-button (click)="addIf()">Add If</button>
+  <button *ngIf="data.data.ifChecked" mat-button (click)="addIf()">Add If</button>
 </div>

@@ -7,13 +7,13 @@ import * as estimateModel from '../../models/estimate/estimateModel';
   styleUrls: ['./estimate.component.css']
 })
 export class EstimateComponent implements OnInit {
+  estimate = null;
 
   constructor() {
-    console.log(estimateModel);
-    console.log(estimateModel.income.calcIncomeTotal());
   }
 
   ngOnInit() {
+    this.estimate = estimateModel.calcEstimateTotal;
   }
 
 }
