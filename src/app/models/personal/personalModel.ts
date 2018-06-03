@@ -10,16 +10,14 @@ var personal = {
   fullYearResTo: null,
   dateDifferenceDays: null
 }
+personal.dateDifferenceDays = function () {
+  if (personal.fullYearRes) return 365;
+  if (!personal.fullYearRes && personal.fullYearResFrom && personal.fullYearResTo) {
+    return ((personal.fullYearResTo.getTime() - personal.fullYearResFrom.getTime()) / days);
+  }
+};
 
 function initPersonal() {
-  personal.dateDifferenceDays = function () {
-    if (personal.fullYearRes) return 365;
-    var diffDays = 0;
-    if (!personal.fullYearRes && personal.fullYearResFrom && personal.fullYearResTo) {
-      diffDays = ((personal.fullYearResTo.getTime() - personal.fullYearResFrom.getTime()) / days);
-    }
-    return diffDays;
-  };
   return personal;
 }
 

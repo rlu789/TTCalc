@@ -8,6 +8,5 @@ export class SectionFields {
   @Input('data') data: null;
 
   ngOnInit() {
-    console.log(this.data);
   }
 }
