@@ -23,8 +23,8 @@ export class CalculationsEditor {
     console.log(this.calcs);
   }
 
-  deteleCalc(key, childKey) {
-    delete this.calcs[key][childKey];
+  deteleCalc(key, sectionKey, childKey) {
+    delete this.calcs[key][sectionKey][childKey];
   }
 
   setupAdd(key) {
@@ -39,8 +39,7 @@ export class CalculationsEditor {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       if (result) {
-        this.calcs[this.addCalcForm.name].push({
-          section: this.addCalcForm.section,
+        this.calcs[this.addCalcForm.name][this.addCalcForm.section].push({
           field: this.addCalcForm.field,
           operation: this.addCalcForm.operation,
           if: this.addCalcForm.ifChecked ? this.addCalcForm.if : null,
