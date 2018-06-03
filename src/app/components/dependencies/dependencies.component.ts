@@ -21,6 +21,7 @@ export class DependenciesModal {
 
   cancel() {
     this.dialogRef.close();
+    console.log(this.data.data);
   }
 
   addIf() {

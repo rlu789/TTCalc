@@ -13,6 +13,7 @@ export class CalculationsEditor {
     section: null,
     field: null,
     operation: null,
+    ifChecked: false,
     if: [{ section1: null, field1: null, compare: null, value: null, section2: null, field2: null }]
   };
   
@@ -28,7 +29,7 @@ export class CalculationsEditor {
 
   setupAdd(key) {
     this.addCalcForm.name = key;
-    //redo the if part
+    //TODO redo the if part
     this.addCalcForm.if = [{ section1: null, field1: null, compare: null, value: null, section2: null, field2: null }]; 
     let dialogRef = this.dialog.open(DependenciesModal, {
       width: '450px',
@@ -42,7 +43,7 @@ export class CalculationsEditor {
           section: this.addCalcForm.section,
           field: this.addCalcForm.field,
           operation: this.addCalcForm.operation,
-          if: this.addCalcForm.if
+          if: this.addCalcForm.ifChecked ? this.addCalcForm.if : null,
         });
         console.log(this.calcs);
         //for (let key in this.addCalcForm) {
