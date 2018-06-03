@@ -9,8 +9,9 @@
             <span>{{calcs[key][sectionKey][childKey].field}} ({{calcs[key][sectionKey][childKey].operation}})</span>
             <button type="button" class="close" aria-label="Close" (click)="deteleCalc(key, sectionKey, childKey)">&times;</button>
             <div *ngIf="calcs[key][sectionKey][childKey].if">
+              <u>Do If:</u><br />
               <div *ngFor="let ifs of calcs[key][sectionKey][childKey].if">
-                <u>Do If:</u><br />{{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}
+                {{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}
               </div>
             </div>
             <mat-divider></mat-divider>

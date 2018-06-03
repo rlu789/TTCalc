@@ -20,7 +20,7 @@
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            If {{i.section1}} {{i.field1}} {{i.compare}} {{i.section2}} {{i.section2}} {{i.value}}
+            If {{i.section1}} {{i.field1}} {{i.compare}} {{i.section2}} {{i.field2}} {{i.value}}
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="row">
@@ -31,13 +31,13 @@
             <input matInput placeholder="Field 1" [(ngModel)]=i.field1>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Compare" [(ngModel)]=i.compare>
+            <input matInput placeholder="Compare With" [(ngModel)]=i.compare>
           </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="Section 2" [(ngModel)]=i.section2>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Field 2" [(ngModel)]=i.section2>
+            <input matInput placeholder="Field 2" [(ngModel)]=i.field2>
           </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="Or Value" [(ngModel)]=i.value>
