@@ -24,7 +24,8 @@ export class CalculationsEditor {
   }
 
   deteleCalc(key, sectionKey, childKey) {
-    delete this.calcs[key][sectionKey][childKey];
+    this.calcs[key][sectionKey].splice(childKey, 1);
+    if (!this.calcs[key][sectionKey].length) delete this.calcs[key][sectionKey];
   }
 
   setupAdd(key) {

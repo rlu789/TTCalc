@@ -39,7 +39,14 @@ function initIncome() {
   return income;
 }
 
-function getIncomeCalcs() {
+function getIncomeCalcs() { // account for saved data in local storage
+  console.log(JSON.parse(localStorage.getItem('incomeCalcs')));
+  incomeCalcs = localStorage.getItem('incomeCalcs') ? JSON.parse(localStorage.getItem('incomeCalcs')) : incomeCalcs;
+  console.log(incomeCalcs);
+  return incomeCalcs;
+}
+
+function saveIncomeCalcs() {
   return incomeCalcs;
 }
 
@@ -55,4 +62,4 @@ function calcIncomeTotal() {
   return { income: incomeTotals["Total Income"], withheld: incomeTotals["Tax Withheld"], final: incomeTotals["Total Income"] - incomeTotals["Tax Withheld"] };
 }
 
-export { initIncome, calcIncomeTotal, getIncomeCalcs };
+export { initIncome, calcIncomeTotal, getIncomeCalcs, saveIncomeCalcs };

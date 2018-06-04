@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as income from './models/income/incomeModel'
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,11 @@ export class AppComponent {
   deleteLocal() {
     localStorage.clear();
     window.location.reload();
+  }
+
+  saveCalcs() {
+    localStorage.setItem('incomeCalcs', JSON.stringify(income.saveIncomeCalcs()));
+    console.log(localStorage);
+    //localStorage.incomeCalcs = income.getIncomeCalcs();
   }
 }
