@@ -16,12 +16,4 @@ var models = {
   },
 };
 
-var fields = [];
-for (let section in models) {
-  console.log(section);
-  for (let fields in models[section]) {
-    console.log(fields);
-  }
-}
-
 export { models };

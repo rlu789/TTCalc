@@ -15,14 +15,17 @@
       <mat-option *ngFor="let option of constants.models[data.data.model] | keys" value="{{option}}">{{option}}</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field *ngIf="data.data.section">
+  <mat-form-field *ngIf="data.data.section && data.data.model">
     <mat-select [(value)]="data.data.field" placeholder="Field">
       <mat-option>...</mat-option>
       <mat-option *ngFor="let option of constants.models[data.data.model][data.data.section].fields | keys" value="{{option}}">{{option}}</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Operation" [(ngModel)]="data.data.operation">
+  <mat-form-field *ngIf="data.data.section && data.data.model && data.data.field">
+    <mat-select [(value)]="data.data.operation" placeholder="Operation">
+      <mat-option value="+">+</mat-option>
+      <mat-option value="-">-</mat-option>
+    </mat-select>
   </mat-form-field>
   <section>
     <mat-checkbox [(ngModel)]="data.data.ifChecked">Ifs</mat-checkbox>
@@ -32,10 +35,13 @@
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            If {{i.section1}} {{i.field1}} {{i.compare}} {{i.section2}} {{i.field2}} {{i.value}}
+            If {{i.model1}} {{i.section1}} {{i.field1}} {{i.compare}} {{i.model2}} {{i.section2}} {{i.field2}} {{i.value}}
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="row">
+          <mat-form-field>
+            <input matInput placeholder="Model 1" [(ngModel)]=i.model1>
+          </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="Section 1" [(ngModel)]=i.section1>
           </mat-form-field>
@@ -44,6 +50,9 @@
           </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="Compare With" [(ngModel)]=i.compare>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Model 2" [(ngModel)]=i.model2>
           </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="Section 2" [(ngModel)]=i.section2>

@@ -3,18 +3,21 @@
     <div class="card border-dark mb-3" style="max-width: 18rem;">
       <div class="card-header">Calcs for <b>{{key}}</b></div>
       <div class="card-body">
-        <div *ngFor="let sectionKey of calcs[key] | keys">
-          <h5 class="card-title">{{sectionKey}}</h5>
-          <div *ngFor="let childKey of calcs[key][sectionKey] | keys">
-            <span>{{calcs[key][sectionKey][childKey].field}} ({{calcs[key][sectionKey][childKey].operation}})</span>
-            <button type="button" class="close" aria-label="Close" (click)="deteleCalc(key, sectionKey, childKey)">&times;</button>
-            <div *ngIf="calcs[key][sectionKey][childKey].if">
-              <u>Do If:</u><br />
-              <div *ngFor="let ifs of calcs[key][sectionKey][childKey].if">
-                {{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}
+        <div *ngFor="let modelKey of calcs[key] | keys">
+          <h5 class="card-title">{{modelKey}}</h5>
+          <div *ngFor="let sectionKey of calcs[key][modelKey] | keys">
+            <b>{{sectionKey}}</b>
+            <div *ngFor="let childKey of calcs[key][modelKey] [sectionKey] | keys">
+              <span>{{calcs[key][modelKey][sectionKey][childKey].field}} ({{calcs[key][modelKey][sectionKey][childKey].operation}})</span>
+              <button type="button" class="close" aria-label="Close" (click)="deteleCalc(key, modelKey, sectionKey, childKey)">&times;</button>
+              <div *ngIf="calcs[key][modelKey][sectionKey][childKey].if">
+                <u>Do If:</u><br />
+                <div *ngFor="let ifs of calcs[key][modelKey][sectionKey][childKey].if">
+                  {{ifs.model1}} {{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.model2}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}
+                </div>
               </div>
+              <mat-divider></mat-divider>
             </div>
-            <mat-divider></mat-divider>
           </div>
         </div>
       </div>

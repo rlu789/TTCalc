@@ -3,18 +3,22 @@ import * as constants from '../constants';
 
 var incomeCalcs = {
   "Total Income": {
-    SWA: [
-      { field: "Gross Income", operation: '+' },
-      { field: "Tax Withheld", operation: '-', if: [{ section1: "SWA", field1: "Tax Withheld", compare: '>', value: 100 }] },
-    ],
-    Interest: [
-      { section: "Interest", field: "Gross Interest", operation: '+' },
-    ]
+    Income: {
+      SWA: [
+        { field: "Gross Income", operation: '+' },
+        { field: "Tax Withheld", operation: '-', if: [{ model1: "Income", section1: "SWA", field1: "Tax Withheld", compare: '>', value: 100 }] },
+      ],
+      Interest: [
+        { section: "Interest", field: "Gross Interest", operation: '+' },
+      ]
+    }
   },
   "Tax Withheld": {
-    SWA: [
-      { field: "Tax Withheld", operation: '+' }
-    ]
+    Income: {
+      SWA: [
+        { field: "Tax Withheld", operation: '+' }
+      ]
+    }
   }
 };
 
@@ -27,7 +31,6 @@ function initIncome() {
 function getIncomeCalcs() { // account for saved data in local storage
   console.log(JSON.parse(localStorage.getItem('incomeCalcs')));
   incomeCalcs = localStorage.getItem('incomeCalcs') ? JSON.parse(localStorage.getItem('incomeCalcs')) : incomeCalcs;
-  console.log(incomeCalcs);
   return incomeCalcs;
 }
 
@@ -37,10 +40,12 @@ function saveIncomeCalcs() {
 
 function calcIncomeTotal() {
   incomeTotals["Total Income"] = 0, incomeTotals["Tax Withheld"] = 0;
-  for (let key in incomeCalcs) {
-    for (let section in incomeCalcs[key]) {
-      for (let field in incomeCalcs[key][section]) {
-        incomeTotals[key] += common.doCalculation(key, section, field, constants.models.Income, incomeCalcs);
+  for (let total in incomeCalcs) {
+    for (let model in incomeCalcs[total]) {
+      for (let section in incomeCalcs[total][model]) {
+        for (let field in incomeCalcs[total][model][section]) {
+          incomeTotals[total] += common.doCalculation(total, model, section, field, constants.models, incomeCalcs);
+        }
       }
     }
   }
