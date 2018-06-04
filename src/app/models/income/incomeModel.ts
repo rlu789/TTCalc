@@ -1,20 +1,5 @@
-import * as common from '../common'
-
-var income = {
-  SWA: {
-    section: "SWA",
-    fields: {
-      'Gross Income': null,
-      'Tax Withheld': null,
-    },
-  },
-  Interest: {
-    section: "Interest",
-    fields: {
-      'Gross Interest': null
-    },
-  },
-};
+import * as common from '../common';
+import * as constants from '../constants';
 
 var incomeCalcs = {
   "Total Income": {
@@ -36,7 +21,7 @@ var incomeCalcs = {
 var incomeTotals = { "Total Income": 0, "Tax Withheld": 0 };
 
 function initIncome() {
-  return income;
+  return constants.models.Income;
 }
 
 function getIncomeCalcs() { // account for saved data in local storage
@@ -55,7 +40,7 @@ function calcIncomeTotal() {
   for (let key in incomeCalcs) {
     for (let section in incomeCalcs[key]) {
       for (let field in incomeCalcs[key][section]) {
-        incomeTotals[key] += common.doCalculation(key, section, field, income, incomeCalcs);
+        incomeTotals[key] += common.doCalculation(key, section, field, constants.models.Income, incomeCalcs);
       }
     }
   }

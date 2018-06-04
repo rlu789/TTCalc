@@ -4,10 +4,22 @@
     <input matInput placeholder="Name" [(ngModel)]="data.data.name">
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Section" [(ngModel)]="data.data.section">
+    <mat-select [(value)]="data.data.model" placeholder="Model">
+      <mat-option>...</mat-option>
+      <mat-option *ngFor="let option of constants.models | keys" value="{{option}}">{{option}}</mat-option>
+    </mat-select>
   </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Field" [(ngModel)]="data.data.field">
+  <mat-form-field *ngIf="data.data.model">
+    <mat-select [(value)]="data.data.section" placeholder="Section">
+      <mat-option>...</mat-option>
+      <mat-option *ngFor="let option of constants.models[data.data.model] | keys" value="{{option}}">{{option}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field *ngIf="data.data.section">
+    <mat-select [(value)]="data.data.field" placeholder="Field">
+      <mat-option>...</mat-option>
+      <mat-option *ngFor="let option of constants.models[data.data.model][data.data.section].fields | keys" value="{{option}}">{{option}}</mat-option>
+    </mat-select>
   </mat-form-field>
   <mat-form-field>
     <input matInput placeholder="Operation" [(ngModel)]="data.data.operation">
@@ -15,7 +27,7 @@
   <section>
     <mat-checkbox [(ngModel)]="data.data.ifChecked">Ifs</mat-checkbox>
   </section>
-  <mat-accordion *ngIf="data.data.ifChecked" >
+  <mat-accordion *ngIf="data.data.ifChecked">
     <div class="row" *ngFor="let i of data.data.if ">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
