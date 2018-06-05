@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DependenciesModal } from '../../components/dependencies/dependencies.component'
+import { DependenciesModal } from '../../components/dependencies-modal/dependencies-modal.component'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
  
 @Component({

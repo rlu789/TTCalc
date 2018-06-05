@@ -3,8 +3,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import * as constants from '../../models/constants';
 
 @Component({
-  selector: 'dependencies',
-  templateUrl: './dependencies.component.html'
+  selector: 'dependencies-modal',
+  templateUrl: './dependencies-modal.component.html'
 })
 export class DependenciesModal {
   constants = null;

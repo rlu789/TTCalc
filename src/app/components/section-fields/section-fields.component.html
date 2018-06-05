@@ -3,8 +3,16 @@
     <p style="margin: 1rem 0;">{{data.section}}</p>
   </div>
   <div class="col-sm-2" *ngFor="let key of data.fields | keys">
-    <mat-form-field>
-      <input matInput [(ngModel)]=data.fields[key] type="number" class="form-control" placeholder="{{key}}">
-    </mat-form-field>
+    <div *ngIf="!data.fields[key].calcs">
+      <mat-form-field>
+        <input matInput [(ngModel)]=data.fields[key].value type="number" class="form-control" placeholder="{{key}}">
+      </mat-form-field>
+    </div>
+    <div *ngIf="data.fields[key].calcs">
+      <mat-form-field>
+        <input matInput [value]='calcField(data.fields[key].calcs)' type="number" class="form-control" placeholder="{{key}}" readonly
+               matTooltip="Click to see Calculations Editor" (click)="showCalcs(data.fields[key].calcs)">
+      </mat-form-field>
+    </div>
   </div>
 </div>

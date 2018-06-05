@@ -6,13 +6,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatDatepickerModule, MatNativeDateModule, MatFormFieldModule,
   MatFormFieldControl, MatInputModule, MatButtonModule, MatSelectModule, MatCheckboxModule, MatCardModule, MatExpansionModule,
-  MatDividerModule
+  MatDividerModule, MatTooltipModule
 } from '@angular/material';
 
 //components and pipes
 import { KeysPipe } from './pipes/keysPipe'
 import { SectionFields } from './components/section-fields/section-fields.component';
-import { DependenciesModal } from './components/dependencies/dependencies.component'
+import { DependenciesModal } from './components/dependencies-modal/dependencies-modal.component'
 import { CalculationsEditor } from './components/calculations-editor/calculations-editor.component';
 
 //pages
@@ -51,7 +51,8 @@ import { AppRoutingModule } from './routes/app-routing.module';
     MatCheckboxModule,
     MatCardModule,
     MatExpansionModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTooltipModule
   ],
   entryComponents: [
     DependenciesModal,

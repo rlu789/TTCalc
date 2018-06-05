@@ -44,7 +44,9 @@ function calcIncomeTotal() {
     for (let model in incomeCalcs[total]) {
       for (let section in incomeCalcs[total][model]) {
         for (let field in incomeCalcs[total][model][section]) {
-          incomeTotals[total] += common.doCalculation(total, model, section, field, constants.models, incomeCalcs);
+          for (let mikesLoop in incomeCalcs[total][model][section][field]) {
+            incomeTotals[total] += common.doCalculation(total, model, section, field, constants.models, incomeCalcs);
+          }
         }
       }
     }
