@@ -3,44 +3,55 @@
     <p style="margin: 1rem 0;">{{section}}</p>
   </div>
   <div *ngFor="let key of data | keys">
-    <div class="col-sm-2" *ngIf="!data[key].calcs">
-      <mat-form-field>
-        <input matInput [(ngModel)]=data[key].value type="number" class="form-control" placeholder="{{key}}" matTooltip="{{key}}">
-      </mat-form-field>
+    <div *ngIf="data[key].dropdown; else elseBlock">
+      <div class="col-sm-2">
+        <mat-form-field>
+          <mat-select [(ngModel)]="data[key].value" placeholder="{{key}}" matTooltip="{{key}}">
+            <mat-option *ngFor="let option of data[key].dropdown" value="{{option}}">{{option}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
-    <div *ngIf="data[key].calcs">
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{key}}: {{calcField(data[key])}}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="card dark mb-3" style="max-width: 15rem;">
-          <div class="card-header">Calcs for <b>{{key}}</b></div>
-          <div class="card-body">
-            <div *ngFor="let modelKey of data[key].calcs | keys">
-              <h5 class="card-title">{{modelKey}}</h5>
-              <div *ngFor="let sectionKey of data[key].calcs[modelKey] | keys">
-                <b>{{sectionKey}}</b>
-                <div *ngFor="let childKey of data[key].calcs[modelKey] [sectionKey] | keys">
-                  <span>{{data[key].calcs[modelKey][sectionKey][childKey].field}} ({{data[key].calcs[modelKey][sectionKey][childKey].operation}})</span>
-                  <button type="button" class="close" aria-label="Close" (click)="deteleCalc(key, modelKey, sectionKey, childKey)">&times;</button>
-                  <div *ngIf="data[key].calcs[modelKey][sectionKey][childKey].if">
-                    <u>Do If:</u><br />
-                    <div *ngFor="let ifs of data[key].calcs[modelKey][sectionKey][childKey].if">
-                      {{ifs.model1}} {{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.model2}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}
+    <ng-template #elseBlock>
+      <div class="col-sm-2" *ngIf="!data[key].calcs">
+        <mat-form-field>
+          <input matInput [(ngModel)]=data[key].value type="number" class="form-control" placeholder="{{key}}" matTooltip="{{key}}">
+        </mat-form-field>
+      </div>
+      <div *ngIf="data[key].calcs">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{key}}: {{calcField(data[key])}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="card dark mb-3" style="max-width: 15rem;">
+            <div class="card-header">Calcs for <b>{{key}}</b></div>
+            <div class="card-body">
+              <div *ngFor="let modelKey of data[key].calcs | keys">
+                <h5 class="card-title">{{modelKey}}</h5>
+                <div *ngFor="let sectionKey of data[key].calcs[modelKey] | keys">
+                  <b>{{sectionKey}}</b>
+                  <div *ngFor="let childKey of data[key].calcs[modelKey] [sectionKey] | keys">
+                    <span>{{data[key].calcs[modelKey][sectionKey][childKey].field}} ({{data[key].calcs[modelKey][sectionKey][childKey].operation}})</span>
+                    <button type="button" class="close" aria-label="Close" (click)="deteleCalc(key, modelKey, sectionKey, childKey)">&times;</button>
+                    <div *ngIf="data[key].calcs[modelKey][sectionKey][childKey].if">
+                      <u>Do If:</u><br />
+                      <div *ngFor="let ifs of data[key].calcs[modelKey][sectionKey][childKey].if">
+                        {{ifs.model1}} {{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.model2}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}
+                      </div>
                     </div>
+                    <mat-divider></mat-divider>
                   </div>
-                  <mat-divider></mat-divider>
                 </div>
               </div>
             </div>
+            <button type="button" class="btn btn btn-link" (click)="setupAdd(key)">
+              Add Calc
+            </button>
           </div>
-          <button type="button" class="btn btn btn-link" (click)="setupAdd(key)">
-            Add Calc
-          </button>
-        </div>
-      </mat-expansion-panel>
-    </div>
+        </mat-expansion-panel>
+      </div>
+    </ng-template>
   </div>
 </div>

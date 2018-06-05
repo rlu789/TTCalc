@@ -4,9 +4,9 @@ import * as constants from '../constants';
 var incomeCalcs = {
   "Total Income": {
     Income: {
-      SWA: [
+      "Salary and wages": [
         { field: "Gross Income", operation: '+' },
-        { field: "Tax Withheld", operation: '-', if: [{ model1: "Income", section1: "SWA", field1: "Tax Withheld", compare: '>', value: 100 }] },
+        { field: "Tax Withheld", operation: '-', if: [{ model1: "Income", section1: "Salary and wages", field1: "Tax Withheld", compare: '>', value: 100 }] },
       ],
       Interest: [
         { section: "Interest", field: "Gross Interest", operation: '+' },
@@ -15,7 +15,7 @@ var incomeCalcs = {
   },
   "Tax Withheld": {
     Income: {
-      SWA: [
+      "Salary and wages": [
         { field: "Tax Withheld", operation: '+' }
       ]
     }
