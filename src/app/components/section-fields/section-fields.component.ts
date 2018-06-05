@@ -8,7 +8,8 @@ import * as constants from '../../models/constants';
 })
 export class SectionFields {
   @Input('data') data: null;
-
+  @Input('section') section: null;
+  
   ngOnInit() {
   }
 

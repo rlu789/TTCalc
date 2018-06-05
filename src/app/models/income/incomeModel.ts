@@ -25,7 +25,7 @@ var incomeCalcs = {
 var incomeTotals = { "Total Income": 0, "Tax Withheld": 0 };
 
 function initIncome() {
-  return constants.models.Income;
+  return { Income: constants.models.Income, "Suppelementry Section": constants.models["Suppelementry Section"] };
 }
 
 function getIncomeCalcs() { // account for saved data in local storage

@@ -18,7 +18,7 @@
   <mat-form-field *ngIf="data.data.section && data.data.model">
     <mat-select [(value)]="data.data.field" placeholder="Field">
       <mat-option>...</mat-option>
-      <mat-option *ngFor="let option of constants.models[data.data.model][data.data.section].fields | keys" value="{{option}}">{{option}}</mat-option>
+      <mat-option *ngFor="let option of constants.models[data.data.model][data.data.section] | keys" value="{{option}}">{{option}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field *ngIf="data.data.section && data.data.model && data.data.field">

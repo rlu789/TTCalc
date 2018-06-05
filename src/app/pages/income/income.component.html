@@ -1,9 +1,18 @@
 <div class="container">
-  <div *ngFor="let key of income | keys">
-    <section-fields [data]="income[key]"></section-fields>
-  </div>
+  <ngb-tabset>
+    <div *ngFor="let part of income | keys">
+      <ngb-tab title={{part}}>
+        <ng-template ngbTabContent>
+          <div style="margin-top: 10px;"></div>
+          <div *ngFor="let key of income[part] | keys">
+            <section-fields [data]="income[part][key]" [section]="key"></section-fields>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </div>
+  </ngb-tabset>
 
-  <div class="row">
+  <div class="row"  style="margin-top: 30px;">
     <div class="col-sm-3">
       <div class="alert alert-dark" role="alert">
         Total Income : <b>{{totals().income}}</b>

@@ -12,14 +12,14 @@ function doFieldCalculation(calcModel, section, field, models, calc) {
       var section1 = calc[calcModel][section][field].if[i].section1, field1 = calc[calcModel][section][field].if[i].field1,
         section2 = calc[calcModel][section][field].if[i].section2, field2 = calc[calcModel][section][field].if[i].field2, value = calc[calcModel][section][field].if[i].value
 
-      var v1 = models[calcModel][section1].fields[field1].value;
+      var v1 = models[calcModel][section1][field1].value;
       var compare = calc[calcModel][section][field].if[i].compare;
-      var v2 = value ? value : models[calcModel][section2].fields[field2].value;
+      var v2 = value ? value : models[calcModel][section2][field2].value;
       bool = bool && (eval(v1 + compare + v2));
     }
   }
 
-  var value = bool ? models[calcModel][section].fields[calc[calcModel][section][field].field].value : 0;
+  var value = bool ? models[calcModel][section][calc[calcModel][section][field].field].value : 0;
   switch (calc[calcModel][section][field].operation) {
     case '+':
       return +value;
