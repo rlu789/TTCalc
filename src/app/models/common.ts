@@ -1,35 +1,20 @@
-// wtf is happening here anymore?
 function doCalculation(key, calcModel, section, field, models, calc) {
-  //console.log(calc[key][calcModel][section]);
-  var bool = true;
-  // if 'if' key exists, eval it all first to see if calc applies
-  if (calc[key][calcModel][section][field].if) {
-    // why is this repeating so many times?
-    // holy shit this is all so ugly
-    for (let i in calc[key][calcModel][section][field].if) {
-      var v1 = models[calcModel][calc[key][calcModel][section][field].if[i].section1].fields[calc[key][calcModel][section][field].if[i].field1].value;
-      var compare = calc[key][calcModel][section][field].if[i].compare;
-      var v2 = calc[key][calcModel][section][field].if[i].value ? calc[key][calcModel][section][field].if[i].value : models[calcModel][calc[key][calcModel][section][field].if[i].section2].fields[calc[key][calcModel][section][field].if[i].field2].value;
-      bool = bool && (eval(v1 + compare + v2));
-    }
-  }
-
-  var value = bool ? models[calcModel][section].fields[calc[key][calcModel][section][field].field].value : 0;
-  switch (calc[key][calcModel][section][field].operation) {
-    case '+':
-      return +value;
-    case '-':
-      return -value;
-  }
+  return doFieldCalculation(calcModel, section, field, models, calc[key]);
 }
 
 function doFieldCalculation(calcModel, section, field, models, calc) {
+  // if 'if' key exists, eval it all first to see if calc applies
+  var ifStatement = calc[calcModel][section][field].if;
+
   var bool = true;
-  if (calc[calcModel][section][field].if) {
+  if (ifStatement) {
     for (let i in calc[calcModel][section][field].if) {
-      var v1 = models[calcModel][calc[calcModel][section][field].if[i].section1].fields[calc[calcModel][section][field].if[i].field1].value;
+      var section1 = calc[calcModel][section][field].if[i].section1, field1 = calc[calcModel][section][field].if[i].field1,
+        section2 = calc[calcModel][section][field].if[i].section2, field2 = calc[calcModel][section][field].if[i].field2, value = calc[calcModel][section][field].if[i].value
+
+      var v1 = models[calcModel][section1].fields[field1].value;
       var compare = calc[calcModel][section][field].if[i].compare;
-      var v2 = calc[calcModel][section][field].if[i].value ? calc[calcModel][section][field].if[i].value : models[calcModel][calc[calcModel][section][field].if[i].section2].fields[calc[calcModel][section][field].if[i].field2].value;
+      var v2 = value ? value : models[calcModel][section2].fields[field2].value;
       bool = bool && (eval(v1 + compare + v2));
     }
   }

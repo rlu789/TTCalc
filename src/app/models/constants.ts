@@ -11,7 +11,7 @@ var models = {
             Income: {
               SWA: [
                 { field: "Gross Income", operation: '+' },
-                { field: "Tax Withheld", operation: '-', if: [{ model1: "Income", section1: "SWA", field1: "Tax Withheld", compare: '>', value: 100 }] },
+                { field: "Tax Withheld", operation: '-', if: [{ model1: "Income", section1: "SWA", field1: "Tax Withheld", compare: '>', model2: "Income", section2: "SWA", field2: "Gross Income" }] },
               ],
               Interest: [
                 { section: "Interest", field: "Gross Interest", operation: '+' },

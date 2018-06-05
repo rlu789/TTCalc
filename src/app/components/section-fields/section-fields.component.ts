@@ -12,15 +12,16 @@ export class SectionFields {
   ngOnInit() {
   }
 
-  calcField(calcs) {
+  calcField(thisField) {
     var value = 0;
-    for (let model in calcs) {
-      for (let section in calcs[model]) {
-        for (let field in calcs[model][section]) {
-          value += common.doFieldCalculation(model, section, field, constants.models, calcs)
+    for (let model in thisField.calcs) {
+      for (let section in thisField.calcs[model]) {
+        for (let field in thisField.calcs[model][section]) {
+          value += common.doFieldCalculation(model, section, field, constants.models, thisField.calcs)
         }
       }
     }
+    thisField.value = value;
     return value;
   }
 

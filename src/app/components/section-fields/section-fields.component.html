@@ -2,17 +2,45 @@
   <div class="col-sm-1">
     <p style="margin: 1rem 0;">{{data.section}}</p>
   </div>
-  <div class="col-sm-2" *ngFor="let key of data.fields | keys">
-    <div *ngIf="!data.fields[key].calcs">
+  <div *ngFor="let key of data.fields | keys">
+    <div class="col-sm-2" *ngIf="!data.fields[key].calcs">
       <mat-form-field>
         <input matInput [(ngModel)]=data.fields[key].value type="number" class="form-control" placeholder="{{key}}">
       </mat-form-field>
     </div>
     <div *ngIf="data.fields[key].calcs">
-      <mat-form-field>
-        <input matInput [value]='calcField(data.fields[key].calcs)' type="number" class="form-control" placeholder="{{key}}" readonly
-               matTooltip="Click to see Calculations Editor" (click)="showCalcs(data.fields[key].calcs)">
-      </mat-form-field>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{key}}: {{calcField(data.fields[key])}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="card dark mb-3" style="max-width: 15rem;">
+          <div class="card-header">Calcs for <b>{{key}}</b></div>
+          <div class="card-body">
+            <div *ngFor="let modelKey of data.fields[key].calcs | keys">
+              <h5 class="card-title">{{modelKey}}</h5>
+              <div *ngFor="let sectionKey of data.fields[key].calcs[modelKey] | keys">
+                <b>{{sectionKey}}</b>
+                <div *ngFor="let childKey of data.fields[key].calcs[modelKey] [sectionKey] | keys">
+                  <span>{{data.fields[key].calcs[modelKey][sectionKey][childKey].field}} ({{data.fields[key].calcs[modelKey][sectionKey][childKey].operation}})</span>
+                  <button type="button" class="close" aria-label="Close" (click)="deteleCalc(key, modelKey, sectionKey, childKey)">&times;</button>
+                  <div *ngIf="data.fields[key].calcs[modelKey][sectionKey][childKey].if">
+                    <u>Do If:</u><br />
+                    <div *ngFor="let ifs of data.fields[key].calcs[modelKey][sectionKey][childKey].if">
+                      {{ifs.model1}} {{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.model2}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}
+                    </div>
+                  </div>
+                  <mat-divider></mat-divider>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn btn-link" (click)="setupAdd(key)">
+            Add Calc
+          </button>
+        </div>
+      </mat-expansion-panel>
     </div>
   </div>
 </div>
