@@ -1,6 +1,8 @@
+<!--<ng-container *ngTemplateOutlet="greet; context: calcs"></ng-container>
+<ng-template #greet><span>{{calcs}}</span></ng-template>-->
 <ng-template [ngIf]="!keyProvided" [ngIfElse]="inFieldEditor">
   <div class="row">
-    <div class="col-sm-3" *ngFor="let key of calcs | keys">
+    <div class="col-sm-2" *ngFor="let key of calcs | keys">
       <div class="card border-dark mb-3" style="max-width: 18rem;">
         <div class="card-header">Calcs for <b>{{key}}</b></div>
         <div class="card-body">
@@ -31,31 +33,41 @@
 </ng-template>
 
 <!--wow maybe create a new component?-->
+<!--or ng template the commons parts?-->
+<!--nah too lazy-->
 
 <ng-template #inFieldEditor>
-  <div class="card border-dark mb-3" style="max-width: 14rem;">
-    <div class="card-header">Calcs for <b>{{keyProvided}}</b></div>
-    <div class="card-body">
-      <div *ngFor="let modelKey of calcs | keys">
-        <h5 class="card-title">{{modelKey}}</h5>
-        <div *ngFor="let sectionKey of calcs[modelKey] | keys">
-          <b>{{sectionKey}}</b>
-          <div *ngFor="let childKey of calcs[modelKey] [sectionKey] | keys">
-            <span>{{calcs[modelKey][sectionKey][childKey].field}} ({{calcs[modelKey][sectionKey][childKey].operation}}) {{calcs[modelKey][sectionKey][childKey].percent}}</span>
-            <button type="button" class="close" aria-label="Close" (click)="deteleCalcInFieldMode(modelKey, sectionKey, childKey)">&times;</button>
-            <div *ngIf="calcs[modelKey][sectionKey][childKey].if">
-              <u>Do If:</u><br />
-              <div *ngFor="let ifs of calcs[modelKey][sectionKey][childKey].if">
-                {{ifs.model1}} {{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.model2}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}
+  <ng-template [ngIf]="doCalcIf">
+    <b>Only Compute This If:</b><br />
+    <div *ngFor="let ifs of doCalcIf; index as i">
+      <b>{{ifs.model1}} {{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.model2}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}</b>
+      <button type="button" class="close" aria-label="Close" (click)="deteleDoCalcIf(i)">&times;</button><br />
+    </div>
+  </ng-template>
+  <br />
+  <ng-template [ngIf]="calcs">
+    <div class="card border-dark mb-3">
+      <div class="card-header">Calcs for <b>{{keyProvided}}</b></div>
+      <div class="card-body">
+        <div *ngFor="let modelKey of calcs | keys">
+          <h5 class="card-title">{{modelKey}}</h5>
+          <div *ngFor="let sectionKey of calcs[modelKey] | keys">
+            <b>{{sectionKey}}</b>
+            <div *ngFor="let childKey of calcs[modelKey] [sectionKey] | keys">
+              <span>{{calcs[modelKey][sectionKey][childKey].field}} ({{calcs[modelKey][sectionKey][childKey].operation}}) {{calcs[modelKey][sectionKey][childKey].percent}}</span>
+              <button type="button" class="close" aria-label="Close" (click)="deteleCalcInFieldMode(modelKey, sectionKey, childKey)">&times;</button>
+              <div *ngIf="calcs[modelKey][sectionKey][childKey].if">
+                <u>Do If:</u><br />
+                <div *ngFor="let ifs of calcs[modelKey][sectionKey][childKey].if">
+                  {{ifs.model1}} {{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.model2}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}
+                </div>
               </div>
+              <mat-divider></mat-divider>
             </div>
-            <mat-divider></mat-divider>
           </div>
         </div>
       </div>
+      <button type="button" class="btn btn btn-link" (click)="setupAdd(keyProvided)">Add Calc</button>
     </div>
-    <button type="button" class="btn btn btn-link" (click)="setupAdd(keyProvided)">
-      Add Calc
-    </button>
-  </div>
+  </ng-template>
 </ng-template>

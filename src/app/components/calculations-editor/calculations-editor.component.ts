@@ -9,6 +9,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class CalculationsEditor {
   @Input('calcs') calcs: any;
   @Input('keyProvided') keyProvided: string;
+  @Input('doCalcIf') doCalcIf: Array<any>;
+
   addCalcForm = {
     name: null,
     model: null,
@@ -24,6 +26,7 @@ export class CalculationsEditor {
   ngOnInit() {
     console.log(this.calcs);
     console.log(this.keyProvided);
+    console.log(this.doCalcIf);
   }
 
   deteleCalc(key, modelKey, sectionKey, childKey) {
@@ -34,6 +37,12 @@ export class CalculationsEditor {
   deteleCalcInFieldMode(modelKey, sectionKey, childKey) {
     this.calcs[modelKey][sectionKey].splice(childKey, 1);
     if (!this.calcs[modelKey][sectionKey].length) delete this.calcs[modelKey][sectionKey];
+  }
+
+  deteleDoCalcIf(i) {
+    this.doCalcIf.splice(i, 1);
+    console.log(this.doCalcIf)
+    //if (!doCalcIf.length) 
   }
 
   setupAdd(key) {

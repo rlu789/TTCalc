@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <ngb-tabset>
     <div *ngFor="let part of income | keys">
       <ngb-tab title={{part}}>
@@ -13,17 +13,17 @@
   </ngb-tabset>
 
   <div class="row"  style="margin-top: 30px;">
-    <div class="col-sm-3">
+    <div class="col-sm-2">
       <div class="alert alert-dark" role="alert">
         Total Income : <b>{{totals().income}}</b>
       </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
       <div class="alert alert-dark" role="alert">
         Tax Withheld : <b>{{totals().withheld}}</b>
       </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
       <div class="alert alert-dark" role="alert">
         Final : <b>{{totals().final}}</b>
       </div>

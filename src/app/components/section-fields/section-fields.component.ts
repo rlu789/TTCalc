@@ -15,6 +15,10 @@ export class SectionFields {
 
   calcField(thisField) {
     var value = 0;
+    if (!common.evalIf(thisField.doCalcIf, constants.models)) {
+      thisField.value = 0;
+      return false;
+    }
     for (let model in thisField.calcs) {
       for (let section in thisField.calcs[model]) {
         for (let field in thisField.calcs[model][section]) {

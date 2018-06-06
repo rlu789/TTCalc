@@ -1,23 +1,26 @@
+function evalIf(ifs, models) {
+  if (!ifs) return true;
+  var bool = true;
+  for (let i in ifs) {
+    var model1 = ifs[i].model1, section1 = ifs[i].section1, field1 = ifs[i].field1,
+      model2 = ifs[i].model2, section2 = ifs[i].section2, field2 = ifs[i].field2, value = ifs[i].value;
+
+    var v1 = models[model1][section1][field1].value;
+    var compare = ifs[i].compare;
+    var v2 = value ? value : models[model2][section2][field2].value;
+    bool = bool && (eval(v1 + compare + v2));
+  }
+  return bool;
+}
+
 function doCalculation(key, calcModel, section, field, models, calc) {
   return doFieldCalculation(calcModel, section, field, models, calc[key]);
 }
 
 function doFieldCalculation(calcModel, section, field, models, calc) {
   // if 'if' key exists, eval it all first to see if calc applies
-  var ifStatement = calc[calcModel][section][field].if;
-
-  var bool = true;
-  if (ifStatement) {
-    for (let i in calc[calcModel][section][field].if) {
-      var section1 = calc[calcModel][section][field].if[i].section1, field1 = calc[calcModel][section][field].if[i].field1,
-        section2 = calc[calcModel][section][field].if[i].section2, field2 = calc[calcModel][section][field].if[i].field2, value = calc[calcModel][section][field].if[i].value
-
-      var v1 = models[calcModel][section1][field1].value;
-      var compare = calc[calcModel][section][field].if[i].compare;
-      var v2 = value ? value : models[calcModel][section2][field2].value;
-      bool = bool && (eval(v1 + compare + v2));
-    }
-  }
+  var ifStatements = calc[calcModel][section][field].if;
+  var bool = ifStatements ? evalIf(ifStatements, models[calcModel]) : true;
 
   var value = bool ? models[calcModel][section][calc[calcModel][section][field].field].value : 0;
   var precent = calc[calcModel][section][field].percent;
@@ -55,4 +58,4 @@ function doCalculationEstimate(key, section, field, model, calc) {
 
 }
 
-export { doCalculation, doCalculationEstimate, doFieldCalculation };
+export { doCalculation, doCalculationEstimate, doFieldCalculation, evalIf };

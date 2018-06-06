@@ -18,14 +18,15 @@
           <input matInput [(ngModel)]=data[key].value type="number" class="form-control" placeholder="{{key}}" matTooltip="{{key}}">
         </mat-form-field>
       </div>
-      <div *ngIf="data[key].calcs">
+      <div class="col-sm-10" *ngIf="data[key].calcs">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
               {{key}}: {{calcField(data[key])}}
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <calculations-editor [calcs]="data[key].calcs" keyProvided="{{key}}"></calculations-editor>
+          <calculations-editor *ngIf="calcField(data[key]) !== false" [calcs]="data[key].calcs" [doCalcIf]="data[key].doCalcIf" keyProvided={{key}}></calculations-editor>
+          <calculations-editor *ngIf="calcField(data[key]) === false" [doCalcIf]="data[key].doCalcIf" keyProvided={{key}}></calculations-editor>
         </mat-expansion-panel>
       </div>
     </ng-template>

@@ -33,6 +33,7 @@ var models = {
       'Tax withheld': { value: null },
       'Computed Total': {
         value: null,
+        //doCalcIf: [{ model1: "Income", section1: "Salary and wages", field1: "Tax withheld", compare: '>', value: 100 }],
         calcs: {
           Income: {
             "Employer lump sum payments": [
@@ -62,9 +63,33 @@ var models = {
       'Offset amount': { value: null },
       'Death or disability': { value: "No", dropdown: ["No", "Death over 60", "Death under 60", "Disability"] },
     },
+    //"Super lump sum payments": {},
+    "Attributed personal service income": {
+      'Income': { value: null },
+      'Tax withheld': { value: null },
+    },
     Interest: {
         'Income': { value: null },
     },
+    Dividends: {
+      'Unfranked amount': { value: null },
+      'Franked amount': { value: null },
+      'Franking credit': { value: null },
+      'Computed Total': {
+        value: null,
+        doCalcIf: [{ model1: "Personal", section1: "Personal", field1: "fullYearRes", compare: '==', value: true }],
+        calcs: {
+          Income: {
+            "Dividends": [
+              { field: "Unfranked amount", operation: '+' },
+              { field: "Franked amount", operation: '+' },
+              { field: "Franking credit", operation: '+' },
+            ]
+          }
+        },
+      }
+    }
+
   },
   "Suppelementry Section": {
     "Partnerships and trust Primary production": {
