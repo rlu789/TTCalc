@@ -20,6 +20,8 @@ function doFieldCalculation(calcModel, section, field, models, calc) {
   }
 
   var value = bool ? models[calcModel][section][calc[calcModel][section][field].field].value : 0;
+  var precent = calc[calcModel][section][field].percent;
+  if (precent) value = value * precent;
   switch (calc[calcModel][section][field].operation) {
     case '+':
       return +value;

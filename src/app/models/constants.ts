@@ -4,20 +4,6 @@ var models = {
       'Gross Income': { value: null },
       'Tax Withheld': { value: null },
       'Code': { value: null, dropdown: ["", "H"] },
-      //"TEST": {
-      //  value: null,
-      //  calcs: {
-      //    Income: {
-      //      "Salary and wages": [
-      //        { field: "Gross Income", operation: '+' },
-      //        { field: "Tax Withheld", operation: '-', if: [{ model1: "Income", section1: "SWA", field1: "Tax Withheld", compare: '>', model2: "Income", section2: "SWA", field2: "Gross Income" }] },
-      //      ],
-      //      Interest: [
-      //        { section: "Interest", field: "Gross Interest", operation: '+' },
-      //      ]
-      //    }
-      //  },
-      //}
     },
     Allowances: {
       'Gross Income': { value: null },
@@ -31,6 +17,17 @@ var models = {
       'Code': { value: "R", dropdown: ["R", "T"]},
       'Lump sum B': { value: null },
       'Tax Withheld': { value: null },
+      'Computed Total': {
+        value: null,
+        calcs: {
+          Income: {
+            "Employer lump sum payments": [
+              { field: "Lump sum A", operation: '+' },
+              { field: "Lump sum B", operation: '+', percent: '0.05' },
+            ]
+          }
+        },
+      }
     },
     "Employer termination payments": {
       'Gross Income': { value: null },

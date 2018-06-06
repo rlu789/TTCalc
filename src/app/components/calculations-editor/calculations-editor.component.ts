@@ -8,6 +8,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class CalculationsEditor {
   @Input('calcs') calcs: any;
+  @Input('keyProvided') keyProvided: string;
   addCalcForm = {
     name: null,
     model: null,
@@ -22,11 +23,17 @@ export class CalculationsEditor {
 
   ngOnInit() {
     console.log(this.calcs);
+    console.log(this.keyProvided);
   }
 
   deteleCalc(key, modelKey, sectionKey, childKey) {
     this.calcs[key][modelKey][sectionKey].splice(childKey, 1);
     if (!this.calcs[key][modelKey][sectionKey].length) delete this.calcs[key][modelKey][sectionKey];
+  }
+
+  deteleCalcInFieldMode(modelKey, sectionKey, childKey) {
+    this.calcs[modelKey][sectionKey].splice(childKey, 1);
+    if (!this.calcs[modelKey][sectionKey].length) delete this.calcs[modelKey][sectionKey];
   }
 
   setupAdd(key) {
@@ -42,15 +49,34 @@ export class CalculationsEditor {
       console.log(this.calcs)
       console.log('The dialog was closed');
       if (result) {
-        //TODO might have to account for model also not existing
-        if (!this.calcs[this.addCalcForm.name][this.addCalcForm.model].hasOwnProperty([this.addCalcForm.section]))
-          this.calcs[this.addCalcForm.name][this.addCalcForm.model][this.addCalcForm.section] = [];
-        this.calcs[this.addCalcForm.name][this.addCalcForm.model][this.addCalcForm.section].push({
-          field: this.addCalcForm.field,
-          operation: this.addCalcForm.operation,
-          if: this.addCalcForm.ifChecked ? this.addCalcForm.if : null,
-        });
-        console.log(this.calcs);
+        if (!this.keyProvided) {
+          // if no key provided, we're NOT in field mode, so name key is needed
+          if (!this.calcs[this.addCalcForm.name].hasOwnProperty([this.addCalcForm.model]))
+            this.calcs[this.addCalcForm.name][this.addCalcForm.model] = {};
+          if (!this.calcs[this.addCalcForm.name][this.addCalcForm.model].hasOwnProperty([this.addCalcForm.section]))
+            this.calcs[this.addCalcForm.name][this.addCalcForm.model][this.addCalcForm.section] = [];
+          this.calcs[this.addCalcForm.name][this.addCalcForm.model][this.addCalcForm.section].push({
+            field: this.addCalcForm.field,
+            operation: this.addCalcForm.operation,
+            if: this.addCalcForm.ifChecked ? this.addCalcForm.if : null,
+          });
+          console.log(this.calcs);
+        }
+        else {
+          if (!this.calcs.hasOwnProperty([this.addCalcForm.model]))
+            this.calcs[this.addCalcForm.model] = {};
+          if (!this.calcs[this.addCalcForm.model].hasOwnProperty([this.addCalcForm.section]))
+            this.calcs[this.addCalcForm.model][this.addCalcForm.section] = [];
+          this.calcs[this.addCalcForm.model][this.addCalcForm.section].push({
+            field: this.addCalcForm.field,
+            operation: this.addCalcForm.operation,
+            if: this.addCalcForm.ifChecked ? this.addCalcForm.if : null,
+          });
+          console.log(this.calcs);
+
+        }
+
+
         //for (let key in this.addCalcForm) {
         //  if (this.addCalcForm.hasOwnProperty(key)) {
         //    this.addCalcForm[key] = null;
