@@ -1,13 +1,27 @@
+var minutes = 1000 * 60,
+  hours = minutes * 60,
+  days = hours * 24,
+  years = days * 365;
+
 var models = {
+  Personal: {
+    Personal: {
+      age: { value: 35 },
+      fullYearRes: { value: true },
+      fullYearResFrom: { value: null },
+      fullYearResTo: { value: null },
+      dateDifferenceDays: { value: null },
+    }
+  },
   Income: {
     "Salary and wages": {
-      'Gross Income': { value: null },
-      'Tax Withheld': { value: null },
+      'Income': { value: null },
+      'Tax withheld': { value: null },
       'Code': { value: null, dropdown: ["", "H"] },
     },
     Allowances: {
-      'Gross Income': { value: null },
-      'Tax Withheld': { value: null },
+      'Income': { value: null },
+      'Tax withheld': { value: null },
       //'Code': { //do this need to be here?
       //  value: null, dropdown: ["H"]
       //},
@@ -16,7 +30,7 @@ var models = {
       'Lump sum A': { value: null },
       'Code': { value: "R", dropdown: ["R", "T"]},
       'Lump sum B': { value: null },
-      'Tax Withheld': { value: null },
+      'Tax withheld': { value: null },
       'Computed Total': {
         value: null,
         calcs: {
@@ -30,12 +44,26 @@ var models = {
       }
     },
     "Employer termination payments": {
-      'Gross Income': { value: null },
-      'Tax Withheld': { value: null },
+      'Income': { value: null },
+      'Tax withheld': { value: null },
       'Code': { value: "R", dropdown: ["R", "O", "S", "P", "S", "B", "N", "T", "D"] },
     },
+    "Government payments": {
+      'Income': { value: null },
+      'Tax withheld': { value: null },
+      'Code': { value: "Offset", dropdown: ["Offset", "Not Offset"] },
+    },
+    "Annuities and super income stream": {
+      'Taxed element': { value: null },
+      'Untaxed element': { value: null },
+      'Tax withheld': { value: null },
+      'Lump sum - Taxed element': { value: null },
+      'Lump sum - Untaxed element': { value: null },
+      'Offset amount': { value: null },
+      'Death or disability': { value: "No", dropdown: ["No", "Death over 60", "Death under 60", "Disability"] },
+    },
     Interest: {
-        'Gross Interest': { value: null },
+        'Income': { value: null },
     },
   },
   "Suppelementry Section": {
@@ -45,6 +73,14 @@ var models = {
       'Landcare operations and deductions - water facility': { value: null },
       'Deductions for distribution from p/ship and share of net income from trust': { value: null },
     },
+  }
+};
+
+// >:(
+models.Personal.Personal.dateDifferenceDays.value = function () {
+  if (models.Personal.Personal.fullYearRes.value) return 365;
+  if (!models.Personal.Personal.fullYearRes.value && models.Personal.Personal.fullYearResFrom.value && models.Personal.Personal.fullYearResTo.value) {
+    return (models.Personal.Personal.fullYearResTo.value.getTime() - models.Personal.Personal.fullYearResFrom.value.getTime()) / days;
   }
 };
 

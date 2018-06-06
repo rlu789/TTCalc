@@ -5,18 +5,21 @@ var incomeCalcs = {
   "Total Income": {
     Income: {
       "Salary and wages": [
-        { field: "Gross Income", operation: '+' },
-        { field: "Tax Withheld", operation: '-', if: [{ model1: "Income", section1: "Salary and wages", field1: "Tax Withheld", compare: '>', value: 100 }] },
+        { field: "Income", operation: '+' },
+        {
+          field: "Tax withheld", operation: '-',
+          //if: [{ model1: "Income", section1: "Salary and wages", field1: "Tax withheld", compare: '>', value: 100 } ]
+        },
       ],
       Interest: [
-        { section: "Interest", field: "Gross Interest", operation: '+' },
+        { section: "Interest", field: "Income", operation: '+' },
       ]
     }
   },
   "Tax Withheld": {
     Income: {
       "Salary and wages": [
-        { field: "Tax Withheld", operation: '+' }
+        { field: "Tax withheld", operation: '+' }
       ]
     }
   }
