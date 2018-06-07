@@ -7,7 +7,7 @@ var models = {
   Personal: {
     Personal: {
       age: { value: 35 },
-      fullYearRes: { value: true },
+      "Full Year Resident": { value: true },
       fullYearResFrom: { value: null },
       fullYearResTo: { value: null },
       dateDifferenceDays: { value: null },
@@ -77,7 +77,7 @@ var models = {
       'Franking credit': { value: null },
       'Computed Total': {
         value: null,
-        doCalcIf: [{ model1: "Personal", section1: "Personal", field1: "fullYearRes", compare: '==', value: true }],
+        doCalcIf: [{ model1: "Personal", section1: "Personal", field1: "Full Year Resident", compare: '==', value: true }],
         calcs: {
           Income: {
             "Dividends": [
@@ -103,8 +103,8 @@ var models = {
 
 // >:(
 models.Personal.Personal.dateDifferenceDays.value = function () {
-  if (models.Personal.Personal.fullYearRes.value) return 365;
-  if (!models.Personal.Personal.fullYearRes.value && models.Personal.Personal.fullYearResFrom.value && models.Personal.Personal.fullYearResTo.value) {
+  if (models.Personal.Personal["Full Year Resident"].value) return 365;
+  if (!models.Personal.Personal["Full Year Resident"].value && models.Personal.Personal.fullYearResFrom.value && models.Personal.Personal.fullYearResTo.value) {
     return (models.Personal.Personal.fullYearResTo.value.getTime() - models.Personal.Personal.fullYearResFrom.value.getTime()) / days;
   }
 };

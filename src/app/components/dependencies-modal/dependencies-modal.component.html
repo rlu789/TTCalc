@@ -40,25 +40,43 @@
         </mat-expansion-panel-header>
         <div class="row">
           <mat-form-field>
-            <input matInput placeholder="Model 1" [(ngModel)]=i.model1>
+            <mat-select [(value)]="i.model1" placeholder="Model 1">
+              <mat-option>...</mat-option>
+              <mat-option *ngFor="let option of constants.models | keys" value="{{option}}">{{option}}</mat-option>
+            </mat-select>
           </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Section 1" [(ngModel)]=i.section1>
+          <mat-form-field *ngIf="i.model1">
+            <mat-select [(value)]="i.section1" placeholder="Section 1">
+              <mat-option>...</mat-option>
+              <mat-option *ngFor="let option of constants.models[i.model1] | keys" value="{{option}}">{{option}}</mat-option>
+            </mat-select>
           </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Field 1" [(ngModel)]=i.field1>
+          <mat-form-field *ngIf="i.model1 && i.section1">
+            <mat-select [(value)]="i.field1" placeholder="Field 1">
+              <mat-option>...</mat-option>
+              <mat-option *ngFor="let option of constants.models[i.model1][i.section1] | keys" value="{{option}}">{{option}}</mat-option>
+            </mat-select>
           </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="Compare With" [(ngModel)]=i.compare>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Model 2" [(ngModel)]=i.model2>
+            <mat-select [(value)]="i.model2" placeholder="Model 2">
+              <mat-option>...</mat-option>
+              <mat-option *ngFor="let option of constants.models | keys" value="{{option}}">{{option}}</mat-option>
+            </mat-select>
           </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Section 2" [(ngModel)]=i.section2>
+          <mat-form-field *ngIf="i.model2">
+            <mat-select [(value)]="i.section2" placeholder="Section 2">
+              <mat-option>...</mat-option>
+              <mat-option *ngFor="let option of constants.models[i.model2] | keys" value="{{option}}">{{option}}</mat-option>
+            </mat-select>
           </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Field 2" [(ngModel)]=i.field2>
+          <mat-form-field *ngIf="i.model2 && i.section2">
+            <mat-select [(value)]="i.field2" placeholder="Field 2">
+              <mat-option>...</mat-option>
+              <mat-option *ngFor="let option of constants.models[i.model2][i.section2] | keys" value="{{option}}">{{option}}</mat-option>
+            </mat-select>
           </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="Or Value" [(ngModel)]=i.value>
