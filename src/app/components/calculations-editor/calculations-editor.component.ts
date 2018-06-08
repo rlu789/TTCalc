@@ -41,7 +41,7 @@ export class CalculationsEditor {
 
   deteleDoCalcIf(i) {
     this.doCalcIf.splice(i, 1);
-    console.log(this.doCalcIf)
+    console.log(this.doCalcIf);
     //if (!doCalcIf.length) 
   }
 
@@ -56,7 +56,6 @@ export class CalculationsEditor {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(this.calcs)
-      console.log('The dialog was closed');
       if (result) {
         if (!this.keyProvided) {
           // if no key provided, we're NOT in field mode, so name key is needed
@@ -69,7 +68,6 @@ export class CalculationsEditor {
             operation: this.addCalcForm.operation,
             if: this.addCalcForm.ifChecked ? this.addCalcForm.if : null,
           });
-          console.log(this.calcs);
         }
         else {
           if (!this.calcs.hasOwnProperty([this.addCalcForm.model]))
@@ -81,10 +79,8 @@ export class CalculationsEditor {
             operation: this.addCalcForm.operation,
             if: this.addCalcForm.ifChecked ? this.addCalcForm.if : null,
           });
-          console.log(this.calcs);
-
         }
-
+        console.log(this.calcs);
 
         //for (let key in this.addCalcForm) {
         //  if (this.addCalcForm.hasOwnProperty(key)) {

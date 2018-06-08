@@ -1,14 +1,17 @@
 function evalIf(ifs, models) {
   if (!ifs) return true;
-  var bool = true;
+  var bool = null;
   for (let i in ifs) {
     var model1 = ifs[i].model1, section1 = ifs[i].section1, field1 = ifs[i].field1,
       model2 = ifs[i].model2, section2 = ifs[i].section2, field2 = ifs[i].field2, value = ifs[i].value;
 
+    var compareWithPrevious = ifs[i].compareWithPrevious ? ifs[i].compareWithPrevious : "&&";
     var v1 = models[model1][section1][field1].value;
     var compare = ifs[i].compare;
     var v2 = value ? value : models[model2][section2][field2].value;
-    bool = bool && (eval(v1 + compare + v2));
+
+    // if bool is not initialized, set the value to be the first eval statement with no previous compare
+    bool = bool === null ? (eval(v1 + compare + v2)) : (eval(bool + compareWithPrevious + v1 + compare + v2));
   }
   return bool;
 }
@@ -20,7 +23,7 @@ function doCalculation(key, calcModel, section, field, models, calc) {
 function doFieldCalculation(calcModel, section, field, models, calc) {
   // if 'if' key exists, eval it all first to see if calc applies
   var ifStatements = calc[calcModel][section][field].if;
-  var bool = ifStatements ? evalIf(ifStatements, models[calcModel]) : true;
+  var bool = evalIf(ifStatements, models[calcModel]);
 
   var value = bool ? models[calcModel][section][calc[calcModel][section][field].field].value : 0;
   var precent = calc[calcModel][section][field].percent;
