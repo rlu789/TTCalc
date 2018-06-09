@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import * as common from '../../models/common';
-import * as constants from '../../models/constants';
  
 @Component({
   selector: 'section-fields',
@@ -14,7 +13,7 @@ export class SectionFields {
   }
 
   calcField(thisField) {
-    if (!common.evalIf(thisField.doCalcIf, constants.models)) {
+    if (!common.evalIf(thisField.doCalcIf)) {
       thisField.value = 0;
       return false;
     }
@@ -22,7 +21,7 @@ export class SectionFields {
     for (let model in thisField.calcs) {
       for (let section in thisField.calcs[model]) {
         for (let field in thisField.calcs[model][section]) {
-          value += common.doFieldCalculation(model, section, field, constants.models, thisField.calcs)
+          value += common.doFieldCalculation(model, section, field, thisField.calcs)
         }
       }
     }

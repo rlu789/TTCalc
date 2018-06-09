@@ -7,14 +7,14 @@ import * as income from './models/income/incomeModel'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  deleteLocal() {
-    localStorage.clear();
-    window.location.reload();
-  }
+  //TODO REDO
+  //deleteLocal() {
+  //  localStorage.clear();
+  //  window.location.reload();
+  //}
 
-  saveCalcs() {
-    localStorage.setItem('incomeCalcs', JSON.stringify(income.saveIncomeCalcs()));
-    console.log(localStorage);
-    //localStorage.incomeCalcs = income.getIncomeCalcs();
-  }
+  //saveCalcs() {
+  //  localStorage.setItem('incomeCalcs', JSON.stringify(income.saveIncomeCalcs()));
+  //  console.log(localStorage);
+  //}
 }

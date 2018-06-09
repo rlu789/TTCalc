@@ -27,7 +27,7 @@ export class DependenciesModal {
   }
 
   addIf() {
-    this.data.data.if.push({ section1: null, field1: null, compare: null, value: null, section2: null, field2: null });
+    this.data.data.if.push({ model1: null, section1: null, field1: null, compare: null, value: null, model2: null, section2: null, field2: null, compareWithPrevious: '&&' });
     console.log(this.data.data.if)
   }
 }

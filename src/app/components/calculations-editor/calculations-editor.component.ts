@@ -18,7 +18,8 @@ export class CalculationsEditor {
     field: null,
     operation: null,
     ifChecked: false,
-    if: [{ model1: null, section1: null, field1: null, compare: null, value: null, model2: null, section2: null, field2: null }]
+    if: [{
+      model1: null, section1: null, field1: null, compare: null, value: null, model2: null, section2: null, field2: null, compareWithPrevious: null }]
   };
   
   constructor(public dialog: MatDialog) { }
@@ -41,14 +42,13 @@ export class CalculationsEditor {
 
   deteleDoCalcIf(i) {
     this.doCalcIf.splice(i, 1);
-    console.log(this.doCalcIf);
-    //if (!doCalcIf.length) 
+    if (!this.doCalcIf.length) this.doCalcIf = null;
   }
 
   setupAdd(key) {
     this.addCalcForm.name = key;
     //TODO redo the if part
-    this.addCalcForm.if = [{ model1: null, section1: null, field1: null, compare: null, value: null, model2: null, section2: null, field2: null }]; 
+    this.addCalcForm.if = [{ model1: null, section1: null, field1: null, compare: null, value: null, model2: null, section2: null, field2: null, compareWithPrevious: '&&' }]; 
     let dialogRef = this.dialog.open(DependenciesModal, {
       width: '450px',
       data: { data: this.addCalcForm }

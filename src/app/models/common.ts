@@ -1,5 +1,9 @@
-function evalIf(ifs, models) {
-  if (!ifs) return true;
+import * as constants from './constants';
+
+var models = constants.models;
+
+function evalIf(ifs) {
+  if (!ifs || !ifs.length) return true;
   var bool = null;
   for (let i in ifs) {
     var model1 = ifs[i].model1, section1 = ifs[i].section1, field1 = ifs[i].field1,
@@ -16,14 +20,14 @@ function evalIf(ifs, models) {
   return bool;
 }
 
-function doCalculation(key, calcModel, section, field, models, calc) {
-  return doFieldCalculation(calcModel, section, field, models, calc[key]);
+function doCalculation(key, calcModel, section, field, calc) {
+  return doFieldCalculation(calcModel, section, field, calc[key]);
 }
 
-function doFieldCalculation(calcModel, section, field, models, calc) {
+function doFieldCalculation(calcModel, section, field, calc) {
   // if 'if' key exists, eval it all first to see if calc applies
   var ifStatements = calc[calcModel][section][field].if;
-  var bool = evalIf(ifStatements, models[calcModel]);
+  var bool = evalIf(ifStatements);
 
   var value = bool ? models[calcModel][section][calc[calcModel][section][field].field].value : 0;
   var precent = calc[calcModel][section][field].percent;

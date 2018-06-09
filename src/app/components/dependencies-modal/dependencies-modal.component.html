@@ -35,10 +35,13 @@
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            If {{i.model1}} {{i.section1}} {{i.field1}} {{i.compare}} {{i.model2}} {{i.section2}} {{i.field2}} {{i.value}}
+            If Previous Value {{i.compareWithPrevious}} {{i.model1}} {{i.section1}} {{i.field1}} {{i.compare}} {{i.model2}} {{i.section2}} {{i.field2}} {{i.value}}
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="row">
+          <mat-form-field>
+            <input matInput placeholder="Compare With Previous" [(ngModel)]=i.compareWithPrevious>
+          </mat-form-field>
           <mat-form-field>
             <mat-select [(value)]="i.model1" placeholder="Model 1">
               <mat-option>...</mat-option>

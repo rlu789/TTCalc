@@ -3,6 +3,32 @@ var minutes = 1000 * 60,
   days = hours * 24,
   years = days * 365;
 
+var calcs = {
+  incomeCalcs: {
+    "Total Income": {
+      Income: {
+        "Salary and wages": [
+          { field: "Income", operation: '+' },
+          {
+            field: "Tax withheld", operation: '-',
+            //if: [{ model1: "Income", section1: "Salary and wages", field1: "Tax withheld", compare: '>', value: 100 } ]
+          },
+        ],
+        Interest: [
+          { section: "Interest", field: "Income", operation: '+' },
+        ]
+      }
+    },
+    "Tax Withheld": {
+      Income: {
+        "Salary and wages": [
+          { field: "Tax withheld", operation: '+' }
+        ]
+      }
+    }
+  },
+}
+
 var models = {
   Personal: {
     Personal: {
@@ -81,7 +107,7 @@ var models = {
         calcs: {
           Income: {
             "Dividends": [
-              { field: "Unfranked amount", operation: '+' },
+              { field: "Unfranked amount", operation: '+', if: [{ model1: "Income", section1: "Salary and wages", field1: "Tax withheld", compare: '>', value: 100 }]},
               { field: "Franked amount", operation: '+' },
               { field: "Franking credit", operation: '+' },
             ]
@@ -109,4 +135,4 @@ models.Personal.Personal.dateDifferenceDays.value = function () {
   }
 };
 
-export { models };
+export { models, calcs };
