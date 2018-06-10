@@ -1,4 +1,21 @@
-<nav class="navbar navbar-expand-lg justify-content-between">
+<div class="container-fluid">
+  <ngb-tabset>
+    <div *ngFor="let page of pages | keys">
+      <ngb-tab title={{page}}>
+        <ng-template ngbTabContent>
+          <page [data]="pages[page]" [page]="page"></page>
+        </ng-template>
+      </ngb-tab>
+    </div>
+    <ngb-tab title="Personal">
+      <ng-template ngbTabContent>
+        <app-personal></app-personal>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>
+
+<!--<nav class="navbar navbar-expand-lg justify-content-between">
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
@@ -15,4 +32,4 @@
     <button mat-raised-button color="accent" (click)="saveCalcs()">Save Calcs</button>
   </div>
 </nav>
-<router-outlet></router-outlet>
+<router-outlet></router-outlet>-->

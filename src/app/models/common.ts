@@ -41,6 +41,22 @@ function doFieldCalculation(calcModel, section, field, calc) {
 
 }
 
+function calcTotalsForPage(page) {
+  var totals = {};
+  for (let total in constants.calcs[page]) {
+    totals[total] = 0;
+    for (let model in constants.calcs[page][total]) {
+      for (let section in constants.calcs[page][total][model]) {
+        for (let field in constants.calcs[page][total][model][section]) {
+          totals[total] += doCalculation(total, model, section, field, constants.calcs[page]);
+        }
+      }
+    }
+  }
+  console.log(totals);
+  return totals;
+}
+
 //REDO THIS TO ACCOUNT FOR CALC MODEL
 function doCalculationEstimate(key, section, field, model, calc) {
   //console.log(calc[key][section]);
@@ -65,4 +81,4 @@ function doCalculationEstimate(key, section, field, model, calc) {
 
 }
 
-export { doCalculation, doCalculationEstimate, doFieldCalculation, evalIf };
+export { doCalculation, doCalculationEstimate, doFieldCalculation, evalIf, calcTotalsForPage };

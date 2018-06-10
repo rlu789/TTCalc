@@ -5,7 +5,7 @@ function initIncome() {
   return { Income: constants.models.Income, "Suppelementry Section": constants.models["Suppelementry Section"] };
 }
 
-var incomeCalcs = constants.calcs.incomeCalcs;
+var incomeCalcs = constants.calcs.Income;
 
 function getIncomeCalcs() { // account for saved data in local storage
   console.log(JSON.parse(localStorage.getItem('incomeCalcs')));

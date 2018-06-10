@@ -11,6 +11,7 @@ import {
 
 //components and pipes
 import { KeysPipe } from './pipes/keysPipe'
+import { Page } from './components/page/page.component';
 import { SectionFields } from './components/section-fields/section-fields.component';
 import { DependenciesModal } from './components/dependencies-modal/dependencies-modal.component'
 import { CalculationsEditor } from './components/calculations-editor/calculations-editor.component';
@@ -20,13 +21,14 @@ import { AppComponent } from './app.component';
 import { IncomeComponent } from './pages/income/income.component';
 import { EstimateComponent } from './pages/estimate/estimate.component';
 import { PersonalComponent } from './pages/personal/personal.component'
-import { AppRoutingModule } from './routes/app-routing.module';
+//import { AppRoutingModule } from './routes/app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
 
     KeysPipe,
+    Page,
     SectionFields,
     DependenciesModal,
     CalculationsEditor,
@@ -37,7 +39,7 @@ import { AppRoutingModule } from './routes/app-routing.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    //AppRoutingModule,
     FormsModule, ReactiveFormsModule,
     NgbModule.forRoot(),
 

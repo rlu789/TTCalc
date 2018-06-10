@@ -1,0 +1,40 @@
+<div style="margin-top: 10px;">
+  <ngb-tabset>
+    <div *ngFor="let part of data | keys">
+      <ngb-tab title={{part}}>
+        <ng-template ngbTabContent>
+          <div style="margin-top: 10px;"></div>
+          <div *ngFor="let key of data[part] | keys">
+            <section-fields [data]="data[part][key]" [section]="key"></section-fields>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </div>
+  </ngb-tabset>
+
+  <!--<div class="row" style="margin-top: 30px;">
+    <div class="col-sm-2">
+      <div class="alert alert-dark" role="alert">
+        Total Income : <b>{{totals().income}}</b>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="alert alert-dark" role="alert">
+        Tax Withheld : <b>{{totals().withheld}}</b>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="alert alert-dark" role="alert">
+        Final : <b>{{totals().final}}</b>
+      </div>
+    </div>
+  </div>-->
+  <div class="row" style="margin-top: 30px;">
+    <div class="col-sm-2" *ngFor="let total of calcTotals() | keys">
+      <div class="alert alert-dark" role="alert">
+        {{total}} : <b>{{calcTotals()[total]}}</b>
+      </div>
+    </div>
+  </div>
+  <calculations-editor [calcs]="calcs"></calculations-editor>
+</div>

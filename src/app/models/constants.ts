@@ -4,7 +4,7 @@ var minutes = 1000 * 60,
   years = days * 365;
 
 var calcs = {
-  incomeCalcs: {
+  Income: {
     "Total Income": {
       Income: {
         "Salary and wages": [
@@ -107,7 +107,7 @@ var models = {
         calcs: {
           Income: {
             "Dividends": [
-              { field: "Unfranked amount", operation: '+', if: [{ model1: "Income", section1: "Salary and wages", field1: "Tax withheld", compare: '>', value: 100 }]},
+              { field: "Unfranked amount", operation: '+'},
               { field: "Franked amount", operation: '+' },
               { field: "Franking credit", operation: '+' },
             ]
@@ -135,4 +135,9 @@ models.Personal.Personal.dateDifferenceDays.value = function () {
   }
 };
 
-export { models, calcs };
+var pages = {
+  Income: { Income: models.Income, "Suppelementry Section": models["Suppelementry Section"] },
+  "Managed Funds": {},
+}
+
+export { pages, models, calcs };
