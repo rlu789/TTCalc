@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Add New</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput [(ngModel)]=data.data.model type="text" class="form-control" placeholder="Model">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]=data.data.section type="text" class="form-control" placeholder="Section">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]=data.data.field type="text" class="form-control" placeholder="Field">
+  </mat-form-field>
+  <section>
+    <mat-checkbox [(ngModel)]="data.data.computed">Readonly / Computed Field</mat-checkbox>
+  </section>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="add()">Add</button>
+  <button mat-button (click)="cancel()">Cancel</button>
+</div>

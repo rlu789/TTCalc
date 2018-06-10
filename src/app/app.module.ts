@@ -12,6 +12,7 @@ import {
 //components and pipes
 import { KeysPipe } from './pipes/keysPipe'
 import { Page } from './components/page/page.component';
+import { AddFormModal } from './components/add-form-modal/add-form-modal.component';
 import { SectionFields } from './components/section-fields/section-fields.component';
 import { DependenciesModal } from './components/dependencies-modal/dependencies-modal.component'
 import { CalculationsEditor } from './components/calculations-editor/calculations-editor.component';
@@ -29,6 +30,7 @@ import { PersonalComponent } from './pages/personal/personal.component'
 
     KeysPipe,
     Page,
+    AddFormModal,
     SectionFields,
     DependenciesModal,
     CalculationsEditor,
@@ -57,6 +59,7 @@ import { PersonalComponent } from './pages/personal/personal.component'
     MatTooltipModule
   ],
   entryComponents: [
+    AddFormModal,
     DependenciesModal,
   ],
   providers: [],

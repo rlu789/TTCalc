@@ -12,8 +12,8 @@ export class Page {
   @Input('page') page: string;
   
   ngOnInit() {
-    console.log(this.data);
-    console.log(constants.calcs[this.page]);
+    //console.log(this.data);
+    //console.log(constants.calcs[this.page]);
     this.calcs = constants.calcs[this.page];
   }
 

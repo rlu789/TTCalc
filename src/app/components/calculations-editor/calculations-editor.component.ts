@@ -33,11 +33,13 @@ export class CalculationsEditor {
   deteleCalc(key, modelKey, sectionKey, childKey) {
     this.calcs[key][modelKey][sectionKey].splice(childKey, 1);
     if (!this.calcs[key][modelKey][sectionKey].length) delete this.calcs[key][modelKey][sectionKey];
+    if (!Object.keys(this.calcs[key][modelKey]).length) delete this.calcs[key][modelKey];
   }
 
   deteleCalcInFieldMode(modelKey, sectionKey, childKey) {
     this.calcs[modelKey][sectionKey].splice(childKey, 1);
     if (!this.calcs[modelKey][sectionKey].length) delete this.calcs[modelKey][sectionKey];
+    if (!Object.keys(this.calcs[modelKey]).length) delete this.calcs[modelKey];
   }
 
   deteleDoCalcIf(i) {

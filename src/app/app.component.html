@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" style="margin-top: 10px;">
   <ngb-tabset>
     <div *ngFor="let page of pages | keys">
       <ngb-tab title={{page}}>
@@ -14,22 +14,3 @@
     </ngb-tab>
   </ngb-tabset>
 </div>
-
-<!--<nav class="navbar navbar-expand-lg justify-content-between">
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="">Personal </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/app-income">Income </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/app-estimate">Estimate</a>
-      </li>
-    </ul>
-    <button mat-raised-button color="accent" (click)="deleteLocal()">Clear Data</button>
-    <button mat-raised-button color="accent" (click)="saveCalcs()">Save Calcs</button>
-  </div>
-</nav>
-<router-outlet></router-outlet>-->

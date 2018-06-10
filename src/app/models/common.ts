@@ -53,7 +53,6 @@ function calcTotalsForPage(page) {
       }
     }
   }
-  console.log(totals);
   return totals;
 }
 
