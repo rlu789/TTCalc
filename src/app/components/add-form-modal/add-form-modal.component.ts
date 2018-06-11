@@ -18,6 +18,10 @@ export class AddFormModal {
     this.dialogRef.close("add");
   }
 
+  addOption(opt) {
+    this.data.data.dropdownOptions.push(opt);
+  }
+
   cancel() {
     this.dialogRef.close();
   }

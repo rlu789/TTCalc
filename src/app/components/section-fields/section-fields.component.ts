@@ -13,7 +13,8 @@ export class SectionFields {
     model: null,
     section: null,
     field: null,
-    option: 'N'
+    option: 'N',
+    dropdownOptions: []
   }
   @Input('data') data: null;
   @Input('model') model: string;
@@ -52,8 +53,9 @@ export class SectionFields {
   addField() {
     this.addFormData.model = this.model;
     this.addFormData.section = this.section;
+    this.addFormData.dropdownOptions = [];
     let dialogRef = this.dialog.open(AddFormModal, {
-      width: '450px',
+      width: '600px',
       data: { data: this.addFormData }
     });
 
@@ -61,12 +63,24 @@ export class SectionFields {
       if (result) {
         if (!constants.models[this.addFormData.model].hasOwnProperty([this.addFormData.section]))
           constants.models[this.addFormData.model][this.addFormData.section] = {};
-        if (this.addFormData.field && !constants.models[this.addFormData.model][this.addFormData.section].hasOwnProperty([this.addFormData.field]))
-          constants.models[this.addFormData.model][this.addFormData.section][this.addFormData.field] =
-            this.addFormData.option === 'C' ? { value: null, calcs: {} } : { value: null };
-
+        if (this.addFormData.field && !constants.models[this.addFormData.model][this.addFormData.section].hasOwnProperty([this.addFormData.field])) {
+          var input = null;
+          switch (this.addFormData.option) {
+            case 'N':
+              input = { value: null };
+              break;
+            case 'D':
+              input = { value: null, dropdown: this.addFormData.dropdownOptions };
+              break;
+            case 'C':
+              input = { value: null, calcs: {} };
+              break;
+          }
+          constants.models[this.addFormData.model][this.addFormData.section][this.addFormData.field] = input;
+        }
         console.log(constants.models[this.addFormData.model])
       }
+      console.log(this.addFormData)
     });
   }
 }

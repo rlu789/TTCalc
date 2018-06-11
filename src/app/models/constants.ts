@@ -140,7 +140,7 @@ var pages = {
   "Managed Funds": {},
 }
 
-var editMode = false;
+var editMode = true;
 function toggleEdit() {
   editMode = !editMode;
 }

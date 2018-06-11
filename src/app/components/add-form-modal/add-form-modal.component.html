@@ -12,9 +12,21 @@
   <mat-form-field>
     <mat-select [(value)]="data.data.option" placeholder="Option">
       <mat-option value="N">Normal Input</mat-option>
+      <mat-option value="D">Dropdown</mat-option>
       <mat-option value="C">Readonly / Computed Field</mat-option>
     </mat-select>
   </mat-form-field>
+  <div *ngIf="data.data.option === 'D'">
+    <mat-form-field>
+      <input matInput [(ngModel)]="optionName" type="text" class="form-control" placeholder="Option">
+    </mat-form-field>
+    <button mat-button (click)="addOption(optionName)">Add Option</button>
+    <div style="float:right">
+      <div *ngFor="let opt of data.data.dropdownOptions">
+        {{opt}}
+      </div>
+    </div>
+  </div>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="add()">Add</button>
