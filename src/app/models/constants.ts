@@ -140,4 +140,6 @@ var pages = {
   "Managed Funds": {},
 }
 
-export { pages, models, calcs };
+var editMode = false;
+
+export { pages, models, calcs, editMode };

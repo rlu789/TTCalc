@@ -12,7 +12,7 @@
               <b>{{sectionKey}}</b>
               <div *ngFor="let childKey of calcs[key][modelKey] [sectionKey] | keys">
                 <span>{{calcs[key][modelKey][sectionKey][childKey].field}} ({{calcs[key][modelKey][sectionKey][childKey].operation}}) {{calcs[key][modelKey][sectionKey][childKey].percent}}</span>
-                <button type="button" class="close" aria-label="Close" (click)="deteleCalc(key, modelKey, sectionKey, childKey)">&times;</button>
+                <button type="button" class="close" (click)="deteleCalc(key, modelKey, sectionKey, childKey)">&times;</button>
                 <div *ngIf="calcs[key][modelKey][sectionKey][childKey].if">
                   <u>Do If:</u><br />
                   <div *ngFor="let ifs of calcs[key][modelKey][sectionKey][childKey].if">
@@ -55,7 +55,7 @@
             <b>{{sectionKey}}</b>
             <div *ngFor="let childKey of calcs[modelKey] [sectionKey] | keys">
               <span>{{calcs[modelKey][sectionKey][childKey].field}} ({{calcs[modelKey][sectionKey][childKey].operation}}) {{calcs[modelKey][sectionKey][childKey].percent}}</span>
-              <button type="button" class="close" aria-label="Close" (click)="deteleCalcInFieldMode(modelKey, sectionKey, childKey)">&times;</button>
+              <button type="button" class="close" (click)="deteleCalcInFieldMode(modelKey, sectionKey, childKey)">&times;</button>
               <div *ngIf="calcs[modelKey][sectionKey][childKey].if">
                 <u>Do If:</u><br />
                 <div *ngFor="let ifs of calcs[modelKey][sectionKey][childKey].if">

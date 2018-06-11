@@ -29,6 +29,21 @@ function doFieldCalculation(calcModel, section, field, calc) {
   var ifStatements = calc[calcModel][section][field].if;
   var bool = evalIf(ifStatements);
 
+  //check dependencies, if section / field has been deleted, then delete the calc as well
+  //TODO some part of this must be common
+  if (!models[calcModel].hasOwnProperty([section])) {
+    console.log("No " + section + " in " + calcModel);
+    delete calc[calcModel][section];
+    return 0
+  };
+  if (!models[calcModel][section].hasOwnProperty([calc[calcModel][section][field].field])) {
+    console.log("No " + [calc[calcModel][section][field].field] + " in " + section);
+    delete calc[calcModel][section][field];
+    if (!calc[calcModel][section].length) delete calc[calcModel][section];
+    if (!Object.keys(calc[calcModel]).length) delete calc[calcModel];
+    return 0
+  };
+
   var value = bool ? models[calcModel][section][calc[calcModel][section][field].field].value : 0;
   var precent = calc[calcModel][section][field].percent;
   if (precent) value = value * precent;

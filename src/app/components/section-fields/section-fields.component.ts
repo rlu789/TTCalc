@@ -13,15 +13,22 @@ export class SectionFields {
     model: null,
     section: null,
     field: null,
-    computed: false
+    option: 'N'
   }
   @Input('data') data: null;
-  @Input('model') model: null;
-  @Input('section') section: null;
+  @Input('model') model: string;
+  @Input('section') section: string;
+
+  editMode = null;
 
   constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.editMode = constants.editMode;
+  }
+
+  deleteField(key) {
+    delete constants.models[this.model][this.section][key];
   }
 
   calcField(thisField) {
@@ -55,7 +62,7 @@ export class SectionFields {
           constants.models[this.addFormData.model][this.addFormData.section] = {};
         if (this.addFormData.field && !constants.models[this.addFormData.model][this.addFormData.section].hasOwnProperty([this.addFormData.field]))
           constants.models[this.addFormData.model][this.addFormData.section][this.addFormData.field] =
-            this.addFormData.computed ? { value: null, calcs: {} } : { value: null };
+            this.addFormData.option === 'C' ? { value: null, calcs: {} } : { value: null };
 
         console.log(constants.models[this.addFormData.model])
       }

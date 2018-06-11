@@ -1,4 +1,7 @@
 <div class="container-fluid" style="margin-top: 10px;">
+  <!--<section class="checkbox-section">
+    <mat-checkbox [(ngModel)]="editMode">Edit Mode</mat-checkbox>
+  </section>-->
   <ngb-tabset>
     <div *ngFor="let page of pages | keys">
       <ngb-tab title={{page}}>
