@@ -38,7 +38,7 @@ function doFieldCalculation(calcModel, section, field, calc) {
   };
   if (!models[calcModel][section].hasOwnProperty([calc[calcModel][section][field].field])) {
     console.log("No " + [calc[calcModel][section][field].field] + " in " + section);
-    delete calc[calcModel][section][field];
+    calc[calcModel][section].splice(field, 1);
     if (!calc[calcModel][section].length) delete calc[calcModel][section];
     if (!Object.keys(calc[calcModel]).length) delete calc[calcModel];
     return 0
