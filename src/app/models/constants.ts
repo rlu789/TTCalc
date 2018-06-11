@@ -141,5 +141,8 @@ var pages = {
 }
 
 var editMode = false;
+function toggleEdit() {
+  editMode = !editMode;
+}
 
-export { pages, models, calcs, editMode };
+export { pages, models, calcs, editMode, toggleEdit };

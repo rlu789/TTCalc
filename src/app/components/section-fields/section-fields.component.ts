@@ -19,12 +19,13 @@ export class SectionFields {
   @Input('model') model: string;
   @Input('section') section: string;
 
-  editMode = null;
-
   constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.editMode = constants.editMode;
+  }
+
+  isEditMode() {
+    return constants.editMode;
   }
 
   deleteField(key) {

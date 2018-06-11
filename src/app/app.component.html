@@ -1,7 +1,8 @@
 <div class="container-fluid" style="margin-top: 10px;">
-  <!--<section class="checkbox-section">
-    <mat-checkbox [(ngModel)]="editMode">Edit Mode</mat-checkbox>
-  </section>-->
+  <button type="button" class="btn btn btn-link" (click)="save()">Save Current Settings</button>
+  <button type="button" class="btn btn btn-link" (click)="load()">Load Settings From File</button>
+  <input type="file" (change)="setup($event)">
+  <mat-checkbox (click)="toggle()" [(ngModel)]="editMode">Edit Mode</mat-checkbox>
   <ngb-tabset>
     <div *ngFor="let page of pages | keys">
       <ngb-tab title={{page}}>

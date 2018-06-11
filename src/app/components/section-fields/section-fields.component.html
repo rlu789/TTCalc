@@ -3,7 +3,7 @@
     <p style="margin: 1rem 0;">{{section}}</p>
   </div>
   <div *ngFor="let key of data | keys">
-    <button type="button" class="close" (click)="deleteField(key)" style="position: relative; top: 20px;">&times;</button>
+    <button *ngIf="isEditMode()" type="button" class="close" (click)="deleteField(key)" style="position: relative; top: 20px;">&times;</button>
     <div *ngIf="data[key].dropdown; else elseBlock">
       <div class="col-sm-2">
         <mat-form-field>
@@ -32,6 +32,6 @@
       </div>
     </ng-template>
   </div>
-  <button mat-raised-button color="primary" style="height: 45px; margin-left:10px;" (click)="addField()">Add Field</button>
+  <button *ngIf="isEditMode()" mat-raised-button color="primary" style="height: 45px; margin-left:10px;" (click)="addField()">Add Field</button>
 </div>
 
