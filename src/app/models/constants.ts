@@ -39,6 +39,15 @@ var models = {
       dateDifferenceDays: { value: null },
     }
   },
+  Personal2: {
+    Personal: {
+      Age: { value: 35 },
+      "Full Year Resident": { value: true },
+      From: { value: null, date: true },
+      To: { value: null, date: true },
+      Difference: { value: null },
+    }
+  },
   Income: {
     "Salary and wages": {
       'Income': { value: null },
@@ -137,7 +146,7 @@ models.Personal.Personal.dateDifferenceDays.value = function () {
 
 var pages = {
   Income: { Income: models.Income, "Suppelementry Section": models["Suppelementry Section"] },
-  "Managed Funds": {},
+  "Personal": { Personal: models.Personal2 },
 }
 
 var editMode = true;

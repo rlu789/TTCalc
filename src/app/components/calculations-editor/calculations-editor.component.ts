@@ -25,7 +25,7 @@ export class CalculationsEditor {
   constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
-    //console.log(this.calcs);
+    console.log(this.calcs);
     //console.log(this.keyProvided);
     //console.log(this.doCalcIf);
   }

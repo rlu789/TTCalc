@@ -4,7 +4,7 @@
   </div>
   <div *ngFor="let key of data | keys">
     <button *ngIf="isEditMode()" type="button" class="close" (click)="deleteField(key)" style="position: relative; top: 20px;">&times;</button>
-    <div *ngIf="data[key].dropdown; else elseBlock">
+    <div *ngIf="data[key].dropdown; else checkIfDateInput">
       <div class="col-sm-2">
         <mat-form-field>
           <mat-select [(ngModel)]="data[key].value" placeholder="{{key}}" matTooltip="{{key}}">
@@ -13,6 +13,15 @@
         </mat-form-field>
       </div>
     </div>
+    <ng-template #checkIfDateInput>
+      <div *ngIf="data[key].date; else elseBlock">
+        <mat-form-field>
+          <input matInput [(ngModel)]="data[key].value" [matDatepicker]="date" placeholder="{{key}}">
+          <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+          <mat-datepicker #date></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </ng-template>
     <ng-template #elseBlock>
       <div class="col-sm-1" *ngIf="!data[key].calcs">
         <mat-form-field>

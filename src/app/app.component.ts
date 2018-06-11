@@ -16,6 +16,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.pages = constants.pages;
+    this.editMode = this.editMode === null ? constants.editMode : false;
   }
 
   toggle() {
