@@ -2,6 +2,17 @@ import * as constants from './constants';
 
 var models = constants.models;
 
+function fieldExists(model, section, field) {
+  if (!models[model][section].hasOwnProperty(field)) {
+    console.log("No " + field + " in " + section);
+    //calcs[model][section].splice(index, 1);
+    //if (!calcs[model][section].length) delete calcs[model][section];
+    //if (!Object.keys(calcs[model]).length) delete calcs[model];
+    return false
+  };
+  return true
+}
+
 function evalIf(ifs) {
   if (!ifs || !ifs.length) return true;
   var bool = null;
@@ -9,6 +20,10 @@ function evalIf(ifs) {
     var model1 = ifs[i].model1, section1 = ifs[i].section1, field1 = ifs[i].field1,
       model2 = ifs[i].model2, section2 = ifs[i].section2, field2 = ifs[i].field2, value = ifs[i].value;
 
+    if (!fieldExists(model1, section1, field1)) {
+      ifs.splice(i, 1);
+      continue
+    }
     var compareWithPrevious = ifs[i].compareWithPrevious ? ifs[i].compareWithPrevious : "&&";
     var v1 = models[model1][section1][field1].value;
     var compare = ifs[i].compare;

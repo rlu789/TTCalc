@@ -29,6 +29,10 @@ export class SectionFields {
     return constants.editMode;
   }
 
+  deleteSection() {
+    delete constants.models[this.model][this.section];
+  }
+
   deleteField(key) {
     delete constants.models[this.model][this.section][key];
   }

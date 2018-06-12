@@ -6,7 +6,7 @@ var calcs = {
           { field: "Income", operation: '+' },
           {
             field: "Tax withheld", operation: '-',
-            //if: [{ model1: "Income", section1: "Salary and wages", field1: "Tax withheld", compare: '>', value: 100 } ]
+            if: [{ model1: "Income", section1: "Allowances", field1: "Tax withheld", compare: '>', value: 100 } ]
           },
         ],
         Interest: [

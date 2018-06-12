@@ -38,7 +38,7 @@
   <!--nah too lazy-->
 
   <ng-template #inFieldEditor>
-    <ng-template [ngIf]="doCalcIf">
+    <ng-template [ngIf]="doCalcIf && doCalcIf.length">
       <b>Only Compute This If:</b><br />
       <div *ngFor="let ifs of doCalcIf; index as i">
         <b>{{ifs.model1}} {{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.model2}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}</b>
@@ -57,12 +57,12 @@
               <div *ngFor="let childKey of calcs[modelKey] [sectionKey] | keys">
                 <span>{{calcs[modelKey][sectionKey][childKey].field}} ({{calcs[modelKey][sectionKey][childKey].operation}}) {{calcs[modelKey][sectionKey][childKey].percent}}</span>
                 <button type="button" class="close" (click)="deteleCalcInFieldMode(modelKey, sectionKey, childKey)">&times;</button>
-                <div *ngIf="calcs[modelKey][sectionKey][childKey].if">
+                <ng-template [ngIf]="calcs[modelKey][sectionKey][childKey].if && calcs[modelKey][sectionKey][childKey].if.length">
                   <u>Do If:</u><br />
                   <div *ngFor="let ifs of calcs[modelKey][sectionKey][childKey].if">
                     {{ifs.model1}} {{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.model2}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}
                   </div>
-                </div>
+                </ng-template>
                 <mat-divider></mat-divider>
               </div>
             </div>
