@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 //import * as income from './models/income/incomeModel';
 import * as constants from './models/constants';
 import { saveAs } from 'file-saver'
+import { Local } from 'protractor/built/driverProviders';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.pages = constants.pages;
+    console.log(this.pages)
     this.editMode = this.editMode === null ? constants.editMode : false;
   }
 
@@ -45,15 +47,15 @@ export class AppComponent {
   }
 
   load() {
-    console.log(localStorage.fileData);
     console.log(JSON.parse(localStorage.fileData));
+    localStorage.settings = localStorage.fileData;
+    console.log(localStorage.settings);
   }
-
-  //TODO REDO
-  //deleteLocal() {
-  //  localStorage.clear();
-  //  window.location.reload();
-  //}
+  
+  delete() {
+    localStorage.clear();
+    window.location.reload();
+  }
 
   //saveCalcs() {
   //  localStorage.setItem('incomeCalcs', JSON.stringify(income.saveIncomeCalcs()));

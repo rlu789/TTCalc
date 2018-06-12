@@ -2,6 +2,15 @@ import * as constants from './constants';
 
 var models = constants.models;
 
+function sectionExists(model, section) {
+  if (!models[model].hasOwnProperty(section)) {
+    console.log("No " + section + " in " + model);
+    return false
+  };
+  return true
+
+}
+
 function fieldExists(model, section, field) {
   if (!models[model][section].hasOwnProperty(field)) {
     console.log("No " + field + " in " + section);
@@ -19,8 +28,14 @@ function evalIf(ifs) {
   for (let i in ifs) {
     var model1 = ifs[i].model1, section1 = ifs[i].section1, field1 = ifs[i].field1,
       model2 = ifs[i].model2, section2 = ifs[i].section2, field2 = ifs[i].field2, value = ifs[i].value;
+    
+    if (!sectionExists(model1, section1) || (value === null && !sectionExists(model2, section2))) {
+      ifs.splice(i, 1);
+      continue
+    }
 
-    if (!fieldExists(model1, section1, field1)) {
+    //second part of this if statement can break if theres no value + no model / section / field datas
+    if (!fieldExists(model1, section1, field1) || (value === null && !fieldExists(model2, section2, field2))) {
       ifs.splice(i, 1);
       continue
     }
@@ -40,10 +55,6 @@ function doCalculation(key, calcModel, section, field, calc) {
 }
 
 function doFieldCalculation(calcModel, section, field, calc) {
-  // if 'if' key exists, eval it all first to see if calc applies
-  var ifStatements = calc[calcModel][section][field].if;
-  var bool = evalIf(ifStatements);
-
   //check dependencies, if section / field has been deleted, then delete the calc as well
   //TODO some part of this must be common
   if (!models[calcModel].hasOwnProperty([section])) {
@@ -58,6 +69,10 @@ function doFieldCalculation(calcModel, section, field, calc) {
     if (!Object.keys(calc[calcModel]).length) delete calc[calcModel];
     return 0
   };
+
+  // if 'if' key exists, eval it all first to see if calc applies
+  var ifStatements = calc[calcModel][section][field].if;
+  var bool = evalIf(ifStatements);
 
   var value = bool ? models[calcModel][section][calc[calcModel][section][field].field].value : 0;
   var precent = calc[calcModel][section][field].percent;

@@ -8,14 +8,19 @@ import * as constants from '../../models/constants';
 })
 export class Page {
   calcs = null
-  @Input('data') data: null;
+  data: null;
   @Input('page') page: string;
   
   ngOnInit() {
-    //console.log(this.data);
+    console.log(this.data);
     //console.log(constants.calcs[this.page]);
+    this.data = constants.pages[this.page]
     this.calcs = constants.calcs[this.page];
   }
+
+  //ngOnChanges() {
+  //  console.log("yes")
+  //}
 
   calcTotals() {
     return common.calcTotalsForPage(this.page);

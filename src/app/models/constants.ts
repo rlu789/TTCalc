@@ -1,4 +1,4 @@
-var calcs = {
+var calcs = localStorage.settings ? JSON.parse(localStorage.settings).calcs : {
   Income: {
     "Total Income": {
       Income: {
@@ -24,7 +24,7 @@ var calcs = {
   },
 }
 
-var models = {
+var models = localStorage.settings ? JSON.parse(localStorage.settings).models : {
   //Personal: {
   //  Personal: {
   //    age: { value: 35 },
@@ -155,6 +155,19 @@ var pages = {
   Income: { Income: models.Income, "Suppelementry Section": models["Suppelementry Section"] },
   "Personal": { Personal: models.Personal },
 }
+//console.log(pages);
+
+if (localStorage.settings) {
+  var p = {};
+  for (let pageKey in JSON.parse(localStorage.settings).pages) {
+    p[pageKey] = {}
+    for (let model in JSON.parse(localStorage.settings).pages[pageKey]) {
+      p[pageKey][model] = models[model]
+    }
+  }
+  console.log(p);
+  pages = p;
+} 
 
 var editMode = true;
 function toggleEdit() {

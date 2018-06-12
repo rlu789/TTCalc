@@ -31,6 +31,7 @@ export class SectionFields {
 
   deleteSection() {
     delete constants.models[this.model][this.section];
+    //console.log(constants.models[this.model])
   }
 
   deleteField(key) {
