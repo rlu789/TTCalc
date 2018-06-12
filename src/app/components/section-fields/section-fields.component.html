@@ -14,12 +14,17 @@
       </div>
     </div>
     <ng-template #checkIfDateInput>
-      <div *ngIf="data[key].date; else elseBlock">
+      <div *ngIf="data[key].date; else checkIfCheckboxInput" style="padding:0 20px">
         <mat-form-field>
           <input matInput [(ngModel)]="data[key].value" [matDatepicker]="date" placeholder="{{key}}">
           <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
           <mat-datepicker #date></mat-datepicker>
         </mat-form-field>
+      </div>
+    </ng-template>
+    <ng-template #checkIfCheckboxInput>
+      <div *ngIf="data[key].checkbox; else elseBlock">
+        <mat-checkbox [(ngModel)]="data[key].value">{{key}}</mat-checkbox>
       </div>
     </ng-template>
     <ng-template #elseBlock>

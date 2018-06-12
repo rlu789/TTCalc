@@ -12,7 +12,7 @@ function evalIf(ifs) {
     var compareWithPrevious = ifs[i].compareWithPrevious ? ifs[i].compareWithPrevious : "&&";
     var v1 = models[model1][section1][field1].value;
     var compare = ifs[i].compare;
-    var v2 = value ? value : models[model2][section2][field2].value;
+    var v2 = value !== null ? value : models[model2][section2][field2].value;
 
     // if bool is not initialized, set the value to be the first eval statement with no previous compare
     bool = bool === null ? (eval(v1 + compare + v2)) : (eval(bool + compareWithPrevious + v1 + compare + v2));

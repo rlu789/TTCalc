@@ -1,8 +1,3 @@
-var minutes = 1000 * 60,
-  hours = minutes * 60,
-  days = hours * 24,
-  years = days * 365;
-
 var calcs = {
   Income: {
     "Total Income": {
@@ -30,22 +25,34 @@ var calcs = {
 }
 
 var models = {
+  //Personal: {
+  //  Personal: {
+  //    age: { value: 35 },
+  //    "Full Year Resident": { value: true },
+  //    fullYearResFrom: { value: null },
+  //    fullYearResTo: { value: null },
+  //    dateDifferenceDays: { value: null },
+  //  }
+  //},
   Personal: {
     Personal: {
-      age: { value: 35 },
-      "Full Year Resident": { value: true },
-      fullYearResFrom: { value: null },
-      fullYearResTo: { value: null },
-      dateDifferenceDays: { value: null },
-    }
-  },
-  Personal2: {
-    Personal: {
       Age: { value: 35 },
-      "Full Year Resident": { value: true },
+      "Full Year Resident": { value: true, checkbox: true },
       From: { value: null, date: true },
       To: { value: null, date: true },
-      Difference: { value: null },
+      Difference: {
+        value: null, //readonly: true, if calculated field then its defs readonly
+        doCalcIf: [{ model1: "Personal", section1: "Personal", field1: "Full Year Resident", compare: '==', value: false }],
+        format: 'Days',
+        calcs: {
+          Personal: {
+            Personal: [
+              { field: "From", operation: '-' },
+              { field: "To", operation: '+' },
+            ]
+          }
+        },
+      }
     }
   },
   Income: {
@@ -137,16 +144,16 @@ var models = {
 };
 
 // >:(
-models.Personal.Personal.dateDifferenceDays.value = function () {
-  if (models.Personal.Personal["Full Year Resident"].value) return 365;
-  if (!models.Personal.Personal["Full Year Resident"].value && models.Personal.Personal.fullYearResFrom.value && models.Personal.Personal.fullYearResTo.value) {
-    return (models.Personal.Personal.fullYearResTo.value.getTime() - models.Personal.Personal.fullYearResFrom.value.getTime()) / days;
-  }
-};
+//models.Personal.Personal.dateDifferenceDays.value = function () {
+//  if (models.Personal.Personal["Full Year Resident"].value) return 365;
+//  if (!models.Personal.Personal["Full Year Resident"].value && models.Personal.Personal.fullYearResFrom.value && models.Personal.Personal.fullYearResTo.value) {
+//    return (models.Personal.Personal.fullYearResTo.value.getTime() - models.Personal.Personal.fullYearResFrom.value.getTime()) / days;
+//  }
+//};
 
 var pages = {
   Income: { Income: models.Income, "Suppelementry Section": models["Suppelementry Section"] },
-  "Personal": { Personal: models.Personal2 },
+  "Personal": { Personal: models.Personal },
 }
 
 var editMode = true;
