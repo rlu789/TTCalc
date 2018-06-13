@@ -44,6 +44,7 @@
         <b>{{ifs.model1}} {{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.model2}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}</b>
         <button type="button" class="close" aria-label="Close" (click)="deteleDoCalcIf(i)">&times;</button><br />
       </div>
+      <button type="button" class="btn btn btn-link" (click)="setupDoCalcIf(keyProvided)">Add Do Calc If</button>
     </ng-template>
     <br />
     <ng-template [ngIf]="calcs">

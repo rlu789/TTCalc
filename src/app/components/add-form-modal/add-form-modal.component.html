@@ -9,11 +9,15 @@
   <mat-form-field>
     <input matInput [(ngModel)]=data.data.field type="text" class="form-control" placeholder="Field">
   </mat-form-field>
+  <mat-form-field *ngIf="data.data.option !== 'C'">
+    <input matInput [(ngModel)]=data.data.initialValue type="text" class="form-control" placeholder="Initial Value">
+  </mat-form-field>
   <mat-form-field>
     <mat-select [(value)]="data.data.option" placeholder="Option">
       <mat-option value="N">Normal Input</mat-option>
       <mat-option value="D">Dropdown</mat-option>
       <mat-option value="C">Readonly / Computed Field</mat-option>
+      <mat-option value="Date">Date</mat-option>
     </mat-select>
   </mat-form-field>
   <div *ngIf="data.data.option === 'D'">

@@ -14,7 +14,8 @@ export class SectionFields {
     section: null,
     field: null,
     option: 'N',
-    dropdownOptions: []
+    dropdownOptions: [],
+    initialValue: null
   }
   @Input('data') data: null;
   @Input('model') model: string;
@@ -82,13 +83,16 @@ export class SectionFields {
           var input = null;
           switch (this.addFormData.option) {
             case 'N':
-              input = { value: null };
+              input = { value: this.addFormData.initialValue };
               break;
             case 'D':
-              input = { value: null, dropdown: this.addFormData.dropdownOptions };
+              input = { value: this.addFormData.initialValue, dropdown: this.addFormData.dropdownOptions };
               break;
             case 'C':
-              input = { value: null, calcs: {} };
+              input = { value: this.addFormData.initialValue, calcs: {} };
+              break;
+            case 'Date':
+              input = { value: this.addFormData.initialValue, date: true };
               break;
           }
           constants.models[this.addFormData.model][this.addFormData.section][this.addFormData.field] = input;

@@ -151,14 +151,8 @@ var models = localStorage.settings ? JSON.parse(localStorage.settings).models : 
 //  }
 //};
 
-var pages = {
-  Income: { Income: models.Income, "Suppelementry Section": models["Suppelementry Section"] },
-  "Personal": { Personal: models.Personal },
-}
-//console.log(pages);
-
+var p = {};
 if (localStorage.settings) {
-  var p = {};
   for (let pageKey in JSON.parse(localStorage.settings).pages) {
     p[pageKey] = {}
     for (let model in JSON.parse(localStorage.settings).pages[pageKey]) {
@@ -166,8 +160,13 @@ if (localStorage.settings) {
     }
   }
   console.log(p);
-  pages = p;
 } 
+
+var pages = Object.keys(p).length === 0 && p.constructor === Object ? {
+  Income: { Income: models.Income, "Suppelementry Section": models["Suppelementry Section"] },
+  "Personal": { Personal: models.Personal },
+} : p;
+
 
 var editMode = true;
 function toggleEdit() {

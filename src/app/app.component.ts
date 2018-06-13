@@ -47,18 +47,14 @@ export class AppComponent {
   }
 
   load() {
-    console.log(JSON.parse(localStorage.fileData));
     localStorage.settings = localStorage.fileData;
-    console.log(localStorage.settings);
+    window.location.reload();
+    //console.log(JSON.parse(localStorage.fileData));
+    //console.log(localStorage.settings);
   }
   
   delete() {
     localStorage.clear();
     window.location.reload();
   }
-
-  //saveCalcs() {
-  //  localStorage.setItem('incomeCalcs', JSON.stringify(income.saveIncomeCalcs()));
-  //  console.log(localStorage);
-  //}
 }
