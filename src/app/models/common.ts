@@ -60,6 +60,7 @@ function doFieldCalculation(calcModel, section, field, calc) {
   if (!models[calcModel].hasOwnProperty([section])) {
     console.log("No " + section + " in " + calcModel);
     delete calc[calcModel][section];
+    if (!Object.keys(calc[calcModel]).length) delete calc[calcModel];
     return 0
   };
   if (!models[calcModel][section].hasOwnProperty([calc[calcModel][section][field].field])) {

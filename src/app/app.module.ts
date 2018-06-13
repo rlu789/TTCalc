@@ -19,9 +19,7 @@ import { CalculationsEditor } from './components/calculations-editor/calculation
 
 //pages
 import { AppComponent } from './app.component';
-import { IncomeComponent } from './pages/income/income.component';
 import { EstimateComponent } from './pages/estimate/estimate.component';
-import { PersonalComponent } from './pages/personal/personal.component'
 //import { AppRoutingModule } from './routes/app-routing.module';
 
 @NgModule({
@@ -34,10 +32,8 @@ import { PersonalComponent } from './pages/personal/personal.component'
     SectionFields,
     DependenciesModal,
     CalculationsEditor,
-
-    IncomeComponent,
+    
     EstimateComponent,
-    PersonalComponent
   ],
   imports: [
     BrowserModule,

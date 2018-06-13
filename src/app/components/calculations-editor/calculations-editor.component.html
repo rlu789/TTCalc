@@ -13,7 +13,7 @@
                 <b>{{sectionKey}}</b>
                 <div *ngFor="let childKey of calcs[key][modelKey] [sectionKey] | keys">
                   <span>{{calcs[key][modelKey][sectionKey][childKey].field}} ({{calcs[key][modelKey][sectionKey][childKey].operation}}) {{calcs[key][modelKey][sectionKey][childKey].percent}}</span>
-                  <button type="button" class="close" (click)="deteleCalc(key, modelKey, sectionKey, childKey)">&times;</button>
+                  <button *ngIf="isEditMode()" type="button" class="close" (click)="deteleCalc(key, modelKey, sectionKey, childKey)">&times;</button>
                   <div *ngIf="calcs[key][modelKey][sectionKey][childKey].if">
                     <u>Do If:</u><br />
                     <div *ngFor="let ifs of calcs[key][modelKey][sectionKey][childKey].if">
@@ -25,7 +25,7 @@
               </div>
             </div>
           </div>
-          <button type="button" class="btn btn btn-link" (click)="setupAdd(key)">
+          <button *ngIf="isEditMode()" type="button" class="btn btn btn-link" (click)="setupAdd(key)">
             Add Calc
           </button>
         </div>
@@ -44,8 +44,8 @@
         <b>{{ifs.model1}} {{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.model2}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}</b>
         <button type="button" class="close" aria-label="Close" (click)="deteleDoCalcIf(i)">&times;</button><br />
       </div>
-      <button type="button" class="btn btn btn-link" (click)="setupDoCalcIf(keyProvided)">Add Do Calc If</button>
     </ng-template>
+    <button *ngIf="editMode" type="button" class="btn btn btn-link" (click)="setupDoCalcIf(keyProvided)">Add Do Calc If</button>
     <br />
     <ng-template [ngIf]="calcs">
       <div class="card border-dark mb-3">
@@ -57,7 +57,7 @@
               <b>{{sectionKey}}</b>
               <div *ngFor="let childKey of calcs[modelKey] [sectionKey] | keys">
                 <span>{{calcs[modelKey][sectionKey][childKey].field}} ({{calcs[modelKey][sectionKey][childKey].operation}}) {{calcs[modelKey][sectionKey][childKey].percent}}</span>
-                <button type="button" class="close" (click)="deteleCalcInFieldMode(modelKey, sectionKey, childKey)">&times;</button>
+                <button *ngIf="isEditMode()" type="button" class="close" (click)="deteleCalcInFieldMode(modelKey, sectionKey, childKey)">&times;</button>
                 <ng-template [ngIf]="calcs[modelKey][sectionKey][childKey].if && calcs[modelKey][sectionKey][childKey].if.length">
                   <u>Do If:</u><br />
                   <div *ngFor="let ifs of calcs[modelKey][sectionKey][childKey].if">
@@ -69,7 +69,7 @@
             </div>
           </div>
         </div>
-        <button type="button" class="btn btn btn-link" (click)="setupAdd(keyProvided)">Add Calc</button>
+        <button *ngIf="isEditMode()" type="button" class="btn btn btn-link" (click)="setupAdd(keyProvided)">Add Calc</button>
       </div>
     </ng-template>
   </ng-template>

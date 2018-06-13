@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DependenciesModal } from '../../components/dependencies-modal/dependencies-modal.component'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import * as constants from '../../models/constants';
  
 @Component({
   selector: 'calculations-editor',
@@ -28,6 +29,10 @@ export class CalculationsEditor {
     //console.log(this.calcs);
     //console.log(this.keyProvided);
     //console.log(this.doCalcIf);
+  }
+
+  isEditMode() {
+    return constants.editMode;
   }
 
   deteleCalc(key, modelKey, sectionKey, childKey) {

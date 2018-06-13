@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as estimateModel from '../../models/estimate/estimateModel';
+//import * as estimateModel from '../../models/estimate/estimateModel';
 
 @Component({
   selector: 'app-estimate',
@@ -13,7 +13,7 @@ export class EstimateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.estimate = estimateModel.calcEstimateTotal;
+    //this.estimate = estimateModel.calcEstimateTotal;
   }
 
 }

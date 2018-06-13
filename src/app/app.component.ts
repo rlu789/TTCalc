@@ -47,8 +47,11 @@ export class AppComponent {
   }
 
   load() {
-    localStorage.settings = localStorage.fileData;
-    window.location.reload();
+    if (localStorage.fileData) {
+      localStorage.settings = localStorage.fileData;
+      window.location.reload();
+    }
+    else console.log("No data");
     //console.log(JSON.parse(localStorage.fileData));
     //console.log(localStorage.settings);
   }
