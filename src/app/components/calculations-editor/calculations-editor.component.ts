@@ -97,4 +97,21 @@ export class CalculationsEditor {
       }
     });
   }
+
+  setupDoCalcIf() {
+    //TODO REDO THIS IS TRASH
+    this.addCalcForm.if = [{ model1: null, section1: null, field1: null, compare: null, value: null, model2: null, section2: null, field2: null, compareWithPrevious: '&&' }];
+    let dialogRef = this.dialog.open(DependenciesModal, {
+      width: '450px',
+      data: { data: this.addCalcForm, onlyIfs: true }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        for (let index in this.addCalcForm.if) {
+          this.doCalcIf.push(this.addCalcForm.if[index]);
+        }
+        //console.log(this.doCalcIf);
+      }
+    });
+  }
 }

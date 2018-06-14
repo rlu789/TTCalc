@@ -1,36 +1,38 @@
-<h1 mat-dialog-title>Add Calc </h1>
+<h1 mat-dialog-title>Add Calc <span *ngIf="data.onlyIfs">If</span></h1>
 <div mat-dialog-content>
-  <mat-form-field>
-    <input matInput placeholder="Name" [(ngModel)]="data.data.name">
-  </mat-form-field>
-  <mat-form-field>
-    <mat-select [(value)]="data.data.model" placeholder="Model">
-      <mat-option>...</mat-option>
-      <mat-option *ngFor="let option of constants.models | keys" value="{{option}}">{{option}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field *ngIf="data.data.model">
-    <mat-select [(value)]="data.data.section" placeholder="Section">
-      <mat-option>...</mat-option>
-      <mat-option *ngFor="let option of constants.models[data.data.model] | keys" value="{{option}}">{{option}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field *ngIf="data.data.section && data.data.model">
-    <mat-select [(value)]="data.data.field" placeholder="Field">
-      <mat-option>...</mat-option>
-      <mat-option *ngFor="let option of constants.models[data.data.model][data.data.section] | keys" value="{{option}}">{{option}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field *ngIf="data.data.section && data.data.model && data.data.field">
-    <mat-select [(value)]="data.data.operation" placeholder="Operation">
-      <mat-option value="+">+</mat-option>
-      <mat-option value="-">-</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <section>
-    <mat-checkbox [(ngModel)]="data.data.ifChecked">Ifs</mat-checkbox>
-  </section>
-  <mat-accordion *ngIf="data.data.ifChecked">
+  <div *ngIf="!data.onlyIfs">
+    <mat-form-field>
+      <input matInput placeholder="Name" [(ngModel)]="data.data.name">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select [(value)]="data.data.model" placeholder="Model">
+        <mat-option>...</mat-option>
+        <mat-option *ngFor="let option of constants.models | keys" value="{{option}}">{{option}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="data.data.model">
+      <mat-select [(value)]="data.data.section" placeholder="Section">
+        <mat-option>...</mat-option>
+        <mat-option *ngFor="let option of constants.models[data.data.model] | keys" value="{{option}}">{{option}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="data.data.section && data.data.model">
+      <mat-select [(value)]="data.data.field" placeholder="Field">
+        <mat-option>...</mat-option>
+        <mat-option *ngFor="let option of constants.models[data.data.model][data.data.section] | keys" value="{{option}}">{{option}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="data.data.section && data.data.model && data.data.field">
+      <mat-select [(value)]="data.data.operation" placeholder="Operation">
+        <mat-option value="+">+</mat-option>
+        <mat-option value="-">-</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <section>
+      <mat-checkbox [(ngModel)]="data.data.ifChecked">Ifs</mat-checkbox>
+    </section>
+  </div>
+  <mat-accordion *ngIf="data.data.ifChecked || data.onlyIfs">
     <div class="row" *ngFor="let i of data.data.if ">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
@@ -95,5 +97,5 @@
 <div mat-dialog-actions>
   <button mat-button (click)="add()">Add</button>
   <button mat-button (click)="cancel()">Cancel</button>
-  <button *ngIf="data.data.ifChecked" mat-button (click)="addIf()">Add If</button>
+  <button *ngIf="data.data.ifChecked || data.onlyIfs" mat-button (click)="addIf()">Add If</button>
 </div>
