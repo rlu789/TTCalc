@@ -97,9 +97,9 @@ export class SectionFields {
           }
           constants.models[this.addFormData.model][this.addFormData.section][this.addFormData.field] = input;
         }
-        console.log(constants.models[this.addFormData.model])
+        console.log(constants.models[this.addFormData.model]);
       }
-      console.log(this.addFormData)
+      console.log(this.addFormData);
     });
   }
 }

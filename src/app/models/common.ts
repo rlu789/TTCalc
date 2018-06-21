@@ -5,30 +5,26 @@ var models = constants.models;
 function modelExists(model) {
   if (!models.hasOwnProperty(model)) {
     console.log("No " + model + "found");
-    return false
-  };
-  return true
+    return false;
+  }
+  return true;
 
 }
 
 function sectionExists(model, section) {
   if (!models[model].hasOwnProperty(section)) {
     console.log("No " + section + " in " + model);
-    return false
-  };
-  return true
-
+    return false;
+  }
+  return true;
 }
 
 function fieldExists(model, section, field) {
   if (!models[model][section].hasOwnProperty(field)) {
     console.log("No " + field + " in " + section);
-    //calcs[model][section].splice(index, 1);
-    //if (!calcs[model][section].length) delete calcs[model][section];
-    //if (!Object.keys(calcs[model]).length) delete calcs[model];
-    return false
-  };
-  return true
+    return false;
+  }
+  return true;
 }
 
 function evalIf(ifs) {
@@ -78,14 +74,14 @@ function doFieldCalculation(calcModel, section, field, calc) {
     console.log("No " + section + " in " + calcModel);
     delete calc[calcModel][section];
     if (!Object.keys(calc[calcModel]).length) delete calc[calcModel];
-    return 0
+    return 0;
   };
   if (!models[calcModel][section].hasOwnProperty([calc[calcModel][section][field].field])) {
     console.log("No " + [calc[calcModel][section][field].field] + " in " + section);
     calc[calcModel][section].splice(field, 1);
     if (!calc[calcModel][section].length) delete calc[calcModel][section];
     if (!Object.keys(calc[calcModel]).length) delete calc[calcModel];
-    return 0
+    return 0;
   };
 
   // if 'if' key exists, eval it all first to see if calc applies
@@ -119,28 +115,4 @@ function calcTotalsForPage(page) {
   return totals;
 }
 
-//REDO THIS TO ACCOUNT FOR CALC MODEL
-function doCalculationEstimate(key, section, field, model, calc) {
-  //console.log(calc[key][section]);
-  var bool = true;
-  // if 'if' key exists, eval it all first to see if calc applies
-  //if (calc[key][section][field].if) {
-  //  for (let i in calc[key][section][field].if) {
-  //    var v1 = model[calc[key][section][field].if[i].section1].fields[calc[key][section][field].if[i].field1];
-  //    var compare = calc[key][section][field].if[i].compare;
-  //    var v2 = calc[key][section][field].if[i].value ? calc[key][section][field].if[i].value : model[calc[key][section][field].if[i].section2].fields[calc[key][section][field].if[i].field2];
-  //    bool = bool && (eval(v1 + compare + v2));
-  //  }
-  //}
-
-  var value = bool ? model[section] : 0;
-  switch (calc[key][section][field].operation) {
-    case '+':
-      return +value;
-    case '-':
-      return -value;
-  }
-
-}
-
-export { doCalculation, doCalculationEstimate, doFieldCalculation, evalIf, calcTotalsForPage };
+export { doCalculation, doFieldCalculation, evalIf, calcTotalsForPage };
