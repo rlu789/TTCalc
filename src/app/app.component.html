@@ -4,6 +4,12 @@
   <input type="file" (change)="setup($event)">
   <button type="button" class="btn btn btn-link" (click)="delete()">Delete Current Settings</button>
   <mat-checkbox (click)="toggle()" [(ngModel)]="editMode">Edit Mode</mat-checkbox>
+  <div *ngIf="isEditMode()">
+    <mat-form-field>
+      <input matInput [(ngModel)]="pageName" type="text" class="form-control" placeholder="Page Name">
+    </mat-form-field>
+    <button mat-raised-button color="primary" style="height: 45px; margin-left:10px;" (click)="addPage()">Add Page</button>
+  </div>
   <ngb-tabset>
     <div *ngFor="let page of pages | keys">
       <ngb-tab title={{page}}>

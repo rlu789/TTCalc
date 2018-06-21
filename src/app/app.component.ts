@@ -21,6 +21,16 @@ export class AppComponent {
     this.editMode = this.editMode === null ? constants.editMode : false;
   }
 
+  addPage() {
+    // lazy
+    constants.pages[this.pageName] = {};
+    this.pageName = null;
+  }
+
+  isEditMode() {
+    return constants.editMode;
+  }
+
   toggle() {
     constants.toggleEdit();
   }

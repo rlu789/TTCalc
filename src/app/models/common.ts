@@ -2,6 +2,15 @@ import * as constants from './constants';
 
 var models = constants.models;
 
+function modelExists(model) {
+  if (!models.hasOwnProperty(model)) {
+    console.log("No " + model + "found");
+    return false
+  };
+  return true
+
+}
+
 function sectionExists(model, section) {
   if (!models[model].hasOwnProperty(section)) {
     console.log("No " + section + " in " + model);
@@ -28,16 +37,21 @@ function evalIf(ifs) {
   for (let i in ifs) {
     var model1 = ifs[i].model1, section1 = ifs[i].section1, field1 = ifs[i].field1,
       model2 = ifs[i].model2, section2 = ifs[i].section2, field2 = ifs[i].field2, value = ifs[i].value;
-    
+
+    if (!modelExists(model1) || (value === null && !modelExists(model1))) {
+      ifs.splice(i, 1);
+      continue;
+    }
+
     if (!sectionExists(model1, section1) || (value === null && !sectionExists(model2, section2))) {
       ifs.splice(i, 1);
-      continue
+      continue;
     }
 
     //second part of this if statement can break if theres no value + no model / section / field datas
     if (!fieldExists(model1, section1, field1) || (value === null && !fieldExists(model2, section2, field2))) {
       ifs.splice(i, 1);
-      continue
+      continue;
     }
     var compareWithPrevious = ifs[i].compareWithPrevious ? ifs[i].compareWithPrevious : "&&";
     var v1 = models[model1][section1][field1].value;
@@ -55,8 +69,11 @@ function doCalculation(key, calcModel, section, field, calc) {
 }
 
 function doFieldCalculation(calcModel, section, field, calc) {
-  //check dependencies, if section / field has been deleted, then delete the calc as well
+  //check dependencies, if model / section / field has been deleted, then delete the calc as well
   //TODO some part of this must be common
+  if (!modelExists(calcModel)) {
+    delete calc[calcModel];
+  }
   if (!models[calcModel].hasOwnProperty([section])) {
     console.log("No " + section + " in " + calcModel);
     delete calc[calcModel][section];

@@ -23,7 +23,7 @@
       </div>
     </ng-template>
     <ng-template #checkIfCheckboxInput>
-      <div *ngIf="data[key].checkbox; else elseBlock">
+      <div *ngIf="data[key].checkbox; else elseBlock" style="min-width: 175px;">
         <mat-checkbox [(ngModel)]="data[key].value">{{key}}</mat-checkbox>
       </div>
     </ng-template>
@@ -33,15 +33,14 @@
           <input matInput [(ngModel)]=data[key].value type="number" class="form-control" placeholder="{{key}}" matTooltip="{{key}}">
         </mat-form-field>
       </div>
-      <div class="col-sm-10" *ngIf="data[key].calcs">
+      <div class="col-sm-11" *ngIf="data[key].calcs" style="min-width: 280px;">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
               {{key}}: {{calcField(data[key])}}
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <calculations-editor *ngIf="calcField(data[key]) !== false" [calcs]="data[key].calcs" [doCalcIf]="data[key].doCalcIf" keyProvided={{key}}></calculations-editor>
-          <calculations-editor *ngIf="calcField(data[key]) === false" [doCalcIf]="data[key].doCalcIf" keyProvided={{key}}></calculations-editor>
+          <calculations-editor [calcs]="data[key].calcs" [doCalcIf]="data[key].doCalcIf" keyProvided={{key}}></calculations-editor>
         </mat-expansion-panel>
       </div>
     </ng-template>

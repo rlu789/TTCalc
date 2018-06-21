@@ -25,15 +25,6 @@ var calcs = localStorage.settings ? JSON.parse(localStorage.settings).calcs : {
 }
 
 var models = localStorage.settings ? JSON.parse(localStorage.settings).models : {
-  //Personal: {
-  //  Personal: {
-  //    age: { value: 35 },
-  //    "Full Year Resident": { value: true },
-  //    fullYearResFrom: { value: null },
-  //    fullYearResTo: { value: null },
-  //    dateDifferenceDays: { value: null },
-  //  }
-  //},
   Personal: {
     Personal: {
       Age: { value: 35 },
@@ -142,14 +133,6 @@ var models = localStorage.settings ? JSON.parse(localStorage.settings).models : 
     },
   }
 };
-
-// >:(
-//models.Personal.Personal.dateDifferenceDays.value = function () {
-//  if (models.Personal.Personal["Full Year Resident"].value) return 365;
-//  if (!models.Personal.Personal["Full Year Resident"].value && models.Personal.Personal.fullYearResFrom.value && models.Personal.Personal.fullYearResTo.value) {
-//    return (models.Personal.Personal.fullYearResTo.value.getTime() - models.Personal.Personal.fullYearResFrom.value.getTime()) / days;
-//  }
-//};
 
 var p = {};
 if (localStorage.settings) {

@@ -1,10 +1,22 @@
 <div style="margin-top: 10px;">
+  <div *ngIf="isEditMode()">
+    <mat-form-field>
+      <input matInput [(ngModel)]="modelName" type="text" class="form-control" placeholder="Model Name">
+    </mat-form-field>
+    <button mat-raised-button color="primary" style="height: 45px; margin-left:10px;" (click)="addModel(modelName)">Add Model</button>
+  </div>
   <ngb-tabset>
     <div *ngFor="let model of data | keys">
-      <ngb-tab title={{model}}> 
+      <ngb-tab title={{model}}>
         <ng-template ngbTabContent>
           <div style="margin-top: 10px;"></div>
-          <!--<button mat-raised-button color="primary">Add Section</button>-->
+          <div *ngIf="isEditMode()">
+            <mat-form-field>
+              <input matInput [(ngModel)]="sectionName" type="text" class="form-control" placeholder="Section Name">
+            </mat-form-field>
+            <button mat-raised-button color="primary" style="height: 45px; margin-left:10px;" (click)="addSection(model, sectionName)">Add Section</button>
+            <button mat-raised-button color="accent" style="height: 45px; margin-left:10px;" (click)="deleteModel(model)">Delete Model</button>
+          </div>
           <div *ngFor="let key of data[model] | keys">
             <section-fields [data]="data[model][key]" [section]="key" [model]="model"></section-fields>
           </div>
