@@ -19,7 +19,6 @@ import { CalculationsEditor } from './components/calculations-editor/calculation
 
 //pages
 import { AppComponent } from './app.component';
-import { EstimateComponent } from './pages/estimate/estimate.component';
 //import { AppRoutingModule } from './routes/app-routing.module';
 
 @NgModule({
@@ -32,8 +31,6 @@ import { EstimateComponent } from './pages/estimate/estimate.component';
     SectionFields,
     DependenciesModal,
     CalculationsEditor,
-    
-    EstimateComponent,
   ],
   imports: [
     BrowserModule,
