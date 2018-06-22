@@ -4,7 +4,7 @@ var models = constants.models;
 
 function modelExists(model) {
   if (!models.hasOwnProperty(model)) {
-    console.log("No " + model + "found");
+    console.log("No " + model + " model found");
     return false;
   }
   return true;
@@ -69,6 +69,7 @@ function doFieldCalculation(calcModel, section, field, calc) {
   //TODO some part of this must be common
   if (!modelExists(calcModel)) {
     delete calc[calcModel];
+    return 0;
   }
   if (!models[calcModel].hasOwnProperty([section])) {
     console.log("No " + section + " in " + calcModel);
