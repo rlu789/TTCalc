@@ -4,6 +4,7 @@
       <input matInput [(ngModel)]="modelName" type="text" class="form-control" placeholder="Model Name">
     </mat-form-field>
     <button mat-raised-button color="primary" style="height: 45px; margin-left:10px;" (click)="addModel(modelName)">Add Model</button>
+    <button mat-raised-button color="accent" style="height: 45px; margin-left:10px;" (click)="deletePage()">Delete Page</button>
   </div>
   <ngb-tabset>
     <div *ngFor="let model of data | keys">

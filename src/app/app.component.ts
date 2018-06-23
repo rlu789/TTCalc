@@ -13,6 +13,8 @@ export class AppComponent {
   pages = null;
   editMode = null;
   fileData = null;
+
+  pageName: string;
   constructor() { }
 
   ngOnInit() {

@@ -106,6 +106,10 @@ function calcTotalsForPage(page) {
   for (let total in constants.calcs[page]) {
     totals[total] = 0;
     for (let model in constants.calcs[page][total]) {
+      if (!modelExists(model)) {
+        delete constants.calcs[page][total][model];
+        continue;
+      }
       for (let section in constants.calcs[page][total][model]) {
         for (let field in constants.calcs[page][total][model][section]) {
           totals[total] += doCalculation(total, model, section, field, constants.calcs[page]);
