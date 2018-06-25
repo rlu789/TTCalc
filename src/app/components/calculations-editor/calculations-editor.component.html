@@ -39,7 +39,7 @@
 
   <ng-template #inFieldEditor>
     <ng-template [ngIf]="doCalcIf && doCalcIf.length">
-      <b>Only Compute This If:</b><br />
+      <br /><b>Only Compute This If:</b><br />
       <div *ngFor="let ifs of doCalcIf; first as isFirst">
         <b><span *ngIf="!isFirst">{{ifs.compareWithPrevious}} <br /></span>{{ifs.model1}} {{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.model2}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}</b>
         <button type="button" class="close" aria-label="Close" (click)="deteleDoCalcIf(i)">&times;</button><br />

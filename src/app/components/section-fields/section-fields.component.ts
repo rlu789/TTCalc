@@ -17,7 +17,7 @@ export class SectionFields {
     dropdownOptions: [],
     initialValue: null
   }
-  @Input('data') data: null;
+  @Input('data') data: Object;
   @Input('model') model: string;
   @Input('section') section: string;
 
@@ -28,6 +28,17 @@ export class SectionFields {
 
   isEditMode() {
     return constants.editMode;
+  }
+
+  setFormat(format, key) {
+    switch (format) {
+      case 'Days':
+        this.data[key].format = 'Days';
+        break;
+      case 'N':
+        delete this.data[key].format;
+        break;
+    }
   }
 
   deleteSection() {

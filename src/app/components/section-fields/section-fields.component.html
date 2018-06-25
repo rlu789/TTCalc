@@ -37,9 +37,16 @@
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              {{key}}: {{calcField(data[key])}}
+              {{key}}: {{calcField(data[key])}}<b>&nbsp;{{data[key].format}}</b>
             </mat-panel-title>
           </mat-expansion-panel-header>
+          <div *ngIf="isEditMode()" ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" ngbDropdownToggle>Format Options</button>
+            <div ngbDropdownMenu>
+              <button class="dropdown-item" (click)="setFormat('N', key)">No Format</button>
+              <button class="dropdown-item" (click)="setFormat('Days', key)">Days</button>
+            </div>
+          </div>
           <calculations-editor [calcs]="data[key].calcs" [doCalcIf]="data[key].doCalcIf" keyProvided={{key}}></calculations-editor>
         </mat-expansion-panel>
       </div>
