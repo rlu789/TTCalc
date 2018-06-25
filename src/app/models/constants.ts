@@ -27,8 +27,8 @@ var calcs = localStorage.settings ? JSON.parse(localStorage.settings).calcs : {
 var models = localStorage.settings ? JSON.parse(localStorage.settings).models : {
   Personal: {
     Personal: {
-      Age: { value: 35 },
-      "Full Year Resident": { value: true, checkbox: true },
+      Age: { value: 35, initialValue: 35 },
+      "Full Year Resident": { value: true, checkbox: true, initialValue: true },
       From: { value: null, date: true },
       To: { value: null, date: true },
       Difference: {
@@ -61,7 +61,7 @@ var models = localStorage.settings ? JSON.parse(localStorage.settings).models : 
     },
     "Employer lump sum payments": {
       'Lump sum A': { value: null },
-      'Code': { value: "R", dropdown: ["R", "T"]},
+      'Code': { value: "R", dropdown: ["R", "T"], initialValue: "R"},
       'Lump sum B': { value: null },
       'Tax withheld': { value: null },
       'Computed Total': {
@@ -80,12 +80,12 @@ var models = localStorage.settings ? JSON.parse(localStorage.settings).models : 
     "Employer termination payments": {
       'Income': { value: null },
       'Tax withheld': { value: null },
-      'Code': { value: "R", dropdown: ["R", "O", "S", "P", "S", "B", "N", "T", "D"] },
+      'Code': { value: "R", dropdown: ["R", "O", "S", "P", "B", "N", "T", "D"], initialValue: "R" },
     },
     "Government payments": {
       'Income': { value: null },
       'Tax withheld': { value: null },
-      'Code': { value: "Offset", dropdown: ["Offset", "Not Offset"] },
+      'Code': { value: "Offset", dropdown: ["Offset", "Not Offset"], initialValue: "Offset" },
     },
     "Annuities and super income stream": {
       'Taxed element': { value: null },
@@ -94,7 +94,7 @@ var models = localStorage.settings ? JSON.parse(localStorage.settings).models : 
       'Lump sum - Taxed element': { value: null },
       'Lump sum - Untaxed element': { value: null },
       'Offset amount': { value: null },
-      'Death or disability': { value: "No", dropdown: ["No", "Death over 60", "Death under 60", "Disability"] },
+      'Death or disability': { value: "No", dropdown: ["No", "Death over 60", "Death under 60", "Disability"], initialValue: "No" },
     },
     //"Super lump sum payments": {},
     "Attributed personal service income": {

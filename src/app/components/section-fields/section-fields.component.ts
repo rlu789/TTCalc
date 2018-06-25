@@ -94,16 +94,16 @@ export class SectionFields {
           var input = null;
           switch (this.addFormData.option) {
             case 'N':
-              input = { value: this.addFormData.initialValue };
+              input = { value: this.addFormData.initialValue, initialValue: this.addFormData.initialValue };
               break;
             case 'D':
-              input = { value: this.addFormData.initialValue, dropdown: this.addFormData.dropdownOptions };
+              input = { value: this.addFormData.initialValue, dropdown: this.addFormData.dropdownOptions, initialValue: this.addFormData.initialValue };
               break;
             case 'C':
-              input = { value: this.addFormData.initialValue, calcs: {} };
+              input = { value: this.addFormData.initialValue, calcs: {}, initialValue: this.addFormData.initialValue };
               break;
             case 'Date':
-              input = { value: this.addFormData.initialValue, date: true };
+              input = { value: this.addFormData.initialValue, date: true, initialValue: this.addFormData.initialValue };
               break;
           }
           constants.models[this.addFormData.model][this.addFormData.section][this.addFormData.field] = input;

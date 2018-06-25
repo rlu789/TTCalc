@@ -10,6 +10,7 @@
           <mat-select [(ngModel)]="data[key].value" placeholder="{{key}}" matTooltip="{{key}}">
             <mat-option *ngFor="let option of data[key].dropdown" value="{{option}}">{{option}}</mat-option>
           </mat-select>
+          <mat-hint *ngIf="data[key].initialValue">Initial Value: {{data[key].initialValue}}</mat-hint>
         </mat-form-field>
       </div>
     </div>
@@ -19,18 +20,20 @@
           <input matInput [(ngModel)]="data[key].value" [matDatepicker]="date" placeholder="{{key}}">
           <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
           <mat-datepicker #date></mat-datepicker>
+          <mat-hint *ngIf="data[key].initialValue">Initial Value: {{data[key].initialValue}}</mat-hint>
         </mat-form-field>
       </div>
     </ng-template>
     <ng-template #checkIfCheckboxInput>
       <div *ngIf="data[key].checkbox; else elseBlock" style="min-width: 175px;">
-        <mat-checkbox [(ngModel)]="data[key].value">{{key}}</mat-checkbox>
+        <mat-checkbox [(ngModel)]="data[key].value" matTooltip="Initial Value: {{data[key].initialValue}}">{{key}}</mat-checkbox>
       </div>
     </ng-template>
     <ng-template #elseBlock>
       <div class="col-sm-1" *ngIf="!data[key].calcs">
         <mat-form-field>
           <input matInput [(ngModel)]=data[key].value type="number" class="form-control" placeholder="{{key}}" matTooltip="{{key}}">
+          <mat-hint *ngIf="data[key].initialValue">Initial Value: {{data[key].initialValue}}</mat-hint>
         </mat-form-field>
       </div>
       <div class="col-sm-11" *ngIf="data[key].calcs" style="min-width: 280px;">
