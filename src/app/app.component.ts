@@ -23,6 +23,17 @@ export class AppComponent {
     this.editMode = this.editMode === null ? constants.editMode : false;
   }
 
+  clear() {
+    // goes into every field and sets to value to be the initial value or a null value
+    for (let model in constants.models) {
+      for (let section in constants.models[model]) {
+        for (let field in constants.models[model][section]) {
+          constants.models[model][section][field].value = constants.models[model][section][field].initialValue;
+        }
+      }
+    }
+  }
+
   addPage() {
     // lazy
     constants.pages[this.pageName] = {};

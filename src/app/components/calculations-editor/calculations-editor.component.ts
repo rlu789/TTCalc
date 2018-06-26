@@ -19,6 +19,7 @@ export class CalculationsEditor {
     field: null,
     operation: null,
     ifChecked: false,
+    percent: null,
     if: [{
       model1: null, section1: null, field1: null, compare: null, value: null, model2: null, section2: null, field2: null, compareWithPrevious: null }]
   };
@@ -57,7 +58,7 @@ export class CalculationsEditor {
     //TODO redo the if part
     this.addCalcForm.if = [{ model1: null, section1: null, field1: null, compare: null, value: null, model2: null, section2: null, field2: null, compareWithPrevious: '&&' }]; 
     let dialogRef = this.dialog.open(DependenciesModal, {
-      width: '450px',
+      width: '600px',
       data: { data: this.addCalcForm }
     });
 
@@ -74,6 +75,7 @@ export class CalculationsEditor {
             field: this.addCalcForm.field,
             operation: this.addCalcForm.operation,
             if: this.addCalcForm.ifChecked ? this.addCalcForm.if : null,
+            percent: this.addCalcForm.percent
           });
         }
         else {
@@ -85,6 +87,7 @@ export class CalculationsEditor {
             field: this.addCalcForm.field,
             operation: this.addCalcForm.operation,
             if: this.addCalcForm.ifChecked ? this.addCalcForm.if : null,
+            percent: this.addCalcForm.percent
           });
         }
         console.log(this.calcs);

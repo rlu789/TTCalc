@@ -25,6 +25,9 @@ var calcs = localStorage.settings ? JSON.parse(localStorage.settings).calcs : {
 }
 
 var models = localStorage.settings ? JSON.parse(localStorage.settings).models : {
+  // model
+    // section
+      // field
   Personal: {
     Personal: {
       Age: { value: 35, initialValue: 35 },
@@ -131,6 +134,11 @@ var models = localStorage.settings ? JSON.parse(localStorage.settings).models : 
       'Landcare operations and deductions - water facility': { value: null },
       'Deductions for distribution from p/ship and share of net income from trust': { value: null },
     },
+  },
+  Variables: {
+    Statics: {
+      "A Static": { value: 4000, initialValue: 4000 },
+    }
   }
 };
 
@@ -142,12 +150,12 @@ if (localStorage.settings) {
       p[pageKey][model] = models[model]
     }
   }
-  console.log(p);
 } 
 
 var pages = Object.keys(p).length === 0 && p.constructor === Object ? {
   Income: { Income: models.Income, "Suppelementry Section": models["Suppelementry Section"] },
-  "Personal": { Personal: models.Personal },
+  Personal: { Personal: models.Personal },
+  Constants: { Variables: models.Variables}
 } : p;
 
 

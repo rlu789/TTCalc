@@ -28,6 +28,9 @@
         <mat-option value="-">-</mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-form-field *ngIf="data.data.section && data.data.model && data.data.field">
+      <input matInput type="number" placeholder="Percent (50% = 0.5)" [(ngModel)]="data.data.percent">
+    </mat-form-field>
     <section>
       <mat-checkbox [(ngModel)]="data.data.ifChecked">Ifs</mat-checkbox>
     </section>
