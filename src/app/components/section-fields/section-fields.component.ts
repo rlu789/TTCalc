@@ -82,7 +82,7 @@ export class SectionFields {
     this.addFormData.section = this.section;
     this.addFormData.dropdownOptions = [];
     let dialogRef = this.dialog.open(AddFormModal, {
-      width: '600px',
+      width: '700px',
       data: { data: this.addFormData }
     });
 

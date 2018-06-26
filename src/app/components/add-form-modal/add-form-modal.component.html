@@ -1,13 +1,13 @@
 <h1 mat-dialog-title>Add New</h1>
 <div mat-dialog-content>
-  <mat-form-field>
+  <!--<mat-form-field>
     <input matInput [(ngModel)]=data.data.model type="text" class="form-control" placeholder="Model">
   </mat-form-field>
   <mat-form-field>
     <input matInput [(ngModel)]=data.data.section type="text" class="form-control" placeholder="Section">
-  </mat-form-field>
+  </mat-form-field>-->
   <mat-form-field>
-    <input matInput [(ngModel)]=data.data.field type="text" class="form-control" placeholder="Field">
+    <input matInput [(ngModel)]=data.data.field type="text" class="form-control" placeholder="Name of This Field">
   </mat-form-field>
   <mat-form-field *ngIf="data.data.option !== 'C'">
     <input matInput [(ngModel)]=data.data.initialValue type="text" class="form-control" placeholder="Initial Value">
@@ -16,7 +16,7 @@
     <mat-select [(value)]="data.data.option" placeholder="Option">
       <mat-option value="N">Normal Input</mat-option>
       <mat-option value="D">Dropdown</mat-option>
-      <mat-option value="C">Readonly / Computed Field</mat-option>
+      <mat-option value="C">Computed Field</mat-option>
       <mat-option value="Date">Date</mat-option>
     </mat-select>
   </mat-form-field>
@@ -25,6 +25,7 @@
       <input matInput [(ngModel)]="optionName" type="text" class="form-control" placeholder="Option">
     </mat-form-field>
     <button mat-button (click)="addOption(optionName)">Add Option</button>
+    <!--TODO make this pretty-->
     <div style="float:right">
       <div *ngFor="let opt of data.data.dropdownOptions">
         {{opt}}

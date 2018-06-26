@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatDatepickerModule, MatNativeDateModule, MatFormFieldModule,
   MatFormFieldControl, MatInputModule, MatButtonModule, MatSelectModule, MatCheckboxModule, MatCardModule, MatExpansionModule,
-  MatDividerModule, MatTooltipModule
+  MatDividerModule, MatTooltipModule, MatSnackBarModule
 } from '@angular/material';
 
 //components and pipes
@@ -49,7 +49,8 @@ import { AppComponent } from './app.component';
     MatCardModule,
     MatExpansionModule,
     MatDividerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule
   ],
   entryComponents: [
     AddFormModal,

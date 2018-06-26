@@ -10,6 +10,9 @@ export class Page {
   calcs = null;
   data = null;
   @Input('page') page: string;
+
+  modelName: string;
+  sectionName: string;
   
   ngOnInit() {
     //console.log(constants.calcs[this.page]);

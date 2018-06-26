@@ -58,7 +58,7 @@ export class CalculationsEditor {
     //TODO redo the if part
     this.addCalcForm.if = [{ model1: null, section1: null, field1: null, compare: null, value: null, model2: null, section2: null, field2: null, compareWithPrevious: '&&' }]; 
     let dialogRef = this.dialog.open(DependenciesModal, {
-      width: '600px',
+      width: '700px',
       data: { data: this.addCalcForm }
     });
 

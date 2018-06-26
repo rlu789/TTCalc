@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>Add Calc <span *ngIf="data.onlyIfs">If</span></h1>
-<div mat-dialog-content>
+<div mat-dialog-content class="mat-dialog-content">
   <div *ngIf="!data.onlyIfs">
     <mat-form-field>
       <input matInput placeholder="Name" [(ngModel)]="data.data.name">
@@ -36,7 +36,7 @@
     </section>
   </div>
   <mat-accordion *ngIf="data.data.ifChecked || data.onlyIfs">
-    <div class="row" *ngFor="let i of data.data.if ">
+    <div class="row" *ngFor="let i of data.data.if; index as index">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -93,6 +93,9 @@
             <input matInput placeholder="Or Value" [(ngModel)]=i.value>
           </mat-form-field>
         </div>
+        <mat-action-row>
+          <button mat-button color="warn" (click)="removeIf(index)">Remove</button>
+        </mat-action-row>
       </mat-expansion-panel>
     </div>
   </mat-accordion>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 //import * as income from './models/income/incomeModel';
 import * as constants from './models/constants';
 import { saveAs } from 'file-saver'
@@ -15,7 +16,7 @@ export class AppComponent {
   fileData = null;
 
   pageName: string;
-  constructor() { }
+  constructor(public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.pages = constants.pages;
@@ -28,10 +29,14 @@ export class AppComponent {
     for (let model in constants.models) {
       for (let section in constants.models[model]) {
         for (let field in constants.models[model][section]) {
-          constants.models[model][section][field].value = constants.models[model][section][field].initialValue;
+          // ignore computed fields
+          if (!constants.models[model][section][field].calcs) constants.models[model][section][field].value = constants.models[model][section][field].initialValue ? constants.models[model][section][field].initialValue : null;
         }
       }
     }
+    this.snackBar.open("Data cleared", "OK", {
+      duration: 700,
+    });
   }
 
   addPage() {
