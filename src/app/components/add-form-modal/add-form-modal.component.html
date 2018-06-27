@@ -27,8 +27,9 @@
     <button mat-button (click)="addOption(optionName)">Add Option</button>
     <!--TODO make this pretty-->
     <div style="float:right">
-      <div *ngFor="let opt of data.data.dropdownOptions">
-        {{opt}}
+      <div *ngFor="let opt of data.data.dropdownOptions; index as i">
+        {{ opt }}
+        <button type="button" class="close" (click)="deleteIf(i)" style="position: relative; bottom: 2px;">&times;</button>
       </div>
     </div>
   </div>

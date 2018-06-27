@@ -69,29 +69,45 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Compare With" [(ngModel)]=i.compare>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-select [(value)]="i.model2" placeholder="Model 2">
-              <mat-option>...</mat-option>
-              <mat-option *ngFor="let option of constants.models | keys" value="{{option}}">{{option}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field *ngIf="i.model2">
-            <mat-select [(value)]="i.section2" placeholder="Section 2">
-              <mat-option>...</mat-option>
-              <mat-option *ngFor="let option of constants.models[i.model2] | keys" value="{{option}}">{{option}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field *ngIf="i.model2 && i.section2">
-            <mat-select [(value)]="i.field2" placeholder="Field 2">
-              <mat-option>...</mat-option>
-              <mat-option *ngFor="let option of constants.models[i.model2][i.section2] | keys" value="{{option}}">{{option}}</mat-option>
+            <mat-select [(value)]="i.compare" placeholder="Compare">
+              <mat-option value="<">Less Than</mat-option>
+              <mat-option value="<=">Less Than Or Equal To</mat-option>
+              <mat-option value="==">Equals</mat-option>
+              <mat-option value=">=">Greater Than Or Equal TO</mat-option>
+              <mat-option value=">">Greater Than</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Or Value" [(ngModel)]=i.value>
+            <mat-select [(value)]="compareWith" placeholder="Compare With">
+              <mat-option value="V">Value</mat-option>
+              <mat-option value="F">Another Field</mat-option>
+            </mat-select>
           </mat-form-field>
+          <div *ngIf="compareWith === 'F'">
+            <mat-form-field>
+              <mat-select [(value)]="i.model2" placeholder="Model 2">
+                <mat-option>...</mat-option>
+                <mat-option *ngFor="let option of constants.models | keys" value="{{option}}">{{option}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="i.model2">
+              <mat-select [(value)]="i.section2" placeholder="Section 2">
+                <mat-option>...</mat-option>
+                <mat-option *ngFor="let option of constants.models[i.model2] | keys" value="{{option}}">{{option}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="i.model2 && i.section2">
+              <mat-select [(value)]="i.field2" placeholder="Field 2">
+                <mat-option>...</mat-option>
+                <mat-option *ngFor="let option of constants.models[i.model2][i.section2] | keys" value="{{option}}">{{option}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div *ngIf="compareWith === 'V'">
+            <mat-form-field>
+              <input matInput placeholder="Or Value" [(ngModel)]=i.value>
+            </mat-form-field>
+          </div>
         </div>
         <mat-action-row>
           <button mat-button color="warn" (click)="removeIf(index)">Remove</button>

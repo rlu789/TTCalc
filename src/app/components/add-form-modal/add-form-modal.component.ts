@@ -25,4 +25,8 @@ export class AddFormModal {
   cancel() {
     this.dialogRef.close();
   }
+
+  deleteIf(i) {
+    this.data.data.dropdownOptions.splice(i, 1);
+  }
 }
