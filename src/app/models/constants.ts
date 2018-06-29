@@ -2,21 +2,14 @@ var calcs = localStorage.settings ? JSON.parse(localStorage.settings).calcs : {
   Income: {
     "Total Income": {
       Income: {
-        "Salary and wages": [
-          { field: "Income", operation: '+' },
-          {
-            field: "Tax withheld", operation: '-',
-            if: [{ model1: "Income", section1: "Allowances", field1: "Tax withheld", compare: '>', value: 100 } ]
-          },
-        ],
-        Interest: [
-          { section: "Interest", field: "Income", operation: '+' },
+        "Totals": [
+          { field: "Total income", operation: '+' }
         ]
       }
     },
     "Tax Withheld": {
       Income: {
-        "Salary and wages": [
+        "Totals": [
           { field: "Tax withheld", operation: '+' }
         ]
       }
@@ -26,8 +19,8 @@ var calcs = localStorage.settings ? JSON.parse(localStorage.settings).calcs : {
 
 var models = localStorage.settings ? JSON.parse(localStorage.settings).models : {
   // model
-    // section
-      // field
+  // section
+  // field
   Personal: {
     Personal: {
       Age: { value: 35, initialValue: 35 },
@@ -64,7 +57,7 @@ var models = localStorage.settings ? JSON.parse(localStorage.settings).models : 
     },
     "Employer lump sum payments": {
       'Lump sum A': { value: null },
-      'Code': { value: "R", dropdown: ["R", "T"], initialValue: "R"},
+      'Code': { value: "R", dropdown: ["R", "T"], initialValue: "R" },
       'Lump sum B': { value: null },
       'Tax withheld': { value: null },
       'Computed Total': {
@@ -90,6 +83,10 @@ var models = localStorage.settings ? JSON.parse(localStorage.settings).models : 
       'Tax withheld': { value: null },
       'Code': { value: "Offset", dropdown: ["Offset", "Not Offset"], initialValue: "Offset" },
     },
+    "Government pensions": {
+      'Income': { value: null },
+      'Tax withheld': { value: null }
+    },
     "Annuities and super income stream": {
       'Taxed element': { value: null },
       'Untaxed element': { value: null },
@@ -98,14 +95,43 @@ var models = localStorage.settings ? JSON.parse(localStorage.settings).models : 
       'Lump sum - Untaxed element': { value: null },
       'Offset amount': { value: null },
       'Death or disability': { value: "No", dropdown: ["No", "Death over 60", "Death under 60", "Disability"], initialValue: "No" },
+      "Computed Total": {
+        value: null,
+        calcs: {
+          Income: {
+            "Annuities and super income stream": [
+              { field: "Taxed element", operation: '+' },
+              { field: "Untaxed element", operation: '+' },
+              { field: "Lump sum - Taxed element", operation: '+' },
+              { field: "Lump sum - Untaxed element", operation: '+' },
+            ]
+          }
+        }
+      }
     },
-    //"Super lump sum payments": {},
+    "Super lump sum payments": {
+      'Taxed element': { value: null },
+      'Untaxed element': { value: null },
+      'Tax withheld': { value: null },
+      'Death': { value: null, dropdown: ["Y", "", "N"] },
+      'Computed Total': {
+        value: null,
+        calcs: {
+          Income: {
+            "Super lump sum payments": [
+              { field: "Taxed element", operation: '+' },
+              { field: "Untaxed element", operation: '+' }
+            ]
+          }
+        }
+      }
+    },
     "Attributed personal service income": {
       'Income': { value: null },
       'Tax withheld': { value: null },
     },
     Interest: {
-        'Income': { value: null },
+      'Income': { value: null },
     },
     Dividends: {
       'Unfranked amount': { value: null },
@@ -117,12 +143,92 @@ var models = localStorage.settings ? JSON.parse(localStorage.settings).models : 
         calcs: {
           Income: {
             "Dividends": [
-              { field: "Unfranked amount", operation: '+'},
+              { field: "Unfranked amount", operation: '+' },
               { field: "Franked amount", operation: '+' },
               { field: "Franking credit", operation: '+' },
             ]
           }
         },
+      }
+    },
+    "Employee share scheme": {
+      "Discount from taxed upfront - eligible for reduction": { value: null },
+      "Tax withheld": { value: null },
+      "Discount from taxed upfront - not eligible for reduction": { value: null },
+      "Discount from deferral scheme": { value: null },
+      "Interest acquired pre 2009": { value: null },
+      "Foreign source discounts": { value: null },
+      "(TODO) Tax assessable discount amount": {
+        value: null,
+        calcs: {}
+      },
+      "Computed Total": {
+        value: null,
+        calcs: {
+          Income: {
+            "Employee share scheme": [
+              { field: "Discount from taxed upfront - eligible for reduction", operation: '+' },
+              { field: "Discount from taxed upfront - not eligible for reduction", operation: '+' },
+              { field: "Discount from deferral scheme", operation: '+' },
+              { field: "Interest acquired pre 2009", operation: '+' },
+              { field: "Foreign source discounts", operation: '+' },
+              { field: "(TODO) Tax assessable discount amount", operation: '-' },
+            ]
+          }
+        }
+      }
+    },
+    Totals: {
+      "Total income": {
+        value: null,
+        calcs: {
+          Income: {
+            "Salary and wages": [{ field: "Income", operation: '+' }],
+            "Allowances": [{ field: "Income", operation: '+' }],
+            "Employer lump sum payments": [{ field: "Computed Total", operation: '+' }],
+            "Employer termination payments": [{ field: "Income", operation: '+' }],
+            "Government payments": [{ field: "Income", operation: '+' }],
+            "Government pensions": [{ field: "Income", operation: '+' }],
+            "Annuities and super income stream": [{ field: "Computed Total", operation: '+' }],
+            "Super lump sum payments": [{ field: "Computed Total", operation: '+' }],
+            "Attributed personal service income": [{ field: "Income", operation: '+' }],
+            "Interest": [
+              {
+                field: "Income", operation: '+',
+                if: [{ model1: "Personal", section1: "Personal", field1: "Full Year Resident", compare: '==', value: true }]
+              }
+            ],
+            "Dividends": [
+              {
+                field: "Computed Total", operation: '+',
+                if: [{ model1: "Personal", section1: "Personal", field1: "Full Year Resident", compare: '==', value: true }]
+              }
+            ],
+            "Employee share scheme": [{ field: "Computed Total", operation: '+' }],
+          }
+        }
+      },
+      "Tax withheld": {
+        value: null,
+        calcs: {
+          Income: {
+            "Salary and wages": [{ field: "Tax withheld", operation: '+' }],
+            "Allowances": [{ field: "Tax withheld", operation: '+' }],
+            "Employer lump sum payments": [{ field: "Tax withheld", operation: '+' }],
+            "Employer termination payments": [{ field: "Tax withheld", operation: '+' }],
+            "Government payments": [{ field: "Tax withheld", operation: '+' }],
+            "Government pensions": [{ field: "Tax withheld", operation: '+' }],
+            "Annuities and super income stream": [{ field: "Tax withheld", operation: '+' }],
+            "Super lump sum payments": [{ field: "Tax withheld", operation: '+' }],
+            "Dividends": [
+              {
+                field: "Franking credit", operation: '+',
+                if: [{ model1: "Personal", section1: "Personal", field1: "Full Year Resident", compare: '==', value: true }]
+              }
+            ],
+            "Employee share scheme": [{ field: "Tax withheld", operation: '+' }],
+          }
+        }
       }
     }
 
