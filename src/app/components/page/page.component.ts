@@ -7,7 +7,7 @@ import * as constants from '../../models/constants';
   templateUrl: './page.component.html'
 })
 export class Page {
-  calcs = null;
+  //calcs = null;
   data = null;
   @Input('page') page: string;
 
@@ -15,9 +15,9 @@ export class Page {
   sectionName: string;
   
   ngOnInit() {
-    //console.log(constants.calcs[this.page]);
     this.data = constants.pages[this.page];
-    this.calcs = constants.calcs[this.page];
+    //this.calcs = constants.pages[this.page]["Page Calcs"];
+    //console.log(this.data);
   }
 
   deletePage() {
@@ -54,5 +54,5 @@ export class Page {
     return constants.editMode;
   }
 
-  calcTotals() { return common.calcTotalsForPage(this.page); }
+  //calcTotals() { return common.calcTotalsForPage(this.page); }
 }

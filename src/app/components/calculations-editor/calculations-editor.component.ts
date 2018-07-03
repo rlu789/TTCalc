@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { DependenciesModal } from '../../components/dependencies-modal/dependencies-modal.component'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import * as constants from '../../models/constants';
+import * as common from '../../models/common';
  
 @Component({
   selector: 'calculations-editor',
@@ -27,7 +28,7 @@ export class CalculationsEditor {
   constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
-    //console.log(this.calcs);
+    console.log(this.calcs);
     //console.log(this.keyProvided);
     //console.log(this.doCalcIf);
   }
@@ -36,19 +37,24 @@ export class CalculationsEditor {
     return constants.editMode;
   }
 
-  deteleCalc(key, modelKey, sectionKey, childKey) {
-    this.calcs[key][modelKey][sectionKey].splice(childKey, 1);
-    if (!this.calcs[key][modelKey][sectionKey].length) delete this.calcs[key][modelKey][sectionKey];
-    if (!Object.keys(this.calcs[key][modelKey]).length) delete this.calcs[key][modelKey];
+  calcField(thisField) {
+    return common.calcField(thisField);
   }
 
-  deteleCalcInFieldMode(modelKey, sectionKey, childKey) {
+  deleteCalc(key, modelKey, sectionKey, childKey) {
+    console.log(this.calcs)
+    this.calcs[key].calcs[modelKey][sectionKey].splice(childKey, 1);
+    if (!this.calcs[key].calcs[modelKey][sectionKey].length) delete this.calcs[key].calcs[modelKey][sectionKey];
+    if (!Object.keys(this.calcs[key].calcs[modelKey]).length) delete this.calcs[key].calcs[modelKey];
+  }
+
+  deleteCalcInFieldMode(modelKey, sectionKey, childKey) {
     this.calcs[modelKey][sectionKey].splice(childKey, 1);
     if (!this.calcs[modelKey][sectionKey].length) delete this.calcs[modelKey][sectionKey];
     if (!Object.keys(this.calcs[modelKey]).length) delete this.calcs[modelKey];
   }
 
-  deteleDoCalcIf(i) {
+  deleteDoCalcIf(i) {
     this.doCalcIf.splice(i, 1);
     if (!this.doCalcIf.length) this.doCalcIf = null;
   }
@@ -67,11 +73,11 @@ export class CalculationsEditor {
       if (result) {
         if (!this.keyProvided) {
           // if no key provided, we're NOT in field mode, so name key is needed
-          if (!this.calcs[this.addCalcForm.name].hasOwnProperty([this.addCalcForm.model]))
-            this.calcs[this.addCalcForm.name][this.addCalcForm.model] = {};
-          if (!this.calcs[this.addCalcForm.name][this.addCalcForm.model].hasOwnProperty([this.addCalcForm.section]))
-            this.calcs[this.addCalcForm.name][this.addCalcForm.model][this.addCalcForm.section] = [];
-          this.calcs[this.addCalcForm.name][this.addCalcForm.model][this.addCalcForm.section].push({
+          if (!this.calcs[this.addCalcForm.name].calcs.hasOwnProperty([this.addCalcForm.model]))
+            this.calcs[this.addCalcForm.name].calcs[this.addCalcForm.model] = {};
+          if (!this.calcs[this.addCalcForm.name].calcs[this.addCalcForm.model].hasOwnProperty([this.addCalcForm.section]))
+            this.calcs[this.addCalcForm.name].calcs[this.addCalcForm.model][this.addCalcForm.section] = [];
+          this.calcs[this.addCalcForm.name].calcs[this.addCalcForm.model][this.addCalcForm.section].push({
             field: this.addCalcForm.field,
             operation: this.addCalcForm.operation,
             if: this.addCalcForm.ifChecked ? this.addCalcForm.if : null,

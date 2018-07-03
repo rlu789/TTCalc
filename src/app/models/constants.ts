@@ -1,17 +1,23 @@
 var calcs = localStorage.settings ? JSON.parse(localStorage.settings).calcs : {
   Income: {
     "Total Income": {
-      Income: {
-        "Totals": [
-          { field: "Total income", operation: '+' }
-        ]
+      value: null,
+      calcs: {
+        Income: {
+          "Totals": [
+            { field: "Total income", operation: '+' }
+          ]
+        }
       }
     },
     "Tax Withheld": {
-      Income: {
-        "Totals": [
-          { field: "Tax withheld", operation: '+' }
-        ]
+      value: null,
+      calcs: {
+        Income: {
+          "Totals": [
+            { field: "Tax withheld", operation: '+' }
+          ]
+        }
       }
     }
   },
@@ -245,6 +251,10 @@ var models = localStorage.settings ? JSON.parse(localStorage.settings).models : 
     Statics: {
       "A Static": { value: 4000, initialValue: 4000 },
     }
+  },
+
+  "Page Calcs": {
+    Income: calcs["Income"]
   }
 };
 
@@ -259,7 +269,7 @@ if (localStorage.settings) {
 } 
 
 var pages = Object.keys(p).length === 0 && p.constructor === Object ? {
-  Income: { Income: models.Income, "Suppelementry Section": models["Suppelementry Section"] },
+  Income: { Income: models.Income, "Suppelementry Section": models["Suppelementry Section"], "Page Calcs": models["Page Calcs"]["Income"] },
   Personal: { Personal: models.Personal },
   Constants: { Variables: models.Variables}
 } : p;

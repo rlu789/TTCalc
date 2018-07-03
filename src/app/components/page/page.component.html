@@ -8,29 +8,31 @@
   </div>
   <ngb-tabset>
     <div *ngFor="let model of data | keys">
-      <ngb-tab title={{model}}>
-        <ng-template ngbTabContent>
-          <div style="margin-top: 10px;"></div>
-          <div *ngIf="isEditMode()">
-            <mat-form-field>
-              <input matInput [(ngModel)]="sectionName" type="text" class="form-control" placeholder="Section Name">
-            </mat-form-field>
-            <button mat-raised-button color="primary" style="height: 45px; margin-left:10px;" (click)="addSection(model, sectionName)">Add Section</button>
-            <button mat-raised-button color="accent" style="height: 45px; margin-left:10px;" (click)="deleteModel(model)">Delete Model</button>
-          </div>
-          <div *ngFor="let key of data[model] | keys">
-            <section-fields [data]="data[model][key]" [section]="key" [model]="model"></section-fields>
-          </div>
-        </ng-template>
-      </ngb-tab>
+      <div *ngIf="model !== 'Page Calcs'">
+        <ngb-tab title={{model}}>
+          <ng-template ngbTabContent>
+            <div style="margin-top: 10px;"></div>
+            <div *ngIf="isEditMode()">
+              <mat-form-field>
+                <input matInput [(ngModel)]="sectionName" type="text" class="form-control" placeholder="Section Name">
+              </mat-form-field>
+              <button mat-raised-button color="primary" style="height: 45px; margin-left:10px;" (click)="addSection(model, sectionName)">Add Section</button>
+              <button mat-raised-button color="accent" style="height: 45px; margin-left:10px;" (click)="deleteModel(model)">Delete Model</button>
+            </div>
+            <div *ngFor="let key of data[model] | keys">
+              <section-fields [data]="data[model][key]" [section]="key" [model]="model"></section-fields>
+            </div>
+          </ng-template>
+        </ngb-tab>
+      </div>
     </div>
   </ngb-tabset>
-  <div class="row" style="margin-top: 30px;">
+  <!--<div class="row" style="margin-top: 30px;">
     <div class="col-sm-2" *ngFor="let total of calcTotals() | keys">
       <div class="alert alert-dark" role="alert">
         {{total}} : <b>{{calcTotals()[total]}}</b>
       </div>
     </div>
-  </div>
-  <calculations-editor [calcs]="calcs"></calculations-editor>
+  </div>-->
+  <calculations-editor [calcs]="data['Page Calcs']"></calculations-editor>
 </div>

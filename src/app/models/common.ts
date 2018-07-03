@@ -8,7 +8,6 @@ function modelExists(model) {
     return false;
   }
   return true;
-
 }
 
 function sectionExists(model, section) {
@@ -60,9 +59,10 @@ function evalIf(ifs) {
   return bool;
 }
 
-function doCalculation(key, calcModel, section, field, calc) {
-  return doFieldCalculation(calcModel, section, field, calc[key]);
-}
+// not used anymore as a result of calcField function and redoing page calcs
+//function doCalculation(key, calcModel, section, field, calc) {
+//  return doFieldCalculation(calcModel, section, field, calc[key]);
+//}
 
 function doFieldCalculation(calcModel, section, field, calc) {
   //check dependencies, if model / section / field has been deleted, then delete the calc as well
@@ -101,23 +101,32 @@ function doFieldCalculation(calcModel, section, field, calc) {
 
 }
 
-function calcTotalsForPage(page) {
-  var totals = {};
-  for (let total in constants.calcs[page]) {
-    totals[total] = 0;
-    for (let model in constants.calcs[page][total]) {
-      if (!modelExists(model)) {
-        delete constants.calcs[page][total][model];
-        continue;
-      }
-      for (let section in constants.calcs[page][total][model]) {
-        for (let field in constants.calcs[page][total][model][section]) {
-          totals[total] += doCalculation(total, model, section, field, constants.calcs[page]);
-        }
+// through the calcs object supplied in "thisField" preform the calculations, store the value and return the value to be displayed in UI
+function calcField(thisField) {
+  var minutes = 1000 * 60,
+    hours = minutes * 60,
+    days = hours * 24,
+    years = days * 365;
+
+  if (!evalIf(thisField.doCalcIf)) {
+    thisField.value = 0;
+    return false;
+  }
+  var value = 0;
+  for (let model in thisField.calcs) {
+    for (let section in thisField.calcs[model]) {
+      for (let field in thisField.calcs[model][section]) {
+        value += doFieldCalculation(model, section, field, thisField.calcs);
       }
     }
   }
-  return totals;
+  switch (thisField.format) {
+    case ('Days'):
+      value = value / days;
+      break;
+  }
+  thisField.value = value;
+  return value;
 }
 
-export { doCalculation, doFieldCalculation, evalIf, calcTotalsForPage };
+export { doFieldCalculation, evalIf, calcField };

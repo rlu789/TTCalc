@@ -51,30 +51,7 @@ export class SectionFields {
   }
 
   calcField(thisField) {
-    var minutes = 1000 * 60,
-      hours = minutes * 60,
-      days = hours * 24,
-      years = days * 365;
-
-    if (!common.evalIf(thisField.doCalcIf)) {
-      thisField.value = 0;
-      return false;
-    }
-    var value = 0;
-    for (let model in thisField.calcs) {
-      for (let section in thisField.calcs[model]) {
-        for (let field in thisField.calcs[model][section]) {
-          value += common.doFieldCalculation(model, section, field, thisField.calcs);
-        }
-      }
-    }
-    switch (thisField.format) {
-      case ('Days'):
-        value = value / days;
-        break;
-    }
-    thisField.value = value;
-    return value;
+    return common.calcField(thisField);
   }
 
   addField() {
