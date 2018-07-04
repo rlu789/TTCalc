@@ -9,7 +9,8 @@
           <div class="card-body">
             <div *ngFor="let modelKey of calcs[key].calcs | keys">
               <h5 class="card-title">{{modelKey}}</h5>
-              <div *ngFor="let sectionKey of calcs[key].calcs[modelKey] | keys"> <b>{{sectionKey}}</b> <br />
+              <div *ngFor="let sectionKey of calcs[key].calcs[modelKey] | keys">
+                <b>{{sectionKey}}</b> <br />
                 <div *ngFor="let fieldKey of calcs[key].calcs[modelKey][sectionKey]">
                   {{fieldKey.field}} ({{fieldKey.operation}}) {{fieldKey.percent}}
                   <button *ngIf="isEditMode()" type="button" class="close" (click)="deleteCalc(key, modelKey, sectionKey, fieldKey)">&times;</button>
@@ -24,9 +25,8 @@
               </div>
             </div>
           </div>
-          <button *ngIf="isEditMode()" type="button" class="btn btn btn-link" (click)="setupAdd(key)">
-            Add Calc
-          </button>
+          <button *ngIf="isEditMode()" type="button" class="btn btn btn-link" (click)="setupAdd(key)">Add Calc</button>
+          <button *ngIf="isEditMode()" type="button" class="btn btn btn-link" (click)="deletePageCalc(key)" style="color:red;">Delete Page Calc</button>
         </div>
       </div>
     </div>

@@ -37,6 +37,10 @@ export class CalculationsEditor {
     return constants.editMode;
   }
 
+  deletePageCalc(key) {
+    delete this.calcs[key];
+  }
+
   calcField(thisField) {
     return common.calcField(thisField);
   }

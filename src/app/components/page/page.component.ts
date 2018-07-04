@@ -8,16 +8,30 @@ import * as constants from '../../models/constants';
 })
 export class Page {
   //calcs = null;
-  data = null;
+  data : Object;
   @Input('page') page: string;
 
   modelName: string;
   sectionName: string;
+  pageCalcName: string
   
   ngOnInit() {
     this.data = constants.pages[this.page];
     //this.calcs = constants.pages[this.page]["Page Calcs"];
     //console.log(this.data);
+  }
+
+  addPageCalc() {
+    if (!this.data.hasOwnProperty("Page Calcs")) {
+      // if page has no Page Calcs yet, make one through this very convoluted process that might be redundant depending on how settings are loaded
+      constants.calcs[this.page] = {};
+      constants.models["Page Calcs"][this.page] = constants.calcs[this.page];
+      constants.pages[this.page]["Page Calcs"] = constants.models["Page Calcs"][this.page];
+    }
+    this.data["Page Calcs"][this.pageCalcName] = {
+      value: null, calcs: {}
+    };
+    console.log(this.data)
   }
 
   deletePage() {

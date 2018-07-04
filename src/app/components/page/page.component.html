@@ -35,4 +35,10 @@
     </div>
   </div>-->
   <calculations-editor [calcs]="data['Page Calcs']"></calculations-editor>
+  <div *ngIf="isEditMode()">
+    <mat-form-field>
+      <input matInput [(ngModel)]="pageCalcName" type="text" class="form-control" placeholder="Page Calc Name">
+    </mat-form-field>
+    <button *ngIf="isEditMode()" type="button" class="btn btn btn-link" (click)="addPageCalc()">Add Page Calc</button>
+  </div>
 </div>

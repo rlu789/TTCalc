@@ -1,4 +1,6 @@
 var calcs = localStorage.settings ? JSON.parse(localStorage.settings).calcs : {
+  // page
+    // field
   Income: {
     "Total Income": {
       value: null,
@@ -265,6 +267,7 @@ if (localStorage.settings) {
     for (let model in JSON.parse(localStorage.settings).pages[pageKey]) {
       p[pageKey][model] = models[model]
     }
+    if (models["Page Calcs"][pageKey]) p[pageKey]["Page Calcs"] = models["Page Calcs"][pageKey];
   }
 } 
 
