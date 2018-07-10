@@ -27,18 +27,13 @@
       </div>
     </div>
   </ngb-tabset>
-  <!--<div class="row" style="margin-top: 30px;">
-    <div class="col-sm-2" *ngFor="let total of calcTotals() | keys">
-      <div class="alert alert-dark" role="alert">
-        {{total}} : <b>{{calcTotals()[total]}}</b>
-      </div>
-    </div>
-  </div>-->
-  <calculations-editor [calcs]="data['Page Calcs']"></calculations-editor>
-  <div *ngIf="isEditMode()">
+
+  <!--Page calcs section-->
+  <div *ngIf="isEditMode()" style="padding-top:10px;">
     <mat-form-field>
       <input matInput [(ngModel)]="pageCalcName" type="text" class="form-control" placeholder="Page Calc Name">
     </mat-form-field>
     <button *ngIf="isEditMode()" type="button" class="btn btn btn-link" (click)="addPageCalc()">Add Page Calc</button>
   </div>
+  <calculations-editor [calcs]="data['Page Calcs']"></calculations-editor>
 </div>

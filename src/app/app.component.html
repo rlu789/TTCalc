@@ -1,10 +1,12 @@
 <div class="container-fluid" style="margin-top: 10px;">
-  <button type="button" class="btn btn btn-link" (click)="clear()" 
-          ngbTooltip="If a field has an initial value setting, then it's value when cleared with be set to that">Clear Data</button>
+  <button type="button" class="btn btn btn-link" (click)="clear()"
+          ngbTooltip="NOTE: If a field has an initial value setting, then it will be set to that"
+          placement="right">
+    Clear Data
+  </button>
   <button type="button" class="btn btn btn-link" (click)="save()">Save Current Settings</button>
-  <button type="button" class="btn btn btn-link" (click)="load()">Load Settings From Selected File</button>
-  <input type="file" (change)="setup($event)" style="width:18%;">
   <button type="button" class="btn btn btn-link" (click)="delete()">Delete Current Settings</button>
+  <input type="file" (change)="setup($event)" style="width:18%;">
   <mat-checkbox (click)="toggle()" [(ngModel)]="editMode">Edit Mode</mat-checkbox>
   <div *ngIf="isEditMode()">
     <mat-form-field>

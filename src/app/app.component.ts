@@ -68,20 +68,14 @@ export class AppComponent {
     var reader = new FileReader();
     reader.onload = function () {
       var text = reader.result;
-      localStorage.fileData = text;
+      if (text) {
+        localStorage.settings = text;
+        window.location.reload();
+      }
+      else console.log("No data");
     };
     reader.readAsText(input.files[0]);
     this.fileData = reader.result;
-  }
-
-  load() {
-    if (localStorage.fileData) {
-      localStorage.settings = localStorage.fileData;
-      window.location.reload();
-    }
-    else console.log("No data");
-    //console.log(JSON.parse(localStorage.fileData));
-    //console.log(localStorage.settings);
   }
   
   delete() {
