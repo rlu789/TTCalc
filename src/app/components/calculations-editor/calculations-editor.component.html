@@ -3,7 +3,7 @@
 <div *ngIf="calcs || doCalcIf">
   <ng-template [ngIf]="!keyProvided" [ngIfElse]="inFieldEditor">
     <div class="row" style="padding-top:10px;">
-      <div class="col-sm-2" *ngFor="let key of calcs | keys">
+      <div class="col-sm-3" *ngFor="let key of calcs | keys">
         <div class="card border-dark mb-3" style="max-width: 18rem;">
           <div class="card-header">Value: <b>{{calcField(calcs[key])}}</b><br />Calcs for <b>{{key}}</b></div>
           <div class="card-body">

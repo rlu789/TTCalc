@@ -5,30 +5,36 @@
       <input matInput placeholder="Name" [(ngModel)]="data.data.name">
     </mat-form-field>
     <mat-form-field>
+      <mat-select [(value)]="page" placeholder="Page">
+        <mat-option>...</mat-option>
+        <mat-option *ngFor="let option of constants.pages | keys" value="{{option}}">{{option}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="page">
       <mat-select [(value)]="data.data.model" placeholder="Model">
         <mat-option>...</mat-option>
-        <mat-option *ngFor="let option of constants.models | keys" value="{{option}}">{{option}}</mat-option>
+        <mat-option *ngFor="let option of constants.pages[page] | keys" value="{{option}}">{{option}}</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field *ngIf="data.data.model">
+    <mat-form-field *ngIf="page && data.data.model">
       <mat-select [(value)]="data.data.section" placeholder="Section">
         <mat-option>...</mat-option>
-        <mat-option *ngFor="let option of constants.models[data.data.model] | keys" value="{{option}}">{{option}}</mat-option>
+        <mat-option *ngFor="let option of constants.pages[page][data.data.model] | keys" value="{{option}}">{{option}}</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field *ngIf="data.data.section && data.data.model">
+    <mat-form-field *ngIf="page && data.data.section && data.data.model">
       <mat-select [(value)]="data.data.field" placeholder="Field">
         <mat-option>...</mat-option>
-        <mat-option *ngFor="let option of constants.models[data.data.model][data.data.section] | keys" value="{{option}}">{{option}}</mat-option>
+        <mat-option *ngFor="let option of constants.pages[page][data.data.model][data.data.section] | keys" value="{{option}}">{{option}}</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field *ngIf="data.data.section && data.data.model && data.data.field">
+    <mat-form-field *ngIf="page && data.data.section && data.data.model && data.data.field">
       <mat-select [(value)]="data.data.operation" placeholder="Operation">
         <mat-option value="+">+</mat-option>
         <mat-option value="-">-</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field *ngIf="data.data.section && data.data.model && data.data.field">
+    <mat-form-field *ngIf="page && data.data.section && data.data.model && data.data.field">
       <input matInput type="number" placeholder="Percent (50% = 0.5)" [(ngModel)]="data.data.percent">
     </mat-form-field>
     <section>
@@ -51,21 +57,27 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field>
+            <mat-select [(value)]="page1" placeholder="Page 1">
+              <mat-option>...</mat-option>
+              <mat-option *ngFor="let option of constants.pages | keys" value="{{option}}">{{option}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field *ngIf="page1">
             <mat-select [(value)]="i.model1" placeholder="Model 1">
               <mat-option>...</mat-option>
-              <mat-option *ngFor="let option of constants.models | keys" value="{{option}}">{{option}}</mat-option>
+              <mat-option *ngFor="let option of constants.pages[page1] | keys" value="{{option}}">{{option}}</mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field *ngIf="i.model1">
+          <mat-form-field *ngIf="page1 && i.model1">
             <mat-select [(value)]="i.section1" placeholder="Section 1">
               <mat-option>...</mat-option>
-              <mat-option *ngFor="let option of constants.models[i.model1] | keys" value="{{option}}">{{option}}</mat-option>
+              <mat-option *ngFor="let option of constants.pages[page1][i.model1] | keys" value="{{option}}">{{option}}</mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field *ngIf="i.model1 && i.section1">
+          <mat-form-field *ngIf="page1 && i.model1 && i.section1">
             <mat-select [(value)]="i.field1" placeholder="Field 1">
               <mat-option>...</mat-option>
-              <mat-option *ngFor="let option of constants.models[i.model1][i.section1] | keys" value="{{option}}">{{option}}</mat-option>
+              <mat-option *ngFor="let option of constants.pages[page1][i.model1][i.section1] | keys" value="{{option}}">{{option}}</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
@@ -85,21 +97,27 @@
           </mat-form-field>
           <div *ngIf="compareWith === 'F'">
             <mat-form-field>
+              <mat-select [(value)]="page2" placeholder="Page 2">
+                <mat-option>...</mat-option>
+                <mat-option *ngFor="let option of constants.pages | keys" value="{{option}}">{{option}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="page2">
               <mat-select [(value)]="i.model2" placeholder="Model 2">
                 <mat-option>...</mat-option>
-                <mat-option *ngFor="let option of constants.models | keys" value="{{option}}">{{option}}</mat-option>
+                <mat-option *ngFor="let option of constants.pages[page2] | keys" value="{{option}}">{{option}}</mat-option>
               </mat-select>
             </mat-form-field>
-            <mat-form-field *ngIf="i.model2">
+            <mat-form-field *ngIf="page2 && i.model2">
               <mat-select [(value)]="i.section2" placeholder="Section 2">
                 <mat-option>...</mat-option>
-                <mat-option *ngFor="let option of constants.models[i.model2] | keys" value="{{option}}">{{option}}</mat-option>
+                <mat-option *ngFor="let option of constants.pages[page2][i.model2] | keys" value="{{option}}">{{option}}</mat-option>
               </mat-select>
             </mat-form-field>
-            <mat-form-field *ngIf="i.model2 && i.section2">
+            <mat-form-field *ngIf="page2 && i.model2 && i.section2">
               <mat-select [(value)]="i.field2" placeholder="Field 2">
                 <mat-option>...</mat-option>
-                <mat-option *ngFor="let option of constants.models[i.model2][i.section2] | keys" value="{{option}}">{{option}}</mat-option>
+                <mat-option *ngFor="let option of constants.pages[page2][i.model2][i.section2] | keys" value="{{option}}">{{option}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>

@@ -6,9 +6,28 @@ var calcs = localStorage.settings ? JSON.parse(localStorage.settings).calcs : {
       value: null,
       calcs: {
         Income: {
-          "Totals": [
-            { field: "Total income", operation: '+' }
-          ]
+          "Salary and wages": [{ field: "Income", operation: '+' }],
+          "Allowances": [{ field: "Income", operation: '+' }],
+          "Employer lump sum payments": [{ field: "Computed Total", operation: '+' }],
+          "Employer termination payments": [{ field: "Income", operation: '+' }],
+          "Government payments": [{ field: "Income", operation: '+' }],
+          "Government pensions": [{ field: "Income", operation: '+' }],
+          "Annuities and super income stream": [{ field: "Computed Total", operation: '+' }],
+          "Super lump sum payments": [{ field: "Computed Total", operation: '+' }],
+          "Attributed personal service income": [{ field: "Income", operation: '+' }],
+          "Interest": [
+            {
+              field: "Income", operation: '+',
+              if: [{ model1: "Personal", section1: "Personal", field1: "Full Year Resident", compare: '==', value: true }]
+            }
+          ],
+          "Dividends": [
+            {
+              field: "Computed Total", operation: '+',
+              if: [{ model1: "Personal", section1: "Personal", field1: "Full Year Resident", compare: '==', value: true }]
+            }
+          ],
+          "Employee share scheme": [{ field: "Computed Total", operation: '+' }],
         }
       }
     },
@@ -16,9 +35,21 @@ var calcs = localStorage.settings ? JSON.parse(localStorage.settings).calcs : {
       value: null,
       calcs: {
         Income: {
-          "Totals": [
-            { field: "Tax withheld", operation: '+' }
-          ]
+          "Salary and wages": [{ field: "Tax withheld", operation: '+' }],
+          "Allowances": [{ field: "Tax withheld", operation: '+' }],
+          "Employer lump sum payments": [{ field: "Tax withheld", operation: '+' }],
+          "Employer termination payments": [{ field: "Tax withheld", operation: '+' }],
+          "Government payments": [{ field: "Tax withheld", operation: '+' }],
+          "Government pensions": [{ field: "Tax withheld", operation: '+' }],
+          "Annuities and super income stream": [{ field: "Tax withheld", operation: '+' }],
+          "Super lump sum payments": [{ field: "Tax withheld", operation: '+' }],
+          "Dividends": [
+            {
+              field: "Franking credit", operation: '+',
+              if: [{ model1: "Personal", section1: "Personal", field1: "Full Year Resident", compare: '==', value: true }]
+            }
+          ],
+          "Employee share scheme": [{ field: "Tax withheld", operation: '+' }],
         }
       }
     }
@@ -186,59 +217,6 @@ var models = localStorage.settings ? JSON.parse(localStorage.settings).models : 
         }
       }
     },
-    Totals: {
-      "Total income": {
-        value: null,
-        calcs: {
-          Income: {
-            "Salary and wages": [{ field: "Income", operation: '+' }],
-            "Allowances": [{ field: "Income", operation: '+' }],
-            "Employer lump sum payments": [{ field: "Computed Total", operation: '+' }],
-            "Employer termination payments": [{ field: "Income", operation: '+' }],
-            "Government payments": [{ field: "Income", operation: '+' }],
-            "Government pensions": [{ field: "Income", operation: '+' }],
-            "Annuities and super income stream": [{ field: "Computed Total", operation: '+' }],
-            "Super lump sum payments": [{ field: "Computed Total", operation: '+' }],
-            "Attributed personal service income": [{ field: "Income", operation: '+' }],
-            "Interest": [
-              {
-                field: "Income", operation: '+',
-                if: [{ model1: "Personal", section1: "Personal", field1: "Full Year Resident", compare: '==', value: true }]
-              }
-            ],
-            "Dividends": [
-              {
-                field: "Computed Total", operation: '+',
-                if: [{ model1: "Personal", section1: "Personal", field1: "Full Year Resident", compare: '==', value: true }]
-              }
-            ],
-            "Employee share scheme": [{ field: "Computed Total", operation: '+' }],
-          }
-        }
-      },
-      "Tax withheld": {
-        value: null,
-        calcs: {
-          Income: {
-            "Salary and wages": [{ field: "Tax withheld", operation: '+' }],
-            "Allowances": [{ field: "Tax withheld", operation: '+' }],
-            "Employer lump sum payments": [{ field: "Tax withheld", operation: '+' }],
-            "Employer termination payments": [{ field: "Tax withheld", operation: '+' }],
-            "Government payments": [{ field: "Tax withheld", operation: '+' }],
-            "Government pensions": [{ field: "Tax withheld", operation: '+' }],
-            "Annuities and super income stream": [{ field: "Tax withheld", operation: '+' }],
-            "Super lump sum payments": [{ field: "Tax withheld", operation: '+' }],
-            "Dividends": [
-              {
-                field: "Franking credit", operation: '+',
-                if: [{ model1: "Personal", section1: "Personal", field1: "Full Year Resident", compare: '==', value: true }]
-              }
-            ],
-            "Employee share scheme": [{ field: "Tax withheld", operation: '+' }],
-          }
-        }
-      }
-    }
 
   },
   "Suppelementry Section": {
@@ -249,6 +227,19 @@ var models = localStorage.settings ? JSON.parse(localStorage.settings).models : 
       'Deductions for distribution from p/ship and share of net income from trust': { value: null },
     },
   },
+
+  "Business Payment Summaries": {
+    "Summary 1": {
+      "Payment type": { value: null, dropdown: ["No ANB quoted", "Other specified payment", "Voluntary agreement", "Labour hire", "Foreign resident withholding"] },
+      "Gross payment": { value: null },
+      "Tax withheld": { value: null },
+      "Reportable super contributions": { value: null },
+      "Income type": { value: null, dropdown: ["Business income", "PSI income"] },
+      "Primary or non-primary": { value: null, dropdown: ["Primary", "Non-primary"] },
+    },
+  },
+  "BCalcs": {},
+
   Variables: {
     Statics: {
       "A Static": { value: 4000, initialValue: 4000 },
@@ -273,6 +264,9 @@ if (localStorage.settings) {
 
 var pages = Object.keys(p).length === 0 && p.constructor === Object ? {
   Income: { Income: models.Income, "Suppelementry Section": models["Suppelementry Section"], "Page Calcs": models["Page Calcs"]["Income"] },
+  "Business Income / Loss": {
+    "Business Payment Summaries": models["Business Payment Summaries"], BCalcs: models["BCalcs"]
+  },
   Personal: { Personal: models.Personal },
   Constants: { Variables: models.Variables}
 } : p;
