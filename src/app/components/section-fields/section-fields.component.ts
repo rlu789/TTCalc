@@ -18,6 +18,7 @@ export class SectionFields {
     initialValue: null
   }
   @Input('data') data: Object;
+  @Input('page') page: string;
   @Input('model') model: string;
   @Input('section') section: string;
 
@@ -42,12 +43,12 @@ export class SectionFields {
   }
 
   deleteSection() {
-    delete constants.models[this.model][this.section];
+    delete constants.models[this.page][this.model][this.section];
     //console.log(constants.models[this.model])
   }
 
   deleteField(key) {
-    delete constants.models[this.model][this.section][key];
+    delete constants.models[this.page][this.model][this.section][key];
   }
 
   calcField(thisField) {
@@ -65,9 +66,9 @@ export class SectionFields {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        if (!constants.models[this.addFormData.model].hasOwnProperty([this.addFormData.section]))
-          constants.models[this.addFormData.model][this.addFormData.section] = {};
-        if (this.addFormData.field && !constants.models[this.addFormData.model][this.addFormData.section].hasOwnProperty([this.addFormData.field])) {
+        if (!constants.models[this.page][this.addFormData.model].hasOwnProperty([this.addFormData.section]))
+          constants.models[this.page][this.addFormData.model][this.addFormData.section] = {};
+        if (this.addFormData.field && !constants.models[this.page][this.addFormData.model][this.addFormData.section].hasOwnProperty([this.addFormData.field])) {
           var input = null;
           switch (this.addFormData.option) {
             case 'N':
@@ -77,15 +78,15 @@ export class SectionFields {
               input = { value: this.addFormData.initialValue, dropdown: this.addFormData.dropdownOptions, initialValue: this.addFormData.initialValue };
               break;
             case 'C':
-              input = { value: this.addFormData.initialValue, calcs: {}, initialValue: this.addFormData.initialValue };
+              input = { value: this.addFormData.initialValue, calcs: {}, initialValue: null, doCalcIf: [] };
               break;
             case 'Date':
               input = { value: this.addFormData.initialValue, date: true, initialValue: this.addFormData.initialValue };
               break;
           }
-          constants.models[this.addFormData.model][this.addFormData.section][this.addFormData.field] = input;
+          constants.models[this.page][this.addFormData.model][this.addFormData.section][this.addFormData.field] = input;
         }
-        console.log(constants.models[this.addFormData.model]);
+        console.log(constants.models[this.page][this.addFormData.model]);
       }
       console.log(this.addFormData);
     });

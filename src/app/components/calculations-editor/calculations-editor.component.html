@@ -1,27 +1,32 @@
 <!--<ng-container *ngTemplateOutlet="greet; context: calcs"></ng-container>
 <ng-template #greet><span>{{calcs}}</span></ng-template>-->
-<div *ngIf="calcs || doCalcIf">
+
+<!--TODO page in UI-->
+
+<div *ngIf="calcs || doCalcIf.length">
   <ng-template [ngIf]="!keyProvided" [ngIfElse]="inFieldEditor">
     <div class="row" style="padding-top:10px;">
       <div class="col-sm-3" *ngFor="let key of calcs | keys">
         <div class="card border-dark mb-3" style="max-width: 18rem;">
           <div class="card-header">Value: <b>{{calcField(calcs[key])}}</b><br />Calcs for <b>{{key}}</b></div>
           <div class="card-body">
-            <div *ngFor="let modelKey of calcs[key].calcs | keys">
-              <h5 class="card-title">{{modelKey}}</h5>
-              <div *ngFor="let sectionKey of calcs[key].calcs[modelKey] | keys">
-                <b>{{sectionKey}}</b> <br />
-                <div *ngFor="let fieldKey of calcs[key].calcs[modelKey][sectionKey]">
-                  {{fieldKey.field}} ({{fieldKey.operation}}) {{fieldKey.percent}}
-                  <button *ngIf="isEditMode()" type="button" class="close" (click)="deleteCalc(key, modelKey, sectionKey, fieldKey)">&times;</button>
-                  <div *ngIf="fieldKey.if">
-                    <u>Do If:</u><br />
-                    <div *ngFor="let ifs of fieldKey.if">
-                      {{ifs.model1}} {{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.model2}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}
+            <div *ngFor="let pageKey of calcs[key].calcs | keys">
+              <div *ngFor="let modelKey of calcs[key].calcs[pageKey] | keys">
+                <h5 class="card-title">{{modelKey}}</h5>
+                <div *ngFor="let sectionKey of calcs[key].calcs[pageKey][modelKey] | keys">
+                  <b>{{sectionKey}}</b> <br />
+                  <div *ngFor="let fieldKey of calcs[key].calcs[pageKey][modelKey][sectionKey]">
+                    {{fieldKey.field}} ({{fieldKey.operation}}) {{fieldKey.percent}}
+                    <button *ngIf="isEditMode()" type="button" class="close" (click)="deleteCalc(key, pageKey, modelKey, sectionKey, fieldKey)">&times;</button>
+                    <div *ngIf="fieldKey.if">
+                      <u>Do If:</u><br />
+                      <div *ngFor="let ifs of fieldKey.if">
+                        {{ifs.model1}} {{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.model2}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}
+                      </div>
                     </div>
                   </div>
+                  <mat-divider></mat-divider>
                 </div>
-                <mat-divider></mat-divider>
               </div>
             </div>
           </div>
@@ -50,20 +55,22 @@
       <div class="card border-dark mb-3">
         <div class="card-header">Calcs for <b>{{keyProvided}}</b></div>
         <div class="card-body">
-          <div *ngFor="let modelKey of calcs | keys">
-            <h5 class="card-title">{{modelKey}}</h5>
-            <div *ngFor="let sectionKey of calcs[modelKey] | keys">
-              <b>{{sectionKey}}</b>
-              <div *ngFor="let childKey of calcs[modelKey] [sectionKey] | keys">
-                <span>{{calcs[modelKey][sectionKey][childKey].field}} ({{calcs[modelKey][sectionKey][childKey].operation}}) {{calcs[modelKey][sectionKey][childKey].percent}}</span>
-                <button *ngIf="isEditMode()" type="button" class="close" (click)="deleteCalcInFieldMode(modelKey, sectionKey, childKey)">&times;</button>
-                <ng-template [ngIf]="calcs[modelKey][sectionKey][childKey].if && calcs[modelKey][sectionKey][childKey].if.length">
-                  <u>Do If:</u><br />
-                  <div *ngFor="let ifs of calcs[modelKey][sectionKey][childKey].if">
-                    {{ifs.model1}} {{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.model2}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}
-                  </div>
-                </ng-template>
-                <mat-divider></mat-divider>
+          <div *ngFor="let pageKey of calcs | keys">
+            <div *ngFor="let modelKey of calcs[pageKey] | keys">
+              <h5 class="card-title">{{modelKey}}</h5>
+              <div *ngFor="let sectionKey of calcs[pageKey][modelKey] | keys">
+                <b>{{sectionKey}}</b>
+                <div *ngFor="let childKey of calcs[pageKey][modelKey][sectionKey] | keys">
+                  <span>{{calcs[pageKey][modelKey][sectionKey][childKey].field}} ({{calcs[pageKey][modelKey][sectionKey][childKey].operation}}) {{calcs[pageKey][modelKey][sectionKey][childKey].percent}}</span>
+                  <button *ngIf="isEditMode()" type="button" class="close" (click)="deleteCalcInFieldMode(pageKey, modelKey, sectionKey, childKey)">&times;</button>
+                  <ng-template [ngIf]="calcs[pageKey][modelKey][sectionKey][childKey].if && calcs[pageKey][modelKey][sectionKey][childKey].if.length">
+                    <u>Do If:</u><br />
+                    <div *ngFor="let ifs of calcs[pageKey][modelKey][sectionKey][childKey].if">
+                      {{ifs.model1}} {{ifs.section1}} {{ifs.field1}} {{ifs.compare}} {{ifs.model2}} {{ifs.section2}} {{ifs.field2}} {{ifs.value}}
+                    </div>
+                  </ng-template>
+                  <mat-divider></mat-divider>
+                </div>
               </div>
             </div>
           </div>

@@ -19,8 +19,8 @@
               <button mat-raised-button color="primary" style="height: 45px; margin-left:10px;" (click)="addSection(model, sectionName)">Add Section</button>
               <button mat-raised-button color="accent" style="height: 45px; margin-left:10px;" (click)="deleteModel(model)">Delete Model</button>
             </div>
-            <div *ngFor="let key of data[model] | keys">
-              <section-fields [data]="data[model][key]" [section]="key" [model]="model"></section-fields>
+            <div *ngFor="let section of data[model] | keys">
+              <section-fields [data]="data[model][section]" [section]="section" [model]="model" [page]="page"></section-fields>
             </div>
           </ng-template>
         </ngb-tab>

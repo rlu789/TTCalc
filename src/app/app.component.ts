@@ -41,7 +41,8 @@ export class AppComponent {
 
   addPage() {
     // lazy
-    constants.pages[this.pageName] = {};
+    constants.models[this.pageName] = {};
+    constants.pages[this.pageName] = constants.models[this.pageName];
     this.pageName = null;
   }
 

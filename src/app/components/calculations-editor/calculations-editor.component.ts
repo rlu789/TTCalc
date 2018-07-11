@@ -15,6 +15,7 @@ export class CalculationsEditor {
 
   addCalcForm = {
     name: null,
+    page: null,
     model: null,
     section: null,
     field: null,
@@ -22,7 +23,9 @@ export class CalculationsEditor {
     ifChecked: false,
     percent: null,
     if: [{
-      model1: null, section1: null, field1: null, compare: null, value: null, model2: null, section2: null, field2: null, compareWithPrevious: null }]
+      page1: null, model1: null, section1: null, field1: null, compare: null, value: null,
+      page2: null, model2: null, section2: null, field2: null, compareWithPrevious: null
+    }]
   };
   
   constructor(public dialog: MatDialog) { }
@@ -30,7 +33,8 @@ export class CalculationsEditor {
   ngOnInit() {
     console.log(this.calcs);
     //console.log(this.keyProvided);
-    //console.log(this.doCalcIf);
+    if (!this.doCalcIf) this.doCalcIf = [];
+    console.log(this.doCalcIf);
   }
 
   isEditMode() {
@@ -45,17 +49,17 @@ export class CalculationsEditor {
     return common.calcField(thisField);
   }
 
-  deleteCalc(key, modelKey, sectionKey, childKey) {
+  deleteCalc(key, pageKey, modelKey, sectionKey, childKey) {
     console.log(this.calcs)
-    this.calcs[key].calcs[modelKey][sectionKey].splice(childKey, 1);
-    if (!this.calcs[key].calcs[modelKey][sectionKey].length) delete this.calcs[key].calcs[modelKey][sectionKey];
-    if (!Object.keys(this.calcs[key].calcs[modelKey]).length) delete this.calcs[key].calcs[modelKey];
+    this.calcs[key].calcs[pageKey][modelKey][sectionKey].splice(childKey, 1);
+    if (!this.calcs[key].calcs[pageKey][modelKey][sectionKey].length) delete this.calcs[key].calcs[pageKey][modelKey][sectionKey];
+    if (!Object.keys(this.calcs[key].calcs[pageKey][modelKey]).length) delete this.calcs[key].calcs[pageKey][modelKey];
   }
 
-  deleteCalcInFieldMode(modelKey, sectionKey, childKey) {
-    this.calcs[modelKey][sectionKey].splice(childKey, 1);
-    if (!this.calcs[modelKey][sectionKey].length) delete this.calcs[modelKey][sectionKey];
-    if (!Object.keys(this.calcs[modelKey]).length) delete this.calcs[modelKey];
+  deleteCalcInFieldMode(pageKey, modelKey, sectionKey, childKey) {
+    this.calcs[pageKey][modelKey][sectionKey].splice(childKey, 1);
+    if (!this.calcs[pageKey][modelKey][sectionKey].length) delete this.calcs[pageKey][modelKey][sectionKey];
+    if (!Object.keys(this.calcs[pageKey][modelKey]).length) delete this.calcs[pageKey][modelKey];
   }
 
   deleteDoCalcIf(i) {
@@ -66,7 +70,7 @@ export class CalculationsEditor {
   setupAdd(key) {
     this.addCalcForm.name = key;
     //TODO redo the if part
-    this.addCalcForm.if = [{ model1: null, section1: null, field1: null, compare: null, value: null, model2: null, section2: null, field2: null, compareWithPrevious: '&&' }]; 
+    this.addCalcForm.if = [{ page1: null, model1: null, section1: null, field1: null, compare: null, value: null, page2: null, model2: null, section2: null, field2: null, compareWithPrevious: '&&' }]; 
     let dialogRef = this.dialog.open(DependenciesModal, {
       width: '700px',
       data: { data: this.addCalcForm }
@@ -77,11 +81,14 @@ export class CalculationsEditor {
       if (result) {
         if (!this.keyProvided) {
           // if no key provided, we're NOT in field mode, so name key is needed
-          if (!this.calcs[this.addCalcForm.name].calcs.hasOwnProperty([this.addCalcForm.model]))
-            this.calcs[this.addCalcForm.name].calcs[this.addCalcForm.model] = {};
-          if (!this.calcs[this.addCalcForm.name].calcs[this.addCalcForm.model].hasOwnProperty([this.addCalcForm.section]))
-            this.calcs[this.addCalcForm.name].calcs[this.addCalcForm.model][this.addCalcForm.section] = [];
-          this.calcs[this.addCalcForm.name].calcs[this.addCalcForm.model][this.addCalcForm.section].push({
+
+          if (!this.calcs[this.addCalcForm.name].calcs.hasOwnProperty([this.addCalcForm.page]))
+            this.calcs[this.addCalcForm.name].calcs[this.addCalcForm.page] = {};
+          if (!this.calcs[this.addCalcForm.name].calcs[this.addCalcForm.page].hasOwnProperty([this.addCalcForm.model]))
+            this.calcs[this.addCalcForm.name].calcs[this.addCalcForm.page][this.addCalcForm.model] = {};
+          if (!this.calcs[this.addCalcForm.name].calcs[this.addCalcForm.page][this.addCalcForm.model].hasOwnProperty([this.addCalcForm.section]))
+            this.calcs[this.addCalcForm.name].calcs[this.addCalcForm.page][this.addCalcForm.model][this.addCalcForm.section] = [];
+          this.calcs[this.addCalcForm.name].calcs[this.addCalcForm.page][this.addCalcForm.model][this.addCalcForm.section].push({
             field: this.addCalcForm.field,
             operation: this.addCalcForm.operation,
             if: this.addCalcForm.ifChecked ? this.addCalcForm.if : null,
@@ -89,11 +96,13 @@ export class CalculationsEditor {
           });
         }
         else {
-          if (!this.calcs.hasOwnProperty([this.addCalcForm.model]))
-            this.calcs[this.addCalcForm.model] = {};
-          if (!this.calcs[this.addCalcForm.model].hasOwnProperty([this.addCalcForm.section]))
-            this.calcs[this.addCalcForm.model][this.addCalcForm.section] = [];
-          this.calcs[this.addCalcForm.model][this.addCalcForm.section].push({
+          if (!this.calcs.hasOwnProperty([this.addCalcForm.page]))
+            this.calcs[this.addCalcForm.page] = {};
+          if (!this.calcs[this.addCalcForm.page].hasOwnProperty([this.addCalcForm.model]))
+            this.calcs[this.addCalcForm.page][this.addCalcForm.model] = {};
+          if (!this.calcs[this.addCalcForm.page][this.addCalcForm.model].hasOwnProperty([this.addCalcForm.section]))
+            this.calcs[this.addCalcForm.page][this.addCalcForm.model][this.addCalcForm.section] = [];
+          this.calcs[this.addCalcForm.page][this.addCalcForm.model][this.addCalcForm.section].push({
             field: this.addCalcForm.field,
             operation: this.addCalcForm.operation,
             if: this.addCalcForm.ifChecked ? this.addCalcForm.if : null,
@@ -113,7 +122,7 @@ export class CalculationsEditor {
 
   setupDoCalcIf() {
     //TODO REDO THIS IS TRASH
-    this.addCalcForm.if = [{ model1: null, section1: null, field1: null, compare: null, value: null, model2: null, section2: null, field2: null, compareWithPrevious: '&&' }];
+    this.addCalcForm.if = [{ page1: null, model1: null, section1: null, field1: null, compare: null, value: null, page2: null, model2: null, section2: null, field2: null, compareWithPrevious: '&&' }]; 
     let dialogRef = this.dialog.open(DependenciesModal, {
       width: '450px',
       data: { data: this.addCalcForm, onlyIfs: true }

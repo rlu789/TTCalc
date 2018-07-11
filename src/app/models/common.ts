@@ -1,25 +1,26 @@
 import * as constants from './constants';
 
 var models = constants.models;
+var pages = constants.pages;
 
-function modelExists(model) {
-  if (!models.hasOwnProperty(model)) {
+function modelExists(page, model) {
+  if (!pages[page].hasOwnProperty(model)) {
     console.log("No " + model + " model found");
     return false;
   }
   return true;
 }
 
-function sectionExists(model, section) {
-  if (!models[model].hasOwnProperty(section)) {
+function sectionExists(page, model, section) {
+  if (!pages[page][model].hasOwnProperty(section)) {
     console.log("No " + section + " in " + model);
     return false;
   }
   return true;
 }
 
-function fieldExists(model, section, field) {
-  if (!models[model][section].hasOwnProperty(field)) {
+function fieldExists(page, model, section, field) {
+  if (!pages[page][model][section].hasOwnProperty(field)) {
     console.log("No " + field + " in " + section);
     return false;
   }
@@ -30,28 +31,28 @@ function evalIf(ifs) {
   if (!ifs || !ifs.length) return true;
   var bool = null;
   for (let i in ifs) {
-    var model1 = ifs[i].model1, section1 = ifs[i].section1, field1 = ifs[i].field1,
-      model2 = ifs[i].model2, section2 = ifs[i].section2, field2 = ifs[i].field2, value = ifs[i].value;
+    var page1 = ifs[i].page1, model1 = ifs[i].model1, section1 = ifs[i].section1, field1 = ifs[i].field1,
+      page2 = ifs[i].page2, model2 = ifs[i].model2, section2 = ifs[i].section2, field2 = ifs[i].field2, value = ifs[i].value;
 
-    if (!modelExists(model1) || (value === null && !modelExists(model1))) {
+    if (!modelExists(page1, model1) || (value === null && !modelExists(page2, model2))) {
       ifs.splice(i, 1);
       continue;
     }
 
-    if (!sectionExists(model1, section1) || (value === null && !sectionExists(model2, section2))) {
+    if (!sectionExists(page1, model1, section1) || (value === null && !sectionExists(page2, model2, section2))) {
       ifs.splice(i, 1);
       continue;
     }
 
-    //second part of this if statement can break if theres no value + no model / section / field datas
-    if (!fieldExists(model1, section1, field1) || (value === null && !fieldExists(model2, section2, field2))) {
+    //second part of this if statement can break if theres no value + no page / model / section / field datas
+    if (!fieldExists(page1, model1, section1, field1) || (value === null && !fieldExists(page2, model2, section2, field2))) {
       ifs.splice(i, 1);
       continue;
     }
     var compareWithPrevious = ifs[i].compareWithPrevious ? ifs[i].compareWithPrevious : "&&";
-    var v1 = models[model1][section1][field1].value;
+    var v1 = pages[page1][model1][section1][field1].value;
     var compare = ifs[i].compare;
-    var v2 = value !== null ? value : models[model2][section2][field2].value;
+    var v2 = value !== null ? value : pages[page2][model2][section2][field2].value;
 
     // if bool is not initialized, set the value to be the first eval statement with no previous compare
     bool = bool === null ? (eval(v1 + compare + v2)) : (eval(bool + compareWithPrevious + v1 + compare + v2));
@@ -64,35 +65,35 @@ function evalIf(ifs) {
 //  return doFieldCalculation(calcModel, section, field, calc[key]);
 //}
 
-function doFieldCalculation(calcModel, section, field, calc) {
+function doFieldCalculation(page, model, section, field, calc) {
   //check dependencies, if model / section / field has been deleted, then delete the calc as well
   //TODO some part of this must be common
-  if (!modelExists(calcModel)) {
-    delete calc[calcModel];
+  if (!modelExists(page, model)) {
+    delete calc[model];
     return 0;
   }
-  if (!models[calcModel].hasOwnProperty([section])) {
-    console.log("No " + section + " in " + calcModel);
-    delete calc[calcModel][section];
-    if (!Object.keys(calc[calcModel]).length) delete calc[calcModel];
+  if (!pages[page][model].hasOwnProperty([section])) {
+    console.log("No " + section + " in " + model);
+    delete calc[page][model][section];
+    if (!Object.keys(calc[page][model]).length) delete calc[page][model];
     return 0;
   };
-  if (!models[calcModel][section].hasOwnProperty([calc[calcModel][section][field].field])) {
-    console.log("No " + [calc[calcModel][section][field].field] + " in " + section);
-    calc[calcModel][section].splice(field, 1);
-    if (!calc[calcModel][section].length) delete calc[calcModel][section];
-    if (!Object.keys(calc[calcModel]).length) delete calc[calcModel];
+  if (!pages[page][model][section].hasOwnProperty([calc[page][model][section][field].field])) {
+    console.log("No " + [calc[page][model][section][field].field] + " in " + section);
+    calc[page][model][section].splice(field, 1);
+    if (!calc[page][model][section].length) delete calc[page][model][section];
+    if (!Object.keys(calc[page][model]).length) delete calc[page][model];
     return 0;
   };
 
   // if 'if' key exists, eval it all first to see if calc applies
-  var ifStatements = calc[calcModel][section][field].if;
+  var ifStatements = calc[page][model][section][field].if;
   var bool = evalIf(ifStatements);
 
-  var value = bool ? models[calcModel][section][calc[calcModel][section][field].field].value : 0;
-  var precent = calc[calcModel][section][field].percent;
+  var value = bool ? pages[page][model][section][calc[page][model][section][field].field].value : 0;
+  var precent = calc[page][model][section][field].percent;
   if (precent) value = value * precent;
-  switch (calc[calcModel][section][field].operation) {
+  switch (calc[page][model][section][field].operation) {
     case '+':
       return +value;
     case '-':
@@ -113,10 +114,12 @@ function calcField(thisField) {
     return false;
   }
   var value = 0;
-  for (let model in thisField.calcs) {
-    for (let section in thisField.calcs[model]) {
-      for (let field in thisField.calcs[model][section]) {
-        value += doFieldCalculation(model, section, field, thisField.calcs);
+  for (let page in thisField.calcs) {
+    for (let model in thisField.calcs[page]) {
+      for (let section in thisField.calcs[page][model]) {
+        for (let field in thisField.calcs[page][model][section]) {
+          value += doFieldCalculation(page, model, section, field, thisField.calcs);
+        }
       }
     }
   }
