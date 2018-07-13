@@ -51,8 +51,10 @@ function evalIf(ifs) {
     }
     var compareWithPrevious = ifs[i].compareWithPrevious ? ifs[i].compareWithPrevious : "&&";
     var v1 = pages[page1][model1][section1][field1].value;
+    if (typeof v1 !== "boolean") v1 = "'" + v1 + "'";
     var compare = ifs[i].compare;
     var v2 = value !== null ? value : pages[page2][model2][section2][field2].value;
+    if (typeof v2 !== "boolean") v2 = "'" + v2 + "'";
 
     // if bool is not initialized, set the value to be the first eval statement with no previous compare
     bool = bool === null ? (eval(v1 + compare + v2)) : (eval(bool + compareWithPrevious + v1 + compare + v2));
@@ -132,4 +134,8 @@ function calcField(thisField) {
   return value;
 }
 
-export { doFieldCalculation, evalIf, calcField };
+function getFieldValue(pageKey, modelKey, sectionKey, fieldKey) {
+  return pages[pageKey][modelKey][sectionKey][fieldKey].value;
+}
+
+export { doFieldCalculation, evalIf, calcField, getFieldValue };

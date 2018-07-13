@@ -31,14 +31,19 @@ export class CalculationsEditor {
   constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
-    console.log(this.calcs);
+    //console.log(this.calcs);
     //console.log(this.keyProvided);
     if (!this.doCalcIf) this.doCalcIf = [];
-    console.log(this.doCalcIf);
+    //console.log(this.doCalcIf);
   }
 
   isEditMode() {
     return constants.editMode;
+  }
+
+  getFieldValue(pageKey, modelKey, sectionKey, fieldKey) {
+    var v = common.getFieldValue(pageKey, modelKey, sectionKey, fieldKey);
+    if (v) return v; else return null;
   }
 
   deletePageCalc(key) {

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-2">
-    <p style="margin: 1rem 0;">{{section}}</p>
+    <p style="margin: 1rem 0;"><b>{{section}}</b></p>
   </div>
   <div *ngFor="let key of data | keys">
     <button *ngIf="isEditMode()" type="button" class="close" (click)="deleteField(key)" style="position: relative; top: 20px;">&times;</button>
@@ -27,7 +27,9 @@
     <ng-template #checkIfCheckboxInput>
       <div *ngIf="data[key].checkbox; else elseBlock" style="width: 175px; 
     overflow: hidden;
-    text-overflow: ellipsis;">
+    text-overflow: ellipsis;
+     position: relative;
+    top: 20px;">
         <mat-checkbox [(ngModel)]="data[key].value" ngbTooltip="{{key}} with Initial Value = {{data[key].initialValue}}">{{key}}</mat-checkbox>
       </div>
     </ng-template>
@@ -38,7 +40,7 @@
           <mat-hint *ngIf="data[key].initialValue">Initial Value: {{data[key].initialValue}}</mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-sm-11" *ngIf="data[key].calcs" style="min-width: 280px;">
+      <div class="col-sm-11" *ngIf="data[key].calcs" style="width: 350px;">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>

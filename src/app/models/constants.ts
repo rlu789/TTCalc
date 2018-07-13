@@ -247,13 +247,80 @@ var models = localStorage.settings ? JSON.parse(localStorage.settings).models : 
         'Share of net income from trusts': { value: null },
         'Landcare operations and deductions - water facility': { value: null },
         'Deductions for distribution from p/ship and share of net income from trust': { value: null },
+        "Computed Total": {
+          value: null,
+          calcs: {
+            Income: {
+              "Suppelementry Section": {
+                "Partnerships and trust Primary production": [
+                  { field: "Distribution from partnerships", operation: "+" },
+                  { field: "Share of net income from trusts", operation: "+" },
+                  { field: "Landcare operations and deductions - water facility", operation: "-" },
+                  { field: "Deductions for distribution from p/ship and share of net income from trust", operation: "-" },
+                ]
+              }
+            }
+          }
+        }
+      },
+      "Partnerships and trust Non - primary production": {
+        'Distribution from partnerships less foreign income': { value: null },
+        'Share of net income from trusts less cap gains, foreign inc franked': { value: null },
+        'Landcare operations expenses': { value: null },
+        'Franked distribution from trust': { value: null },
+        'Other deductions': {
+          value: null,
+          calcs: {
+            Income: {
+              "Suppelementry Section": {
+                "Partnerships and trust Non - primary production": [
+                  { field: "Other deductions for IT5", operation: "+" },
+                  { field: "Other deductions for IT 6", operation: "+" },
+                ],
+                "Partnerships and trust Primary production": [
+                  { field: "Remaining Deductions (TODO)", operation: "+"}
+                ]
+              }
+            }
+          }
+        },
+        "Computed Total": {
+          value: null,
+          calcs: {
+            Income: {
+              "Suppelementry Section": {
+                "Partnerships and trust Non - primary production": [
+                  { field: "Distribution from partnerships less foreign income", operation: "+" },
+                  { field: "Share of net income from trusts less cap gains, foreign inc franked", operation: "+" },
+                  { field: "Landcare operations expenses", operation: "-" },
+                  { field: "Franked distribution from trust", operation: "-" },
+                  { field: "Other deductions", operation: "-" },
+                ]
+              }
+            }
+          }
+        },
+        // color these???
+        'Distribution from partnerships less foreign income for IT 5': { value: null },
+        'Other deductions for IT5': { value: null },
+        'Distribution from partnerships less foreign income for IT 6': { value: null },
+        'Other deductions for IT 6': { value: null },
+      },
+      "Partnerships and trust Share of credits": {
+        "Where ABN not quoted": { value: null },
+        "Franking credits from franked dividends": { value: null },
+        "Interest dividends and trust": { value: null },
+        "Closely held trust": { value: null },
+        "Tax paid by trust": { value: null },
+        "Tax from foreign res": { value: null },
+        "National rental scheme": { value: null },
       },
     },
     "Page Calcs": calcs["Income"]
   },
 
   "Business Payment Summaries": {
-    "Business Payment Summaries": {
+    "Summaries": {
       "Summary 1": {
         "Payment type": { value: null, dropdown: ["No ANB quoted", "Other specified payment", "Voluntary agreement", "Labour hire", "Foreign resident withholding"] },
         "Gross payment": { value: null },
@@ -262,8 +329,120 @@ var models = localStorage.settings ? JSON.parse(localStorage.settings).models : 
         "Income type": { value: null, dropdown: ["Business income", "PSI income"] },
         "Primary or non-primary": { value: null, dropdown: ["Primary", "Non-primary"] },
       },
+      "Summary 2": {
+        "Payment type": { value: null, dropdown: ["No ANB quoted", "Other specified payment", "Voluntary agreement", "Labour hire", "Foreign resident withholding"] },
+        "Gross payment": { value: null },
+        "Tax withheld": { value: null },
+        "Reportable super contributions": { value: null },
+        "Income type": { value: null, dropdown: ["Business income", "PSI income"] },
+        "Primary or non-primary": { value: null, dropdown: ["Primary", "Non-primary"] },
+      },
+      "Summary 3": {
+        "Payment type": { value: null, dropdown: ["No ANB quoted", "Other specified payment", "Voluntary agreement", "Labour hire", "Foreign resident withholding"] },
+        "Gross payment": { value: null },
+        "Tax withheld": { value: null },
+        "Reportable super contributions": { value: null },
+        "Income type": { value: null, dropdown: ["Business income", "PSI income"] },
+        "Primary or non-primary": { value: null, dropdown: ["Primary", "Non-primary"] },
+      },
+      "Summary 4": {
+        "Payment type": { value: null, dropdown: ["No ANB quoted", "Other specified payment", "Voluntary agreement", "Labour hire", "Foreign resident withholding"] },
+        "Gross payment": { value: null },
+        "Tax withheld": { value: null },
+        "Reportable super contributions": { value: null },
+        "Income type": { value: null, dropdown: ["Business income", "PSI income"] },
+        "Primary or non-primary": { value: null, dropdown: ["Primary", "Non-primary"] },
+      },
     },
-    "BCalcs": {},
+    "Calcs": {
+      "Foreign gross": {
+        "BNP": {
+          value: null,
+          calcs: {
+            "Business Payment Summaries": {
+              "Summaries": {
+                "Summary 1": [
+                  {
+                    field: "Gross payment", operation: "+",
+                    if: [{ page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 1", field1: "Payment type", compare: '==', value: "Foreign resident withholding" },
+                      { page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 1", field1: "Income type", compare: '==', value: "Business income" },
+                      { page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 1", field1: "Primary or non-primary", compare: '==', value: "Non-primary" }]
+                  }
+                ],
+                "Summary 2": [
+                  {
+                    field: "Gross payment", operation: "+",
+                    if: [{ page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 2", field1: "Payment type", compare: '==', value: "Foreign resident withholding" },
+                    { page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 2", field1: "Income type", compare: '==', value: "Business income" },
+                    { page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 2", field1: "Primary or non-primary", compare: '==', value: "Non-primary" }]
+                  }
+                ],
+                "Summary 3": [
+                  {
+                    field: "Gross payment", operation: "+",
+                    if: [{ page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 3", field1: "Payment type", compare: '==', value: "Foreign resident withholding" },
+                    { page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 3", field1: "Income type", compare: '==', value: "Business income" },
+                    { page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 3", field1: "Primary or non-primary", compare: '==', value: "Non-primary" }]
+                  }
+                ],
+                "Summary 4": [
+                  {
+                    field: "Gross payment", operation: "+",
+                    if: [{ page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 4", field1: "Payment type", compare: '==', value: "Foreign resident withholding" },
+                    { page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 4", field1: "Income type", compare: '==', value: "Business income" },
+                    { page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 4", field1: "Primary or non-primary", compare: '==', value: "Non-primary" }]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "Labour gross": {
+        "BP": {
+          value: null,
+          calcs: {
+            "Business Payment Summaries": {
+              "Summaries": {
+                "Summary 1": [
+                  {
+                    field: "Gross payment", operation: "+",
+                    if: [{ page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 1", field1: "Payment type", compare: '==', value: "Labour hire" },
+                    { page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 1", field1: "Income type", compare: '==', value: "Business income" },
+                    { page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 1", field1: "Primary or non-primary", compare: '==', value: "Primary" }]
+                  }
+                ],
+                "Summary 2": [
+                  {
+                    field: "Gross payment", operation: "+",
+                    if: [{ page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 2", field1: "Payment type", compare: '==', value: "Labour hire" },
+                    { page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 2", field1: "Income type", compare: '==', value: "Business income" },
+                      { page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 2", field1: "Primary or non-primary", compare: '==', value: "Primary" }]
+                  }
+                ],
+                "Summary 3": [
+                  {
+                    field: "Gross payment", operation: "+",
+                    if: [{ page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 3", field1: "Payment type", compare: '==', value: "Labour hire" },
+                    { page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 3", field1: "Income type", compare: '==', value: "Business income" },
+                      { page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 3", field1: "Primary or non-primary", compare: '==', value: "Primary" }]
+                  }
+                ],
+                "Summary 4": [
+                  {
+                    field: "Gross payment", operation: "+",
+                    if: [{ page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 4", field1: "Payment type", compare: '==', value: "Primary" },
+                    { page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 4", field1: "Income type", compare: '==', value: "Business income" },
+                    { page1: "Business Payment Summaries", model1: "Summaries", section1: "Summary 4", field1: "Primary or non-primary", compare: '==', value: "Non-primary" }]
+                  }
+                ]
+              }
+            }
+
+          }
+        }
+      }
+    },
   },
 
   Constants: {
@@ -291,7 +470,7 @@ var pages = Object.keys(p).length === 0 && p.constructor === Object ? {
 } : p;
 
 
-var editMode = true;
+var editMode = false;
 function toggleEdit() {
   editMode = !editMode;
 }
