@@ -26,11 +26,14 @@ export class AppComponent {
 
   clear() {
     // goes into every field and sets to value to be the initial value or a null value
-    for (let model in constants.models) {
-      for (let section in constants.models[model]) {
-        for (let field in constants.models[model][section]) {
-          // ignore computed fields
-          if (!constants.models[model][section][field].calcs) constants.models[model][section][field].value = constants.models[model][section][field].initialValue ? constants.models[model][section][field].initialValue : null;
+    for (let page in constants.pages) {
+      for (let model in constants.pages[page]) {
+        if (model === "Page Calcs") continue;
+        for (let section in constants.pages[page][model]) {
+          for (let field in constants.pages[page][model][section]) {
+            // ignore computed fields
+            if (!constants.pages[page][model][section][field].calcs) constants.pages[page][model][section][field].value = constants.pages[page][model][section][field].initialValue ? constants.pages[page][model][section][field].initialValue : null;
+          }
         }
       }
     }

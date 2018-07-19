@@ -16,7 +16,7 @@
                 <div *ngFor="let sectionKey of calcs[key].calcs[pageKey][modelKey] | keys">
                   <b>{{sectionKey}}</b> <br />
                                         <div *ngFor="let fieldKey of calcs[key].calcs[pageKey][modelKey][sectionKey]">
-                                          {{fieldKey.field}} {{fieldKey.operation}} {{getFieldValue(pageKey, modelKey, sectionKey, fieldKey.field)}} {{fieldKey.percent}}
+                                          {{fieldKey.field}} ({{fieldKey.operation}} {{getFieldValue(pageKey, modelKey, sectionKey, fieldKey.field)}}) {{fieldKey.percent}}
                                           <button *ngIf="isEditMode()" type="button" class="close" (click)="deleteCalc(key, pageKey, modelKey, sectionKey, fieldKey)">&times;</button>
                                           <div *ngIf="fieldKey.if">
                                             <u>Do If:</u><br />
@@ -61,7 +61,7 @@
               <div *ngFor="let sectionKey of calcs[pageKey][modelKey] | keys">
                 <b>{{sectionKey}}</b>
                 <div *ngFor="let childKey of calcs[pageKey][modelKey][sectionKey] | keys">
-                  <span>{{calcs[pageKey][modelKey][sectionKey][childKey].field}} ({{calcs[pageKey][modelKey][sectionKey][childKey].operation}}) {{calcs[pageKey][modelKey][sectionKey][childKey].percent}}</span>
+                  <span>{{calcs[pageKey][modelKey][sectionKey][childKey].field}} ({{calcs[pageKey][modelKey][sectionKey][childKey].operation}} {{getFieldValue(pageKey, modelKey, sectionKey, calcs[pageKey][modelKey][sectionKey][childKey].field)}}) {{calcs[pageKey][modelKey][sectionKey][childKey].percent}}</span>
                   <button *ngIf="isEditMode()" type="button" class="close" (click)="deleteCalcInFieldMode(pageKey, modelKey, sectionKey, childKey)">&times;</button>
                   <ng-template [ngIf]="calcs[pageKey][modelKey][sectionKey][childKey].if && calcs[pageKey][modelKey][sectionKey][childKey].if.length">
                     <u>Do If:</u><br />

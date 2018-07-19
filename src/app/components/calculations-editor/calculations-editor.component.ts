@@ -43,7 +43,7 @@ export class CalculationsEditor {
 
   getFieldValue(pageKey, modelKey, sectionKey, fieldKey) {
     var v = common.getFieldValue(pageKey, modelKey, sectionKey, fieldKey);
-    if (v) return v; else return null;
+    if (v) return v; else return 0;
   }
 
   deletePageCalc(key) {

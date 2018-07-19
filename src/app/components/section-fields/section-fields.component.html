@@ -25,7 +25,7 @@
       </div>
     </ng-template>
     <ng-template #checkIfCheckboxInput>
-      <div *ngIf="data[key].checkbox; else elseBlock" style="width: 175px; 
+      <div *ngIf="data[key].checkbox; else elseBlock" style="width: 175px;
     overflow: hidden;
     text-overflow: ellipsis;
      position: relative;
@@ -62,4 +62,5 @@
   <button *ngIf="isEditMode()" mat-raised-button color="primary" style="height: 45px; margin-left:10px;" (click)="addField()">Add Field</button>
   <button *ngIf="isEditMode()" mat-raised-button color="accent" style="height: 45px; margin-left:10px;" (click)="deleteSection()">Delete Section</button>
 </div>
+<mat-divider></mat-divider>
 
