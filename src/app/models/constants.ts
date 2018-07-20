@@ -95,9 +95,20 @@ var models = localStorage.settings ? JSON.parse(localStorage.settings).models : 
   Income: {
     Income: {
       "Salary and wages": {
+        repeatingGroupDataSet: {
+          collection: [],
+          template: {
+            'Income': { value: null },
+            'Tax withheld': { value: null },
+            'Tax withheld2': { value: null },
+            'Tax withheld3': { value: null },
+            'Code': { value: null, dropdown: ["", "H"] },
+          }
+        },
         'Income': { value: null },
         'Tax withheld': { value: null },
-        'Code': { value: null, dropdown: ["", "H"] },
+        'Tax withheld2': { value: null },
+        'Tax withheld3': { value: null },
       },
       Allowances: {
         'Income': { value: null },

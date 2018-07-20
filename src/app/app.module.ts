@@ -14,6 +14,7 @@ import { KeysPipe } from './pipes/keysPipe'
 import { Page } from './components/page/page.component';
 import { AddFormModal } from './components/add-form-modal/add-form-modal.component';
 import { SectionFields } from './components/section-fields/section-fields.component';
+import { SectionAccordians } from './components/section-accordians/section-accordians.component';
 import { DependenciesModal } from './components/dependencies-modal/dependencies-modal.component'
 import { CalculationsEditor } from './components/calculations-editor/calculations-editor.component';
 
@@ -29,6 +30,7 @@ import { AppComponent } from './app.component';
     Page,
     AddFormModal,
     SectionFields,
+    SectionAccordians,
     DependenciesModal,
     CalculationsEditor,
   ],

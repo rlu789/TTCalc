@@ -20,7 +20,8 @@
               <button mat-raised-button color="accent" style="height: 45px; margin-left:10px;" (click)="deleteModel(model)">Delete Model</button>
             </div>
             <div *ngFor="let section of data[model] | keys">
-              <section-fields [data]="data[model][section]" [section]="section" [model]="model" [page]="page"></section-fields>
+              <section-fields *ngIf="!data[model][section].repeatingGroupDataSet" [data]="data[model][section]" [section]="section" [model]="model" [page]="page"></section-fields>
+              <section-accordians *ngIf="data[model][section].repeatingGroupDataSet" [data]="data[model][section]" [section]="section" [model]="model" [page]="page"></section-accordians>
             </div>
           </ng-template>
         </ngb-tab>
