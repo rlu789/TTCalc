@@ -2,65 +2,15 @@
   <div class="col-sm-2">
     <p style="margin: 1rem 0;"><b>{{section}}</b></p>
   </div>
-  <div *ngFor="let key of data | keys">
-    <button *ngIf="isEditMode()" type="button" class="close" (click)="deleteField(key)" style="position: relative; top: 20px;">&times;</button>
-    <div *ngIf="data[key].dropdown; else checkIfDateInput">
-      <div class="col-sm-2">
-        <mat-form-field>
-          <mat-select [(ngModel)]="data[key].value" placeholder="{{key}}" ngbTooltip="{{key}}">
-            <mat-option *ngFor="let option of data[key].dropdown" value="{{option}}">{{option}}</mat-option>
-          </mat-select>
-          <mat-hint *ngIf="data[key].initialValue">Initial Value: {{data[key].initialValue}}</mat-hint>
-        </mat-form-field>
-      </div>
+  <div class="col-sm-10">
+    <div *ngFor="let key of data | keys" style="display: inline-block;">
+      <field-renderer [fieldData]='data[key]' [key]='key'></field-renderer>
+      <button *ngIf="isEditMode()" type="button" class="close" (click)="deleteField(key)" style="position: relative; top: 20px;">&times;</button>
     </div>
-    <ng-template #checkIfDateInput>
-      <div *ngIf="data[key].date; else checkIfCheckboxInput" style="padding:0 20px">
-        <mat-form-field>
-          <input matInput [(ngModel)]="data[key].value" [matDatepicker]="date" placeholder="{{key}}">
-          <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
-          <mat-datepicker #date></mat-datepicker>
-          <mat-hint *ngIf="data[key].initialValue">Initial Value: {{data[key].initialValue}}</mat-hint>
-        </mat-form-field>
-      </div>
-    </ng-template>
-    <ng-template #checkIfCheckboxInput>
-      <div *ngIf="data[key].checkbox; else elseBlock" style="width: 175px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-     position: relative;
-    top: 20px;">
-        <mat-checkbox [(ngModel)]="data[key].value" ngbTooltip="{{key}} with Initial Value = {{data[key].initialValue}}">{{key}}</mat-checkbox>
-      </div>
-    </ng-template>
-    <ng-template #elseBlock>
-      <div class="col-sm-1" *ngIf="!data[key].calcs">
-        <mat-form-field>
-          <input matInput [(ngModel)]=data[key].value type="number" class="form-control" placeholder="{{key}}" ngbTooltip="{{key}}">
-          <mat-hint *ngIf="data[key].initialValue">Initial Value: {{data[key].initialValue}}</mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="col-sm-11" *ngIf="data[key].calcs" style="width: 350px;">
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              {{key}}: {{calcField(data[key])}}<b>&nbsp;{{data[key].format}}</b>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div *ngIf="isEditMode()" ngbDropdown class="d-inline-block">
-            <button class="btn btn-outline-primary" ngbDropdownToggle>Format Options</button>
-            <div ngbDropdownMenu>
-              <button class="dropdown-item" (click)="setFormat('N', key)">No Format</button>
-              <button class="dropdown-item" (click)="setFormat('Days', key)">Days</button>
-            </div>
-          </div>
-          <calculations-editor [calcs]="data[key].calcs" [doCalcIf]="data[key].doCalcIf" keyProvided={{key}}></calculations-editor>
-        </mat-expansion-panel>
-      </div>
-    </ng-template>
   </div>
-  <button *ngIf="isEditMode()" mat-raised-button color="primary" style="height: 45px; margin-left:10px;" (click)="addField()">Add Field</button>
-  <button *ngIf="isEditMode()" mat-raised-button color="accent" style="height: 45px; margin-left:10px;" (click)="deleteSection()">Delete Section</button>
+  <button *ngIf="isEditMode()" mat-raised-button color="primary" style="height: 45px; margin-left:10px;" (click)="addField()">Add
+    Field</button>
+  <button *ngIf="isEditMode()" mat-raised-button color="accent" style="height: 45px; margin-left:10px;" (click)="deleteSection()">Delete
+    Section</button>
 </div>
 <mat-divider></mat-divider>
-

@@ -19,3 +19,9 @@
 mat-form-field{
   padding: 0 5px;
 }
+.form-control {
+  border-radius: 0px;
+}
+.form-control:focus {
+  box-shadow: none;
+}

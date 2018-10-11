@@ -1,0 +1,53 @@
+<div *ngIf="fieldData.dropdown; else checkIfDateInput" style="display:inline-block;">
+  <mat-form-field>
+    <mat-select [(ngModel)]="fieldData.value" placeholder="{{key}}" ngbTooltip="{{key}}">
+      <mat-option *ngFor="let option of fieldData.dropdown" value="{{option}}">{{option}}</mat-option>
+    </mat-select>
+    <mat-hint *ngIf="fieldData.initialValue">Initial Value: {{fieldData.initialValue}}</mat-hint>
+  </mat-form-field>
+</div>
+<ng-template #checkIfDateInput>
+  <div *ngIf="fieldData.date; else checkIfCheckboxInput" style="padding:0 20px; display: inline-block;">
+    <mat-form-field>
+      <input matInput [(ngModel)]="fieldData.value" [matDatepicker]="date" placeholder="{{key}}">
+      <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+      <mat-datepicker #date></mat-datepicker>
+      <mat-hint *ngIf="fieldData.initialValue">Initial Value: {{fieldData.initialValue}}</mat-hint>
+    </mat-form-field>
+  </div>
+</ng-template>
+<ng-template #checkIfCheckboxInput>
+  <div *ngIf="fieldData.checkbox; else elseBlock" style="width: 175px;
+overflow: hidden;
+text-overflow: ellipsis;
+position: relative;
+top: 20px;">
+    <mat-checkbox [(ngModel)]="fieldData.value" ngbTooltip="{{key}} with Initial Value = {{fieldData.initialValue}}">{{key}}</mat-checkbox>
+  </div>
+</ng-template>
+<ng-template #elseBlock>
+  <div style="display: inline-block;" *ngIf="!fieldData.calcs">
+    <mat-form-field>
+      <input matInput [(ngModel)]=fieldData.value type="number" class="form-control" placeholder="{{key}}"
+        ngbTooltip="{{key}}">
+      <mat-hint *ngIf="fieldData.initialValue">Initial Value: {{fieldData.initialValue}}</mat-hint>
+    </mat-form-field>
+  </div>
+  <div *ngIf="fieldData.calcs" style="float:right;">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{key}}: {{calcField(fieldData)}}<b>&nbsp;{{fieldData.format}}</b>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div *ngIf="isEditMode()" ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-primary" ngbDropdownToggle>Format Options</button>
+        <div ngbDropdownMenu>
+          <button class="dropdown-item" (click)="setFormat('N', key)">No Format</button>
+          <button class="dropdown-item" (click)="setFormat('Days', key)">Days</button>
+        </div>
+      </div>
+      <calculations-editor [calcs]="fieldData.calcs" [doCalcIf]="fieldData.doCalcIf" keyProvided={{key}}></calculations-editor>
+    </mat-expansion-panel>
+  </div>
+</ng-template>

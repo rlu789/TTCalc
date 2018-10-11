@@ -46,7 +46,7 @@ export class SectionAccordians {
   addRecord() {
     var obj = {};
     for (var i = 0; i < Object.keys(this.data["repeatingGroupDataSet"].template).length; i++) {
-      obj[Object.keys(this.data["repeatingGroupDataSet"].template)[i]] = { value: null };
+      obj[Object.keys(this.data["repeatingGroupDataSet"].template)[i]] = this.data["repeatingGroupDataSet"].template[Object.keys(this.data["repeatingGroupDataSet"].template)[i]];
       obj[Object.keys(this.data["repeatingGroupDataSet"].template)[i]] = Object.assign({}, obj[Object.keys(this.data["repeatingGroupDataSet"].template)[i]], obj[Object.keys(this.data["repeatingGroupDataSet"].template)[i]]);
     }
     console.log(obj)

@@ -17,6 +17,7 @@ import { SectionFields } from './components/section-fields/section-fields.compon
 import { SectionAccordians } from './components/section-accordians/section-accordians.component';
 import { DependenciesModal } from './components/dependencies-modal/dependencies-modal.component'
 import { CalculationsEditor } from './components/calculations-editor/calculations-editor.component';
+import { FieldRenderer } from './components/field-renderer/field-renderer.component';
 
 //pages
 import { AppComponent } from './app.component';
@@ -33,6 +34,7 @@ import { AppComponent } from './app.component';
     SectionAccordians,
     DependenciesModal,
     CalculationsEditor,
+    FieldRenderer,
   ],
   imports: [
     BrowserModule,

@@ -70,6 +70,8 @@ function evalIf(ifs) {
 function doFieldCalculation(page, model, section, field, calc) {
   //check dependencies, if model / section / field has been deleted, then delete the calc as well
   //TODO some part of this must be common
+  // YIKES what moron wrote this
+  // ... oh wait
   if (!modelExists(page, model)) {
     delete calc[model];
     return 0;

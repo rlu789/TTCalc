@@ -31,17 +31,6 @@ export class SectionFields {
     return constants.editMode;
   }
 
-  setFormat(format, key) {
-    switch (format) {
-      case 'Days':
-        this.data[key].format = 'Days';
-        break;
-      case 'N':
-        delete this.data[key].format;
-        break;
-    }
-  }
-
   deleteSection() {
     delete constants.models[this.page][this.model][this.section];
     //console.log(constants.models[this.model])
@@ -49,10 +38,6 @@ export class SectionFields {
 
   deleteField(key) {
     delete constants.models[this.page][this.model][this.section][key];
-  }
-
-  calcField(thisField) {
-    return common.calcField(thisField);
   }
 
   addField() {

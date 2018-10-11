@@ -2,7 +2,7 @@
   <div class="col-sm-2">
     <p style="margin: 1rem 0;"><b>{{section}}</b></p>
   </div>
-  <mat-accordion class="col-sm-4">
+  <mat-accordion class="col-sm-10">
     <div *ngFor="let e of data['repeatingGroupDataSet'].collection; index as i">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
@@ -13,9 +13,9 @@
             {{section}}
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <mat-form-field *ngFor="let field of e | keys">
-          <input matInput placeholder="{{field}}" [(ngModel)]=e[field].value type="number">
-        </mat-form-field>
+        <div *ngFor="let field of e | keys" style='display: inline-block;'>
+          <field-renderer [fieldData]='e[field]' [key]='field'></field-renderer>
+        </div>
         <mat-action-row>
           <button mat-button color="warn" (click)="removeRecord(i)">Remove Record</button>
         </mat-action-row>
@@ -25,21 +25,22 @@
       <button mat-button color="accent" (click)="addRecord()">Add Record</button>
     </mat-action-row>
   </mat-accordion>
-
-  <mat-accordion class="col-sm-4">
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Results
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div *ngFor="let key of data | keys">
-        <mat-form-field *ngIf="key !== 'repeatingGroupDataSet'">
-          <input matInput placeholder="{{key}}" value="{{calcRepeatingGroup(key)}}" readonly>
-        </mat-form-field>
-      </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+  <div class="col-sm-10" style="margin-left: auto;">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Results
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngFor="let key of data | keys" style="display:inline-block;">
+          <mat-form-field *ngIf="key !== 'repeatingGroupDataSet'">
+            <input matInput placeholder="{{key}}" value="{{calcRepeatingGroup(key)}}" readonly>
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
 </div>
 <mat-divider></mat-divider>
 
