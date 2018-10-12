@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material';
 import * as constants from './models/constants';
 import { saveAs } from 'file-saver'
 import { Local } from 'protractor/built/driverProviders';
+import { DependencyHandlerService } from './injectables/dependency-handler.service';
 
 @Component({
   selector: 'app-root',
@@ -16,12 +17,12 @@ export class AppComponent {
   fileData = null;
 
   pageName: string;
-  constructor(public snackBar: MatSnackBar) { }
+  constructor(public snackBar: MatSnackBar, private dependencyHandlerService: DependencyHandlerService) { }
 
   ngOnInit() {
     this.pages = constants.pages;
-    console.log(this.pages)
     this.editMode = this.editMode === null ? constants.editMode : false;
+    this.dependencyHandlerService.init(this.pages);
   }
 
   clear() {

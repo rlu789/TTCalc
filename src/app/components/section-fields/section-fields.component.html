@@ -4,7 +4,7 @@
   </div>
   <div class="col-sm-10">
     <div *ngFor="let key of data | keys" style="display: inline-block;">
-      <field-renderer [fieldData]='data[key]' [key]='key'></field-renderer>
+      <field-renderer [fieldData]='data[key]' [key]='key' (valueChange)='valueChanged($event, key)'></field-renderer>
       <button *ngIf="isEditMode()" type="button" class="close" (click)="deleteField(key)" style="position: relative; top: 20px;">&times;</button>
     </div>
   </div>

@@ -29,7 +29,7 @@ top: 20px;">
   <div style="display: inline-block;" *ngIf="!fieldData.calcs">
     <mat-form-field>
       <input matInput [(ngModel)]=fieldData.value type="number" class="form-control" placeholder="{{key}}"
-        ngbTooltip="{{key}}">
+        ngbTooltip="{{key}}" (change)=valueChanged()>
       <mat-hint *ngIf="fieldData.initialValue">Initial Value: {{fieldData.initialValue}}</mat-hint>
     </mat-form-field>
   </div>
@@ -37,7 +37,7 @@ top: 20px;">
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{key}}: {{calcField(fieldData)}}<b>&nbsp;{{fieldData.format}}</b>
+          {{key}}: {{fieldData.value}}<b>&nbsp;{{fieldData.format}}</b>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div *ngIf="isEditMode()" ngbDropdown class="d-inline-block">

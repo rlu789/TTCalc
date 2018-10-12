@@ -9,6 +9,8 @@ import {
   MatDividerModule, MatTooltipModule, MatSnackBarModule
 } from '@angular/material';
 
+import { DependencyHandlerService } from './injectables/dependency-handler.service';
+
 //components and pipes
 import { KeysPipe } from './pipes/keysPipe'
 import { Page } from './components/page/page.component';
@@ -60,7 +62,7 @@ import { AppComponent } from './app.component';
     AddFormModal,
     DependenciesModal,
   ],
-  providers: [],
+  providers: [DependencyHandlerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

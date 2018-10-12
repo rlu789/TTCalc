@@ -3,6 +3,7 @@ import { AddFormModal } from '../../components/add-form-modal/add-form-modal.com
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import * as common from '../../models/common';
 import * as constants from '../../models/constants';
+import { DependencyHandlerService } from '../../injectables/dependency-handler.service';
  
 @Component({
   selector: 'section-fields',
@@ -22,9 +23,13 @@ export class SectionFields {
   @Input('model') model: string;
   @Input('section') section: string;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private dependencyHandlerService: DependencyHandlerService) { }
 
   ngOnInit() {
+  }
+
+  valueChanged($event, key){
+    this.dependencyHandlerService.updateValues(this.page, this.model, this.section, key);
   }
 
   isEditMode() {

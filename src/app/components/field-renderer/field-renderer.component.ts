@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as constants from '../../models/constants';
 import * as common from '../../models/common';
 
@@ -8,6 +8,7 @@ import * as common from '../../models/common';
   // styleUrls: ['./field-renderer.component.css']
 })
 export class FieldRenderer implements OnInit {
+  @Output() valueChange = new EventEmitter();
   @Input('fieldData') fieldData: any;
   @Input('key') key: string;
   
@@ -20,6 +21,10 @@ export class FieldRenderer implements OnInit {
 
   isEditMode() {
     return constants.editMode;
+  }
+
+  valueChanged(){
+    this.valueChange.emit();
   }
 
   calcField(thisField) {
