@@ -10,6 +10,7 @@ import {
 } from '@angular/material';
 
 import { DependencyHandlerService } from './injectables/dependency-handler.service';
+import { DomChangeDirective } from './directives/dom-change.directive';
 
 //components and pipes
 import { KeysPipe } from './pipes/keysPipe'
@@ -28,6 +29,7 @@ import { AppComponent } from './app.component';
 @NgModule({
   declarations: [
     AppComponent,
+    DomChangeDirective,
 
     KeysPipe,
     Page,

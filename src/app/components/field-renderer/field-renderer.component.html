@@ -37,7 +37,7 @@ top: 20px;">
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{key}}: {{fieldData.value}}<b>&nbsp;{{fieldData.format}}</b>
+          {{key}}: <span (domChange)="onDomChange($event)" [textContent]='fieldData.value'></span><b>&nbsp;{{fieldData.format}}</b>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div *ngIf="isEditMode()" ngbDropdown class="d-inline-block">

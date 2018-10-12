@@ -23,6 +23,10 @@ export class FieldRenderer implements OnInit {
     return constants.editMode;
   }
 
+  onDomChange($event: Event): void {
+    this.valueChange.emit();
+  }
+
   valueChanged(){
     this.valueChange.emit();
   }

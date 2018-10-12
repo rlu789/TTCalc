@@ -56,7 +56,7 @@ export class DependencyHandlerService {
                 self.dependencies[page][model][section][fldKey].push(c);
               }
               catch{
-                console.log('%c Error push to field: ' + fldKey, 'background: #222; color: #bada55');
+                console.log('%c Error pushing to field: ' + fldKey, 'background: #222; color: #bada55');
               }
             }
           }
