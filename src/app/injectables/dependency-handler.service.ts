@@ -37,7 +37,7 @@ export class DependencyHandlerService {
         }
       }
     }
-    this.setUpDependencies()
+    this.setUpDependencies();
   }
 
   private setUpDependencies(): void{
@@ -63,15 +63,13 @@ export class DependencyHandlerService {
         }
       }
     });
-    console.log(this.dependencies);
-    console.log(this.calcs);
+    // console.log(this.dependencies);
+    // console.log(this.calcs);
   }
 
   public updateValues(page: string, model: string, section: string, field: string): void{
     this.dependencies[page][model][section][field].forEach(fld => {
-      console.log(common.calcField(fld));
-      if (fld.calcs)
-        console.log(fld.calcs);
+      common.calcField(fld);
     });
   }
 }

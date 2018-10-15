@@ -106,9 +106,14 @@ var models = localStorage.settings ? JSON.parse(localStorage.settings).models : 
           }
         },
         'Income': { value: null },
-        'Tax withheld': { value: null },
-        'Tax withheld2': { value: null },
-        'Tax withheld3': { value: null },
+        'Tax withheld': { 
+          value: null,
+          repeatingGroupCalcs: [
+            {field: 'Tax withheld', operation: '+', if: [{"field": 'Code', compare: '==', value: "H"}]},
+            {field: 'Tax withheld2', operation: '+', if: [{"field": 'Code', compare: '==', value: "H"}]},
+            {field: 'Tax withheld3', operation: '+', if: [{"field": 'Code', compare: '==', value: "H"}]}
+          ]
+         },
       },
       Allowances: {
         'Income': { value: null },

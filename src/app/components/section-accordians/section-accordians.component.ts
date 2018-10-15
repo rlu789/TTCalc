@@ -32,10 +32,37 @@ export class SectionAccordians {
   }
 
   calcRepeatingGroup(key) {
+    // pls remember this in the morning lol
+    // TODO redo so its done by dependency handler
+    var self = this;
     var total = 0;
-    for (var i = 0; i < this.data["repeatingGroupDataSet"].collection.length; i++) {
-      total += this.data["repeatingGroupDataSet"].collection[i][key].value;
+    if (this.data[key].repeatingGroupCalcs){
+      this.data[key].repeatingGroupCalcs.forEach(element => {
+        for (var i = 0; i < this.data["repeatingGroupDataSet"].collection.length; i++) {
+          var passed = false;
+          if (element.if){
+            // PRIMITIVE - eval the 'if' array and see if it passes
+            // console.log(this.data["repeatingGroupDataSet"].collection[i])
+            element.if.forEach(ifs => {
+              var value = ifs.value;
+              var compare = ifs.compare;
+              var fieldValue = this.data["repeatingGroupDataSet"].collection[i][ifs.field].value;
+              // check if bool?
+              passed = eval("'" + fieldValue + "'" + compare + "'" + value + "'");
+            });
+          }
+          if (passed){
+            total += self.data["repeatingGroupDataSet"].collection[i][element.field].value;
+          }
+        }
+      });
     }
+    else {
+      for (var i = 0; i < this.data["repeatingGroupDataSet"].collection.length; i++) {
+        total += this.data["repeatingGroupDataSet"].collection[i][key].value;
+      }
+    }
+    this.data[key].value = total; // save the total
     return total;
   }
 

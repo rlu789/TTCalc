@@ -36,6 +36,7 @@
         <div *ngFor="let key of data | keys" style="display:inline-block;">
           <mat-form-field *ngIf="key !== 'repeatingGroupDataSet'">
             <input matInput placeholder="{{key}}" value="{{calcRepeatingGroup(key)}}" readonly>
+            <!-- ONCHANGE UPDATE VIA DEPENDENCY HANDLERS -->
           </mat-form-field>
         </div>
       </mat-expansion-panel>
